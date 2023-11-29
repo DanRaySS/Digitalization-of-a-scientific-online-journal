@@ -1,0 +1,17 @@
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\bin\Debug\net6.0-windows\RefGenerator.exe
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\bin\Debug\net6.0-windows\RefGenerator.deps.json
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\bin\Debug\net6.0-windows\RefGenerator.runtimeconfig.json
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\bin\Debug\net6.0-windows\RefGenerator.dll
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\bin\Debug\net6.0-windows\RefGenerator.pdb
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\obj\Debug\net6.0-windows\RefGenerator.csproj.AssemblyReference.cache
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\obj\Debug\net6.0-windows\WinFormsApp1.Form1.resources
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\obj\Debug\net6.0-windows\RefGenerator.csproj.GenerateResource.cache
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\obj\Debug\net6.0-windows\RefGenerator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\obj\Debug\net6.0-windows\RefGenerator.AssemblyInfoInputs.cache
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\obj\Debug\net6.0-windows\RefGenerator.AssemblyInfo.cs
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\obj\Debug\net6.0-windows\RefGenerator.csproj.CoreCompileInputs.cache
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\obj\Debug\net6.0-windows\RefGenerator.dll
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\obj\Debug\net6.0-windows\refint\RefGenerator.dll
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\obj\Debug\net6.0-windows\RefGenerator.pdb
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\obj\Debug\net6.0-windows\RefGenerator.genruntimeconfig.cache
+C:\Users\alesh\OneDrive\Рабочий стол\SecondTask\obj\Debug\net6.0-windows\ref\RefGenerator.dll
