@@ -1,8 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "nQgW52PtwOTUTGowfyQyOvsxgSS9e0CuoiKHe407zwWKZnuEy/hjr2KA1JdL5C/844+uhbu58DwUgoxVUJ3bng==",
+  "dgSpecHash": "JoopSjxhrzC4UVblSIRnK3t/82IB2PSQd6HNeivPXusB/G/LMf50rwHNpKusdQCIpDZHmVWDgkPNbzrMikn52g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\alesh\\OneDrive\\Рабочий стол\\SecondTask\\RefGenerator.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\user\\Documents\\GitHub\\Digitalization-of-a-scientific-online-journal\\SecondTask\\RefGenerator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.25\\microsoft.windowsdesktop.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.25\\microsoft.netcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.25\\microsoft.aspnetcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.25\\microsoft.netcore.app.host.win-x64.6.0.25.nupkg.sha512"
+  ],
   "logs": []
 }
