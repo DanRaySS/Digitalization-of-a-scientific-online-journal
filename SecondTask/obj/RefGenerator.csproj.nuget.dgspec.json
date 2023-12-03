@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< Updated upstream
     "C:\\Users\\user\\Documents\\GitHub\\Digitalization-of-a-scientific-online-journal\\SecondTask\\RefGenerator.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "C:\\Users\\user\\Documents\\GitHub\\Digitalization-of-a-scientific-online-journal\\SecondTask\\RefGenerator.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\user\\Documents\\GitHub\\Digitalization-of-a-scientific-online-journal\\SecondTask\\obj\\",
+=======
+    "C:\\Users\\alesh\\OneDrive\\Рабочий стол\\Новая папка\\Digitalization-of-a-scientific-online-journal\\SecondTask\\RefGenerator.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\alesh\\OneDrive\\Рабочий стол\\Новая папка\\Digitalization-of-a-scientific-online-journal\\SecondTask\\RefGenerator.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\alesh\\OneDrive\\Рабочий стол\\Новая папка\\Digitalization-of-a-scientific-online-journal\\SecondTask\\RefGenerator.csproj",
+        "projectName": "RefGenerator",
+        "projectPath": "C:\\Users\\alesh\\OneDrive\\Рабочий стол\\Новая папка\\Digitalization-of-a-scientific-online-journal\\SecondTask\\RefGenerator.csproj",
+        "packagesPath": "C:\\Users\\alesh\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alesh\\OneDrive\\Рабочий стол\\Новая папка\\Digitalization-of-a-scientific-online-journal\\SecondTask\\obj\\",
+>>>>>>> Stashed changes
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

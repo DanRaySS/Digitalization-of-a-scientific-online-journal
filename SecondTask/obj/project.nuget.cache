@@ -1,5 +1,6 @@
 {
   "version": 2,
+<<<<<<< Updated upstream
   "dgSpecHash": "JoopSjxhrzC4UVblSIRnK3t/82IB2PSQd6HNeivPXusB/G/LMf50rwHNpKusdQCIpDZHmVWDgkPNbzrMikn52g==",
   "success": true,
   "projectFilePath": "C:\\Users\\user\\Documents\\GitHub\\Digitalization-of-a-scientific-online-journal\\SecondTask\\RefGenerator.csproj",
@@ -9,5 +10,11 @@
     "C:\\Users\\user\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.25\\microsoft.aspnetcore.app.ref.6.0.25.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.25\\microsoft.netcore.app.host.win-x64.6.0.25.nupkg.sha512"
   ],
+=======
+  "dgSpecHash": "72l2v4WachuxLNCuZSx+lom14Ni0hB5Vy4kBjlnAwLPTsX7Xj85TTcPm46nM/5gJwMYir2U/fjFCBAkPIBxorg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\alesh\\OneDrive\\Рабочий стол\\Новая папка\\Digitalization-of-a-scientific-online-journal\\SecondTask\\RefGenerator.csproj",
+  "expectedPackageFiles": [],
+>>>>>>> Stashed changes
   "logs": []
 }
