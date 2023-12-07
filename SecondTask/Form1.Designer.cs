@@ -32,6 +32,7 @@
             label1 = new Label();
             textBox1 = new TextBox();
             groupBox1 = new GroupBox();
+            numericUpDown1 = new NumericUpDown();
             label4 = new Label();
             checkBox4 = new CheckBox();
             checkBox3 = new CheckBox();
@@ -43,18 +44,20 @@
             label5 = new Label();
             comboBox1 = new ComboBox();
             label2 = new Label();
-            numericUpDown1 = new NumericUpDown();
+            groupBox2 = new GroupBox();
+            comboBox4 = new ComboBox();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
+            groupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // button1
             // 
             button1.Location = new Point(12, 12);
             button1.Name = "button1";
-            button1.Size = new Size(75, 23);
+            button1.Size = new Size(56, 23);
             button1.TabIndex = 0;
-            button1.Text = "button1";
+            button1.Text = "Ввести";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -69,7 +72,7 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(107, 12);
+            textBox1.Location = new Point(74, 12);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(246, 23);
             textBox1.TabIndex = 2;
@@ -94,6 +97,14 @@
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Авторы";
+            // 
+            // numericUpDown1
+            // 
+            numericUpDown1.Enabled = false;
+            numericUpDown1.Location = new Point(134, 251);
+            numericUpDown1.Name = "numericUpDown1";
+            numericUpDown1.Size = new Size(86, 23);
+            numericUpDown1.TabIndex = 19;
             // 
             // label4
             // 
@@ -200,19 +211,31 @@
             label2.TabIndex = 0;
             label2.Text = "Положение";
             // 
-            // numericUpDown1
+            // groupBox2
             // 
-            numericUpDown1.Enabled = false;
-            numericUpDown1.Location = new Point(134, 251);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(86, 23);
-            numericUpDown1.TabIndex = 19;
+            groupBox2.Controls.Add(comboBox4);
+            groupBox2.Location = new Point(249, 50);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(201, 52);
+            groupBox2.TabIndex = 4;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Название статьи";
+            // 
+            // comboBox4
+            // 
+            comboBox4.FormattingEnabled = true;
+            comboBox4.Items.AddRange(new object[] { "Без названия", "С названием", "Название с заглавными буквами" });
+            comboBox4.Location = new Point(6, 18);
+            comboBox4.Name = "comboBox4";
+            comboBox4.Size = new Size(189, 23);
+            comboBox4.TabIndex = 0;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 460);
+            Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(textBox1);
             Controls.Add(label1);
@@ -222,6 +245,7 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
+            groupBox2.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -244,5 +268,7 @@
         private CheckBox checkBox3;
         private Label label4;
         private NumericUpDown numericUpDown1;
+        private GroupBox groupBox2;
+        private ComboBox comboBox4;
     }
 }

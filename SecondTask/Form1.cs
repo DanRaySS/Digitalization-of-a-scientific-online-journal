@@ -1,6 +1,8 @@
 using Microsoft.VisualBasic;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Globalization;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace WinFormsApp1
 {
@@ -9,6 +11,7 @@ namespace WinFormsApp1
         RequestsHandler handler;
         Regex regex = new Regex(@"[A-Z]");
         MatchCollection matches;
+        TextInfo textInfo = new CultureInfo("ru-RU").TextInfo;
 
         public Form1()
         {
@@ -17,6 +20,7 @@ namespace WinFormsApp1
             comboBox1.SelectedItem = comboBox1.Items[0];
             comboBox2.SelectedItem = comboBox2.Items[0];
             comboBox3.SelectedItem = comboBox3.Items[0];
+            comboBox4.SelectedItem = comboBox4.Items[0];
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -28,12 +32,36 @@ namespace WinFormsApp1
             }
 
             Response1 res = await handler.GetMetadata(textBox1.Text);
+
             if (res.status == "error")
             {
                 label1.Text = "Error, wrong input.";
                 return;
             }
 
+            //label1.Text = await FormAuthorsList(res);
+            label1.Text = await FormTitle(res);
+        }
+
+        private void checkBox4_Click(object sender, EventArgs e)
+        {
+            if (checkBox4.Checked)
+            {
+                label4.Enabled = true;
+                numericUpDown1.Enabled = true;
+                checkBox3.Enabled = false;
+                checkBox3.Checked = false;
+            }
+            else
+            {
+                label4.Enabled = false;
+                numericUpDown1.Enabled = false;
+                checkBox3.Enabled = true;
+            }
+        }
+
+        async Task<string> FormAuthorsList(Response1 response)
+        {
             string firstW, secondW, initialEnd, initialsSeparator;
             string nameSeparator = comboBox2.Text.Trim('"');
             string authorsSeparator = $"{comboBox3.Text} ";
@@ -49,7 +77,7 @@ namespace WinFormsApp1
                 initialsSeparator = "";
 
 
-            var authors = res.message.author;
+            var authors = response.message.author;
             int authorsLength = authors.Length;
             if (checkBox4.Checked)
             {
@@ -97,33 +125,35 @@ namespace WinFormsApp1
                 tempAuthorsStr.RemoveAt(authorsLength - 1);
                 authorsStr = tempAuthorsStr.ToArray();
 
-                label1.Text = $"{String.Join(authorsSeparator, authorsStr)} and {lastAuthor}";
-
-                return;
+                return $"{String.Join(authorsSeparator, authorsStr)} and {lastAuthor}";
             }
-
-            label1.Text = String.Join(authorsSeparator, authorsStr);
 
             if (checkBox4.Checked)
             {
-                label1.Text = $"{label1.Text} et al.";
+                return $"{String.Join(authorsSeparator, authorsStr)} et al.";
             }
+
+            return String.Join(authorsSeparator, authorsStr);
         }
 
-        private void checkBox4_Click(object sender, EventArgs e)
+        async Task<string> FormTitle(Response1 response)
         {
-            if (checkBox4.Checked)
+            switch (comboBox4.SelectedItem)
             {
-                label4.Enabled = true;
-                numericUpDown1.Enabled = true;
-                checkBox3.Enabled = false;
-                checkBox3.Checked = false;
-            }
-            else
-            {
-                label4.Enabled = false;
-                numericUpDown1.Enabled = false;
-                checkBox3.Enabled = true;
+                case "Без названия":
+                    return "";
+
+                case "С названием":
+                    return response.message.title[0];
+                    //return Regex.Replace(response.message.title[0], @"\s(\w)", m => m.Value.ToLower());
+
+                case "Название с заглавными буквами":
+                    return Regex.Replace(Regex.Replace(response.message.title[0], @"\b(\w)",m => m.Value.ToUpper()),
+                        @"(\s(of|in|by|and|the|a|an|at|on|under|above|between|to|into|out of|from|through|along|across|before|after|till|until|ago|during|since|for|because of|due to|thanks to|in accordance with|against|behind|below|around|towards|back to|in front of|outside|on account of|upon)|\'[st])\b",
+                        m => m.Value.ToLower(), RegexOptions.IgnoreCase);
+
+                default:
+                    return "";
             }
         }
     }
