@@ -25,6 +25,7 @@ namespace WinFormsApp1
 
         private async void button1_Click(object sender, EventArgs e)
         {
+            label1.Text = "";
             if (textBox1.Text == "")
             {
                 label1.Text = "Error, empty field.";
@@ -39,8 +40,7 @@ namespace WinFormsApp1
                 return;
             }
 
-            //label1.Text = await FormAuthorsList(res);
-            label1.Text = await FormTitle(res);
+            label1.Text = $"{await FormAuthorsList(res)} / {await FormTitle(res)}";
         }
 
         private void checkBox4_Click(object sender, EventArgs e)
