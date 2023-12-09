@@ -1,15 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "72l2v4WachuxLNCuZSx+lom14Ni0hB5Vy4kBjlnAwLPTsX7Xj85TTcPm46nM/5gJwMYir2U/fjFCBAkPIBxorg==",
+  "dgSpecHash": "JoopSjxhrzC4UVblSIRnK3t/82IB2PSQd6HNeivPXusB/G/LMf50rwHNpKusdQCIpDZHmVWDgkPNbzrMikn52g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\alesh\\OneDrive\\Рабочий стол\\Новая папка\\Digitalization-of-a-scientific-online-journal\\SecondTask\\RefGenerator.csproj",
-  "expectedPackageFiles": [],
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Ошибка чтения файла кэша C:\\Users\\alesh\\OneDrive\\Рабочий стол\\Новая папка\\Digitalization-of-a-scientific-online-journal\\SecondTask\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
-    }
-  ]
+  "projectFilePath": "C:\\Users\\user\\Documents\\GitHub\\Digitalization-of-a-scientific-online-journal\\SecondTask\\RefGenerator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.25\\microsoft.windowsdesktop.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.25\\microsoft.netcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.25\\microsoft.aspnetcore.app.ref.6.0.25.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.25\\microsoft.netcore.app.host.win-x64.6.0.25.nupkg.sha512"
+  ],
+  "logs": []
 }

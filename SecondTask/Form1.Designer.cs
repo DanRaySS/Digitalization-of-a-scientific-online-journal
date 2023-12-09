@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             button1 = new Button();
-            label1 = new Label();
+            labelOutput = new Label();
             textBox1 = new TextBox();
             groupBox1 = new GroupBox();
             numericUpDown1 = new NumericUpDown();
@@ -46,9 +46,12 @@
             label2 = new Label();
             groupBox2 = new GroupBox();
             comboBox4 = new ComboBox();
+            pictureBox1 = new PictureBox();
+            labelSuccess = new Label();
             groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
             groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // button1
@@ -61,14 +64,15 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // label1
+            // labelOutput
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(12, 408);
-            label1.Name = "label1";
-            label1.Size = new Size(38, 15);
-            label1.TabIndex = 1;
-            label1.Text = "label1";
+            labelOutput.AutoSize = true;
+            labelOutput.Location = new Point(12, 408);
+            labelOutput.MaximumSize = new Size(250, 0);
+            labelOutput.Name = "labelOutput";
+            labelOutput.Size = new Size(70, 15);
+            labelOutput.TabIndex = 1;
+            labelOutput.Text = "labelOutput";
             // 
             // textBox1
             // 
@@ -230,15 +234,40 @@
             comboBox4.Size = new Size(189, 23);
             comboBox4.TabIndex = 0;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Cursor = Cursors.Hand;
+            pictureBox1.Image = RefGenerator.Properties.Resources.copy1;
+            pictureBox1.Location = new Point(249, 404);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Padding = new Padding(1);
+            pictureBox1.Size = new Size(36, 36);
+            pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
+            pictureBox1.TabIndex = 5;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
+            // 
+            // labelSuccess
+            // 
+            labelSuccess.AutoSize = true;
+            labelSuccess.Location = new Point(291, 408);
+            labelSuccess.Name = "labelSuccess";
+            labelSuccess.Size = new Size(73, 15);
+            labelSuccess.TabIndex = 6;
+            labelSuccess.Text = "labelSuccess";
+            labelSuccess.Visible = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 460);
+            Controls.Add(labelSuccess);
+            Controls.Add(pictureBox1);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
             Controls.Add(textBox1);
-            Controls.Add(label1);
+            Controls.Add(labelOutput);
             Controls.Add(button1);
             Name = "Form1";
             Text = "Form1";
@@ -246,6 +275,7 @@
             groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
             groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -253,7 +283,7 @@
         #endregion
 
         private Button button1;
-        private Label label1;
+        private Label labelOutput;
         private TextBox textBox1;
         private GroupBox groupBox1;
         private Label label2;
@@ -270,5 +300,7 @@
         private NumericUpDown numericUpDown1;
         private GroupBox groupBox2;
         private ComboBox comboBox4;
+        private PictureBox pictureBox1;
+        private Label labelSuccess;
     }
 }

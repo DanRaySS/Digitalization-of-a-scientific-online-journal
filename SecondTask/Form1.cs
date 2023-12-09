@@ -25,10 +25,10 @@ namespace WinFormsApp1
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            label1.Text = "";
+            labelOutput.Text = "";
             if (textBox1.Text == "")
             {
-                label1.Text = "Error, empty field.";
+                labelOutput.Text = "Error, empty field.";
                 return;
             }
 
@@ -36,11 +36,11 @@ namespace WinFormsApp1
 
             if (res.status == "error")
             {
-                label1.Text = "Error, wrong input.";
+                labelOutput.Text = "Error, wrong input.";
                 return;
             }
 
-            label1.Text = $"{await FormAuthorsList(res)} / {await FormTitle(res)}";
+            labelOutput.Text = $"{await FormAuthorsList(res)} / {await FormTitle(res)}";
         }
 
         private void checkBox4_Click(object sender, EventArgs e)
@@ -145,16 +145,29 @@ namespace WinFormsApp1
 
                 case "С названием":
                     return response.message.title[0];
-                    //return Regex.Replace(response.message.title[0], @"\s(\w)", m => m.Value.ToLower());
+                //return Regex.Replace(response.message.title[0], @"\s(\w)", m => m.Value.ToLower());
 
                 case "Название с заглавными буквами":
-                    return Regex.Replace(Regex.Replace(response.message.title[0], @"\b(\w)",m => m.Value.ToUpper()),
+                    return Regex.Replace(Regex.Replace(response.message.title[0], @"\b(\w)", m => m.Value.ToUpper()),
                         @"(\s(of|in|by|and|the|a|an|at|on|under|above|between|to|into|out of|from|through|along|across|before|after|till|until|ago|during|since|for|because of|due to|thanks to|in accordance with|against|behind|below|around|towards|back to|in front of|outside|on account of|upon)|\'[st])\b",
                         m => m.Value.ToLower(), RegexOptions.IgnoreCase);
 
                 default:
                     return "";
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+            if (labelOutput != null)
+            {
+                Clipboard.SetText(labelOutput.Text, TextDataFormat.UnicodeText);
+            }
+
+            labelSuccess.Text = "Успешно скопировано!";
+
+            labelSuccess.Visible = true;
         }
     }
 }
