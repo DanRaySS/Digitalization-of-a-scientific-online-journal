@@ -28,220 +28,254 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
+            DOIInputButton = new Button();
             labelOutput = new Label();
-            textBox1 = new TextBox();
-            groupBox1 = new GroupBox();
-            numericUpDown1 = new NumericUpDown();
+            DOIinput = new TextBox();
+            authorsBox = new GroupBox();
+            AuthorsLimiter = new NumericUpDown();
             label4 = new Label();
-            checkBox4 = new CheckBox();
-            checkBox3 = new CheckBox();
+            AuthsLimitCheck = new CheckBox();
+            AndCheck = new CheckBox();
             label3 = new Label();
-            comboBox3 = new ComboBox();
-            checkBox2 = new CheckBox();
-            checkBox1 = new CheckBox();
-            comboBox2 = new ComboBox();
+            AuthSepDropList = new ComboBox();
+            InitialsSpaceCheck = new CheckBox();
+            InitialsDotCheck = new CheckBox();
+            NameSepDropList = new ComboBox();
             label5 = new Label();
-            comboBox1 = new ComboBox();
+            AuthPosDropList = new ComboBox();
             label2 = new Label();
-            groupBox2 = new GroupBox();
-            comboBox4 = new ComboBox();
+            articleBox = new GroupBox();
+            ArticleNameDropList = new ComboBox();
             pictureBox1 = new PictureBox();
             labelSuccess = new Label();
-            groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).BeginInit();
-            groupBox2.SuspendLayout();
+            journalBox = new GroupBox();
+            JournalNameDropList = new ComboBox();
+            DOIBox = new GroupBox();
+            DOIDropList = new ComboBox();
+            PageBox = new GroupBox();
+            PageItalic = new CheckBox();
+            PageBold = new CheckBox();
+            YearBox = new GroupBox();
+            YearItalic = new CheckBox();
+            YearBold = new CheckBox();
+            ThomeBox = new GroupBox();
+            ThomeItalic = new CheckBox();
+            ThomeBold = new CheckBox();
+            authorsBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)AuthorsLimiter).BeginInit();
+            articleBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            journalBox.SuspendLayout();
+            DOIBox.SuspendLayout();
+            PageBox.SuspendLayout();
+            YearBox.SuspendLayout();
+            ThomeBox.SuspendLayout();
             SuspendLayout();
             // 
-            // button1
+            // DOIInputButton
             // 
-            button1.Location = new Point(12, 12);
-            button1.Name = "button1";
-            button1.Size = new Size(56, 23);
-            button1.TabIndex = 0;
-            button1.Text = "Ввести";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            DOIInputButton.Location = new Point(14, 16);
+            DOIInputButton.Margin = new Padding(3, 4, 3, 4);
+            DOIInputButton.Name = "DOIInputButton";
+            DOIInputButton.Size = new Size(64, 31);
+            DOIInputButton.TabIndex = 0;
+            DOIInputButton.Text = "Ввести";
+            DOIInputButton.UseVisualStyleBackColor = true;
+            DOIInputButton.Click += button1_Click;
             // 
             // labelOutput
             // 
             labelOutput.AutoSize = true;
-            labelOutput.Location = new Point(12, 408);
-            labelOutput.MaximumSize = new Size(250, 0);
+            labelOutput.Location = new Point(14, 544);
+            labelOutput.MaximumSize = new Size(286, 0);
             labelOutput.Name = "labelOutput";
-            labelOutput.Size = new Size(70, 15);
+            labelOutput.Size = new Size(88, 20);
             labelOutput.TabIndex = 1;
             labelOutput.Text = "labelOutput";
             // 
-            // textBox1
+            // DOIinput
             // 
-            textBox1.Location = new Point(74, 12);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(246, 23);
-            textBox1.TabIndex = 2;
+            DOIinput.Location = new Point(84, 18);
+            DOIinput.Margin = new Padding(3, 4, 3, 4);
+            DOIinput.Name = "DOIinput";
+            DOIinput.Size = new Size(281, 27);
+            DOIinput.TabIndex = 2;
             // 
-            // groupBox1
+            // authorsBox
             // 
-            groupBox1.Controls.Add(numericUpDown1);
-            groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(checkBox4);
-            groupBox1.Controls.Add(checkBox3);
-            groupBox1.Controls.Add(label3);
-            groupBox1.Controls.Add(comboBox3);
-            groupBox1.Controls.Add(checkBox2);
-            groupBox1.Controls.Add(checkBox1);
-            groupBox1.Controls.Add(comboBox2);
-            groupBox1.Controls.Add(label5);
-            groupBox1.Controls.Add(comboBox1);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Location = new Point(12, 50);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(231, 349);
-            groupBox1.TabIndex = 3;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Авторы";
+            authorsBox.Controls.Add(AuthorsLimiter);
+            authorsBox.Controls.Add(label4);
+            authorsBox.Controls.Add(AuthsLimitCheck);
+            authorsBox.Controls.Add(AndCheck);
+            authorsBox.Controls.Add(label3);
+            authorsBox.Controls.Add(AuthSepDropList);
+            authorsBox.Controls.Add(InitialsSpaceCheck);
+            authorsBox.Controls.Add(InitialsDotCheck);
+            authorsBox.Controls.Add(NameSepDropList);
+            authorsBox.Controls.Add(label5);
+            authorsBox.Controls.Add(AuthPosDropList);
+            authorsBox.Controls.Add(label2);
+            authorsBox.Location = new Point(14, 67);
+            authorsBox.Margin = new Padding(3, 4, 3, 4);
+            authorsBox.Name = "authorsBox";
+            authorsBox.Padding = new Padding(3, 4, 3, 4);
+            authorsBox.Size = new Size(264, 465);
+            authorsBox.TabIndex = 3;
+            authorsBox.TabStop = false;
+            authorsBox.Text = "Авторы";
             // 
-            // numericUpDown1
+            // AuthorsLimiter
             // 
-            numericUpDown1.Enabled = false;
-            numericUpDown1.Location = new Point(134, 251);
-            numericUpDown1.Name = "numericUpDown1";
-            numericUpDown1.Size = new Size(86, 23);
-            numericUpDown1.TabIndex = 19;
+            AuthorsLimiter.Enabled = false;
+            AuthorsLimiter.Location = new Point(153, 335);
+            AuthorsLimiter.Margin = new Padding(3, 4, 3, 4);
+            AuthorsLimiter.Name = "AuthorsLimiter";
+            AuthorsLimiter.Size = new Size(98, 27);
+            AuthorsLimiter.TabIndex = 19;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Enabled = false;
-            label4.Location = new Point(9, 255);
+            label4.Location = new Point(10, 340);
             label4.Name = "label4";
-            label4.Size = new Size(93, 15);
+            label4.Size = new Size(119, 20);
             label4.TabIndex = 18;
             label4.Text = "Кол-во авторов";
             // 
-            // checkBox4
+            // AuthsLimitCheck
             // 
-            checkBox4.AutoSize = true;
-            checkBox4.Location = new Point(9, 226);
-            checkBox4.Name = "checkBox4";
-            checkBox4.Size = new Size(61, 19);
-            checkBox4.TabIndex = 16;
-            checkBox4.Text = "“et al.”";
-            checkBox4.UseVisualStyleBackColor = true;
-            checkBox4.Click += checkBox4_Click;
+            AuthsLimitCheck.AutoSize = true;
+            AuthsLimitCheck.Location = new Point(10, 301);
+            AuthsLimitCheck.Margin = new Padding(3, 4, 3, 4);
+            AuthsLimitCheck.Name = "AuthsLimitCheck";
+            AuthsLimitCheck.Size = new Size(75, 24);
+            AuthsLimitCheck.TabIndex = 16;
+            AuthsLimitCheck.Text = "“et al.”";
+            AuthsLimitCheck.UseVisualStyleBackColor = true;
+            AuthsLimitCheck.Click += AuthsLimitCheck_Click;
             // 
-            // checkBox3
+            // AndCheck
             // 
-            checkBox3.AutoSize = true;
-            checkBox3.Location = new Point(9, 291);
-            checkBox3.Name = "checkBox3";
-            checkBox3.Size = new Size(128, 49);
-            checkBox3.TabIndex = 15;
-            checkBox3.Text = "Союз “and” между\r\nпоследним и \r\nпредпоследним";
-            checkBox3.UseVisualStyleBackColor = true;
+            AndCheck.AutoSize = true;
+            AndCheck.Location = new Point(10, 388);
+            AndCheck.Margin = new Padding(3, 4, 3, 4);
+            AndCheck.Name = "AndCheck";
+            AndCheck.Size = new Size(158, 64);
+            AndCheck.TabIndex = 15;
+            AndCheck.Text = "Союз “and” между\r\nпоследним и \r\nпредпоследним";
+            AndCheck.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(9, 178);
+            label3.Location = new Point(10, 237);
             label3.Name = "label3";
-            label3.Size = new Size(99, 30);
+            label3.Size = new Size(126, 40);
             label3.TabIndex = 14;
             label3.Text = "Разделитель\r\nмежду авторами";
             // 
-            // comboBox3
+            // AuthSepDropList
             // 
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Items.AddRange(new object[] { ",", ";" });
-            comboBox3.Location = new Point(134, 182);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(86, 23);
-            comboBox3.TabIndex = 13;
+            AuthSepDropList.FormattingEnabled = true;
+            AuthSepDropList.Items.AddRange(new object[] { ",", ";" });
+            AuthSepDropList.Location = new Point(153, 243);
+            AuthSepDropList.Margin = new Padding(3, 4, 3, 4);
+            AuthSepDropList.Name = "AuthSepDropList";
+            AuthSepDropList.Size = new Size(98, 28);
+            AuthSepDropList.TabIndex = 13;
             // 
-            // checkBox2
+            // InitialsSpaceCheck
             // 
-            checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(9, 87);
-            checkBox2.Name = "checkBox2";
-            checkBox2.Size = new Size(108, 34);
-            checkBox2.TabIndex = 12;
-            checkBox2.Text = "Пробел между\r\nинициалами";
-            checkBox2.UseVisualStyleBackColor = true;
+            InitialsSpaceCheck.AutoSize = true;
+            InitialsSpaceCheck.Location = new Point(10, 116);
+            InitialsSpaceCheck.Margin = new Padding(3, 4, 3, 4);
+            InitialsSpaceCheck.Name = "InitialsSpaceCheck";
+            InitialsSpaceCheck.Size = new Size(134, 44);
+            InitialsSpaceCheck.TabIndex = 12;
+            InitialsSpaceCheck.Text = "Пробел между\r\nинициалами";
+            InitialsSpaceCheck.UseVisualStyleBackColor = true;
             // 
-            // checkBox1
+            // InitialsDotCheck
             // 
-            checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(9, 47);
-            checkBox1.Name = "checkBox1";
-            checkBox1.Size = new Size(94, 34);
-            checkBox1.TabIndex = 11;
-            checkBox1.Text = "Точка после\r\nинициалов";
-            checkBox1.UseVisualStyleBackColor = true;
+            InitialsDotCheck.AutoSize = true;
+            InitialsDotCheck.Location = new Point(10, 63);
+            InitialsDotCheck.Margin = new Padding(3, 4, 3, 4);
+            InitialsDotCheck.Name = "InitialsDotCheck";
+            InitialsDotCheck.Size = new Size(116, 44);
+            InitialsDotCheck.TabIndex = 11;
+            InitialsDotCheck.Text = "Точка после\r\nинициалов";
+            InitialsDotCheck.UseVisualStyleBackColor = true;
             // 
-            // comboBox2
+            // NameSepDropList
             // 
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Items.AddRange(new object[] { "\"\"", "\" \"", "\",\"", "\", \"" });
-            comboBox2.Location = new Point(134, 134);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(86, 23);
-            comboBox2.TabIndex = 10;
+            NameSepDropList.FormattingEnabled = true;
+            NameSepDropList.Items.AddRange(new object[] { "\"\"", "\" \"", "\",\"", "\", \"" });
+            NameSepDropList.Location = new Point(153, 179);
+            NameSepDropList.Margin = new Padding(3, 4, 3, 4);
+            NameSepDropList.Name = "NameSepDropList";
+            NameSepDropList.Size = new Size(98, 28);
+            NameSepDropList.TabIndex = 10;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(9, 125);
+            label5.Location = new Point(10, 167);
             label5.Name = "label5";
-            label5.Size = new Size(116, 45);
+            label5.Size = new Size(147, 60);
             label5.TabIndex = 9;
             label5.Text = "Разделитель\r\nмежду инициалами\r\nи фамилией";
             // 
-            // comboBox1
+            // AuthPosDropList
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Инициалы/Фамилия", "Фамилия/Инициалы" });
-            comboBox1.Location = new Point(87, 18);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(133, 23);
-            comboBox1.TabIndex = 5;
+            AuthPosDropList.FormattingEnabled = true;
+            AuthPosDropList.Items.AddRange(new object[] { "Инициалы/Фамилия", "Фамилия/Инициалы" });
+            AuthPosDropList.Location = new Point(99, 24);
+            AuthPosDropList.Margin = new Padding(3, 4, 3, 4);
+            AuthPosDropList.Name = "AuthPosDropList";
+            AuthPosDropList.Size = new Size(151, 28);
+            AuthPosDropList.TabIndex = 5;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(9, 21);
+            label2.Location = new Point(10, 28);
             label2.Name = "label2";
-            label2.Size = new Size(72, 15);
+            label2.Size = new Size(91, 20);
             label2.TabIndex = 0;
             label2.Text = "Положение";
             // 
-            // groupBox2
+            // articleBox
             // 
-            groupBox2.Controls.Add(comboBox4);
-            groupBox2.Location = new Point(249, 50);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(201, 52);
-            groupBox2.TabIndex = 4;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Название статьи";
+            articleBox.Controls.Add(ArticleNameDropList);
+            articleBox.Location = new Point(285, 67);
+            articleBox.Margin = new Padding(3, 4, 3, 4);
+            articleBox.Name = "articleBox";
+            articleBox.Padding = new Padding(3, 4, 3, 4);
+            articleBox.Size = new Size(230, 69);
+            articleBox.TabIndex = 4;
+            articleBox.TabStop = false;
+            articleBox.Text = "Название статьи";
             // 
-            // comboBox4
+            // ArticleNameDropList
             // 
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Items.AddRange(new object[] { "Без названия", "С названием", "Название с заглавными буквами" });
-            comboBox4.Location = new Point(6, 18);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(189, 23);
-            comboBox4.TabIndex = 0;
+            ArticleNameDropList.FormattingEnabled = true;
+            ArticleNameDropList.Items.AddRange(new object[] { "Без названия", "С названием", "Название с заглавными буквами" });
+            ArticleNameDropList.Location = new Point(7, 24);
+            ArticleNameDropList.Margin = new Padding(3, 4, 3, 4);
+            ArticleNameDropList.Name = "ArticleNameDropList";
+            ArticleNameDropList.Size = new Size(215, 28);
+            ArticleNameDropList.TabIndex = 0;
             // 
             // pictureBox1
             // 
             pictureBox1.Cursor = Cursors.Hand;
             pictureBox1.Image = RefGenerator.Properties.Resources.copy1;
-            pictureBox1.Location = new Point(249, 404);
+            pictureBox1.Location = new Point(285, 539);
+            pictureBox1.Margin = new Padding(3, 4, 3, 4);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Padding = new Padding(1);
-            pictureBox1.Size = new Size(36, 36);
+            pictureBox1.Size = new Size(41, 48);
             pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
             pictureBox1.TabIndex = 5;
             pictureBox1.TabStop = false;
@@ -250,57 +284,215 @@
             // labelSuccess
             // 
             labelSuccess.AutoSize = true;
-            labelSuccess.Location = new Point(291, 408);
+            labelSuccess.Location = new Point(333, 544);
             labelSuccess.Name = "labelSuccess";
-            labelSuccess.Size = new Size(73, 15);
+            labelSuccess.Size = new Size(92, 20);
             labelSuccess.TabIndex = 6;
             labelSuccess.Text = "labelSuccess";
             labelSuccess.Visible = false;
             // 
+            // journalBox
+            // 
+            journalBox.Controls.Add(JournalNameDropList);
+            journalBox.Location = new Point(285, 143);
+            journalBox.Name = "journalBox";
+            journalBox.Size = new Size(230, 71);
+            journalBox.TabIndex = 7;
+            journalBox.TabStop = false;
+            journalBox.Text = "Название журнала";
+            // 
+            // JournalNameDropList
+            // 
+            JournalNameDropList.FormattingEnabled = true;
+            JournalNameDropList.Items.AddRange(new object[] { "Полное", "Аббревиатура" });
+            JournalNameDropList.Location = new Point(7, 26);
+            JournalNameDropList.Name = "JournalNameDropList";
+            JournalNameDropList.Size = new Size(215, 28);
+            JournalNameDropList.TabIndex = 0;
+            // 
+            // DOIBox
+            // 
+            DOIBox.Controls.Add(DOIDropList);
+            DOIBox.Location = new Point(285, 220);
+            DOIBox.Name = "DOIBox";
+            DOIBox.Size = new Size(230, 74);
+            DOIBox.TabIndex = 8;
+            DOIBox.TabStop = false;
+            DOIBox.Text = "DOI";
+            // 
+            // DOIDropList
+            // 
+            DOIDropList.FormattingEnabled = true;
+            DOIDropList.Items.AddRange(new object[] { "Без указания", "Сокращенное", "Как url-ссылка" });
+            DOIDropList.Location = new Point(7, 26);
+            DOIDropList.Name = "DOIDropList";
+            DOIDropList.Size = new Size(215, 28);
+            DOIDropList.TabIndex = 0;
+            // 
+            // PageBox
+            // 
+            PageBox.Controls.Add(PageItalic);
+            PageBox.Controls.Add(PageBold);
+            PageBox.Location = new Point(521, 67);
+            PageBox.Name = "PageBox";
+            PageBox.Size = new Size(230, 90);
+            PageBox.TabIndex = 9;
+            PageBox.TabStop = false;
+            PageBox.Text = "Номер страницы";
+            // 
+            // PageItalic
+            // 
+            PageItalic.AutoSize = true;
+            PageItalic.Location = new Point(6, 54);
+            PageItalic.Name = "PageItalic";
+            PageItalic.Size = new Size(80, 24);
+            PageItalic.TabIndex = 1;
+            PageItalic.Text = "Курсив";
+            PageItalic.UseVisualStyleBackColor = true;
+            // 
+            // PageBold
+            // 
+            PageBold.AutoSize = true;
+            PageBold.Location = new Point(6, 24);
+            PageBold.Name = "PageBold";
+            PageBold.Size = new Size(124, 24);
+            PageBold.TabIndex = 0;
+            PageBold.Text = "Полужирный";
+            PageBold.UseVisualStyleBackColor = true;
+            // 
+            // YearBox
+            // 
+            YearBox.Controls.Add(YearItalic);
+            YearBox.Controls.Add(YearBold);
+            YearBox.Location = new Point(284, 300);
+            YearBox.Name = "YearBox";
+            YearBox.Size = new Size(231, 92);
+            YearBox.TabIndex = 10;
+            YearBox.TabStop = false;
+            YearBox.Text = "Год";
+            // 
+            // YearItalic
+            // 
+            YearItalic.AutoSize = true;
+            YearItalic.Location = new Point(8, 56);
+            YearItalic.Name = "YearItalic";
+            YearItalic.Size = new Size(80, 24);
+            YearItalic.TabIndex = 1;
+            YearItalic.Text = "Курсив";
+            YearItalic.UseVisualStyleBackColor = true;
+            // 
+            // YearBold
+            // 
+            YearBold.AutoSize = true;
+            YearBold.Location = new Point(8, 26);
+            YearBold.Name = "YearBold";
+            YearBold.Size = new Size(124, 24);
+            YearBold.TabIndex = 0;
+            YearBold.Text = "Полужирный";
+            YearBold.UseVisualStyleBackColor = true;
+            // 
+            // ThomeBox
+            // 
+            ThomeBox.Controls.Add(ThomeItalic);
+            ThomeBox.Controls.Add(ThomeBold);
+            ThomeBox.Location = new Point(285, 398);
+            ThomeBox.Name = "ThomeBox";
+            ThomeBox.Size = new Size(231, 94);
+            ThomeBox.TabIndex = 11;
+            ThomeBox.TabStop = false;
+            ThomeBox.Text = "Том";
+            // 
+            // ThomeItalic
+            // 
+            ThomeItalic.AutoSize = true;
+            ThomeItalic.Location = new Point(7, 57);
+            ThomeItalic.Name = "ThomeItalic";
+            ThomeItalic.Size = new Size(80, 24);
+            ThomeItalic.TabIndex = 1;
+            ThomeItalic.Text = "Курсив";
+            ThomeItalic.UseVisualStyleBackColor = true;
+            // 
+            // ThomeBold
+            // 
+            ThomeBold.AutoSize = true;
+            ThomeBold.Location = new Point(7, 26);
+            ThomeBold.Name = "ThomeBold";
+            ThomeBold.Size = new Size(124, 24);
+            ThomeBold.TabIndex = 0;
+            ThomeBold.Text = "Полужирный";
+            ThomeBold.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 460);
+            ClientSize = new Size(1024, 791);
+            Controls.Add(ThomeBox);
+            Controls.Add(YearBox);
+            Controls.Add(PageBox);
+            Controls.Add(DOIBox);
+            Controls.Add(journalBox);
             Controls.Add(labelSuccess);
             Controls.Add(pictureBox1);
-            Controls.Add(groupBox2);
-            Controls.Add(groupBox1);
-            Controls.Add(textBox1);
+            Controls.Add(articleBox);
+            Controls.Add(authorsBox);
+            Controls.Add(DOIinput);
             Controls.Add(labelOutput);
-            Controls.Add(button1);
+            Controls.Add(DOIInputButton);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "Form1";
             Text = "Form1";
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown1).EndInit();
-            groupBox2.ResumeLayout(false);
+            authorsBox.ResumeLayout(false);
+            authorsBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)AuthorsLimiter).EndInit();
+            articleBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            journalBox.ResumeLayout(false);
+            DOIBox.ResumeLayout(false);
+            PageBox.ResumeLayout(false);
+            PageBox.PerformLayout();
+            YearBox.ResumeLayout(false);
+            YearBox.PerformLayout();
+            ThomeBox.ResumeLayout(false);
+            ThomeBox.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private Button button1;
+        private Button DOIInputButton;
         private Label labelOutput;
-        private TextBox textBox1;
-        private GroupBox groupBox1;
+        private TextBox DOIinput;
+        private GroupBox authorsBox;
         private Label label2;
-        private ComboBox comboBox1;
-        private ComboBox comboBox2;
+        private ComboBox AuthPosDropList;
+        private ComboBox NameSepDropList;
         private Label label5;
-        private CheckBox checkBox2;
-        private CheckBox checkBox1;
+        private CheckBox InitialsSpaceCheck;
+        private CheckBox InitialsDotCheck;
         private Label label3;
-        private ComboBox comboBox3;
-        private CheckBox checkBox4;
-        private CheckBox checkBox3;
+        private ComboBox AuthSepDropList;
+        private CheckBox AuthsLimitCheck;
+        private CheckBox AndCheck;
         private Label label4;
-        private NumericUpDown numericUpDown1;
-        private GroupBox groupBox2;
-        private ComboBox comboBox4;
+        private NumericUpDown AuthorsLimiter;
+        private GroupBox articleBox;
+        private ComboBox ArticleNameDropList;
         private PictureBox pictureBox1;
         private Label labelSuccess;
+        private GroupBox journalBox;
+        private ComboBox JournalNameDropList;
+        private GroupBox DOIBox;
+        private ComboBox DOIDropList;
+        private GroupBox PageBox;
+        private GroupBox YearBox;
+        private GroupBox ThomeBox;
+        private CheckBox YearItalic;
+        private CheckBox YearBold;
+        private CheckBox ThomeItalic;
+        private CheckBox ThomeBold;
+        private CheckBox PageItalic;
+        private CheckBox PageBold;
     }
 }

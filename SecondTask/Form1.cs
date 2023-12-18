@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Globalization;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Aspose.Cells;
 
 namespace WinFormsApp1
 {
@@ -17,22 +18,24 @@ namespace WinFormsApp1
         {
             InitializeComponent();
             handler = new RequestsHandler();
-            comboBox1.SelectedItem = comboBox1.Items[0];
-            comboBox2.SelectedItem = comboBox2.Items[0];
-            comboBox3.SelectedItem = comboBox3.Items[0];
-            comboBox4.SelectedItem = comboBox4.Items[0];
+            AuthPosDropList.SelectedItem = AuthPosDropList.Items[0];
+            NameSepDropList.SelectedItem = NameSepDropList.Items[0];
+            AuthSepDropList.SelectedItem = AuthSepDropList.Items[0];
+            ArticleNameDropList.SelectedItem = ArticleNameDropList.Items[0];
+            JournalNameDropList.SelectedItem = JournalNameDropList.Items[0];
+            DOIDropList.SelectedItem = DOIDropList.Items[0];
         }
 
         private async void button1_Click(object sender, EventArgs e)
         {
             labelOutput.Text = "";
-            if (textBox1.Text == "")
+            if (DOIinput.Text == "")
             {
                 labelOutput.Text = "Error, empty field.";
                 return;
             }
 
-            Response1 res = await handler.GetMetadata(textBox1.Text);
+            Response1 res = await handler.GetMetadata(DOIinput.Text);
 
             if (res.status == "error")
             {
@@ -40,38 +43,39 @@ namespace WinFormsApp1
                 return;
             }
 
-            labelOutput.Text = $"{await FormAuthorsList(res)} / {await FormTitle(res)}";
+            //labelOutput.Text = $"{await FormAuthorsList(res)} / {await FormTitle(res)}";
+            labelOutput.Text = await FormJournalName(res);
         }
 
-        private void checkBox4_Click(object sender, EventArgs e)
+        private void AuthsLimitCheck_Click(object sender, EventArgs e)
         {
-            if (checkBox4.Checked)
+            if (AuthsLimitCheck.Checked)
             {
                 label4.Enabled = true;
-                numericUpDown1.Enabled = true;
-                checkBox3.Enabled = false;
-                checkBox3.Checked = false;
+                AuthorsLimiter.Enabled = true;
+                AndCheck.Enabled = false;
+                AndCheck.Checked = false;
             }
             else
             {
                 label4.Enabled = false;
-                numericUpDown1.Enabled = false;
-                checkBox3.Enabled = true;
+                AuthorsLimiter.Enabled = false;
+                AndCheck.Enabled = true;
             }
         }
 
         async Task<string> FormAuthorsList(Response1 response)
         {
             string firstW, secondW, initialEnd, initialsSeparator;
-            string nameSeparator = comboBox2.Text.Trim('"');
-            string authorsSeparator = $"{comboBox3.Text} ";
+            string nameSeparator = NameSepDropList.Text.Trim('"');
+            string authorsSeparator = $"{AuthSepDropList.Text} ";
 
-            if (checkBox1.Checked)
+            if (InitialsDotCheck.Checked)
                 initialEnd = ".";
             else
                 initialEnd = "";
 
-            if (checkBox2.Checked)
+            if (InitialsSpaceCheck.Checked)
                 initialsSeparator = " ";
             else
                 initialsSeparator = "";
@@ -79,13 +83,13 @@ namespace WinFormsApp1
 
             var authors = response.message.author;
             int authorsLength = authors.Length;
-            if (checkBox4.Checked)
+            if (AuthsLimitCheck.Checked)
             {
-                authorsLength = (int)numericUpDown1.Value;
+                authorsLength = (int)AuthorsLimiter.Value;
             }
             string[] authorsStr = new string[authorsLength];
 
-            if (comboBox1.Text == "Инициалы/Фамилия")
+            if (AuthPosDropList.Text == "Инициалы/Фамилия")
             {
                 for (int i = 0; i < authorsLength; i++)
                 {
@@ -118,7 +122,7 @@ namespace WinFormsApp1
                 }
             }
 
-            if (checkBox3.Checked && authorsLength >= 2)
+            if (AndCheck.Checked && authorsLength >= 2)
             {
                 string lastAuthor = authorsStr.Last();
                 List<string> tempAuthorsStr = new List<string>(authorsStr);
@@ -128,7 +132,7 @@ namespace WinFormsApp1
                 return $"{String.Join(authorsSeparator, authorsStr)} and {lastAuthor}";
             }
 
-            if (checkBox4.Checked)
+            if (AuthsLimitCheck.Checked)
             {
                 return $"{String.Join(authorsSeparator, authorsStr)} et al.";
             }
@@ -138,7 +142,7 @@ namespace WinFormsApp1
 
         async Task<string> FormTitle(Response1 response)
         {
-            switch (comboBox4.SelectedItem)
+            switch (ArticleNameDropList.SelectedItem)
             {
                 case "Без названия":
                     return "";
@@ -151,6 +155,46 @@ namespace WinFormsApp1
                     return Regex.Replace(Regex.Replace(response.message.title[0], @"\b(\w)", m => m.Value.ToUpper()),
                         @"(\s(of|in|by|and|the|a|an|at|on|under|above|between|to|into|out of|from|through|along|across|before|after|till|until|ago|during|since|for|because of|due to|thanks to|in accordance with|against|behind|below|around|towards|back to|in front of|outside|on account of|upon)|\'[st])\b",
                         m => m.Value.ToLower(), RegexOptions.IgnoreCase);
+
+                default:
+                    return "";
+            }
+        }
+
+        async Task<string> FormJournalName(Response1 response)
+        {
+            var journal = response.message.container_title[0];
+            switch (JournalNameDropList.SelectedItem)
+            {
+                case "Полное":
+                    return journal;
+
+                case "Аббревиатура":
+                    Workbook wb = new Workbook("Journals.xlsx");
+                    Worksheet worksheet = wb.Worksheets[0];
+                    Dictionary<int, string> pairs = new Dictionary<int, string>();
+
+                    for (int i = 0; i < worksheet.Cells.MaxDataRow; i++)
+                    {
+                        string mask;
+
+                        if (worksheet.Cells[i, 0].Value.ToString().Last() == '-')
+                        {
+                            mask = $@"\b({worksheet.Cells[i, 0].Value.ToString().TrimStart('=').TrimEnd('-')})\w*";
+                        }
+                        else mask = $@"\b({worksheet.Cells[i, 0].Value.ToString().TrimStart('=')})\b";
+
+                        if (Regex.Match(journal, mask, RegexOptions.IgnoreCase).Value.ToString() != "")
+                            pairs.Add(i, mask);
+                    }
+                    foreach (var el in pairs)
+                    {
+                        if (worksheet.Cells[el.Key, 1].Value.ToString() != "n.a.")
+                            journal = Regex.Replace(journal, el.Value,
+                                CultureInfo.CurrentCulture.TextInfo.ToTitleCase(worksheet.Cells[el.Key, 1].Value.ToString()), 
+                                RegexOptions.IgnoreCase);
+                    }
+                    return journal;
 
                 default:
                     return "";

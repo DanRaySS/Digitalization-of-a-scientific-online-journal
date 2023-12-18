@@ -33,3 +33,8 @@ C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\Sec
 C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Debug\net6.0-windows\RefGenerator.pdb
 C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Debug\net6.0-windows\RefGenerator.genruntimeconfig.cache
 C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Debug\net6.0-windows\ref\RefGenerator.dll
+C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Debug\net6.0-windows\RefGenerator.Properties.Resources.resources
+C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Debug\net6.0-windows\Aspose.Cells.dll
+C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Debug\net6.0-windows\System.Security.Cryptography.Pkcs.dll
+C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
+C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Debug\net6.0-windows\RefGenerator.csproj.CopyComplete
