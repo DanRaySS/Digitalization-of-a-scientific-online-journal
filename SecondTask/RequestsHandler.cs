@@ -31,10 +31,5 @@ namespace WinFormsApp1
             }
             return desRes;
         }
-
-        //author[x].given + " " + author[x].family - автор x
-        //title - название
-        //container_title - название журнала
-        //license[0].start.date.Substring(0, 4) - год публикации
     }
 }

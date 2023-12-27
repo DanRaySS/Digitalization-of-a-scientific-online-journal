@@ -23,6 +23,7 @@ namespace WinFormsApp1
             public string[] title { get; set; }
             [JsonPropertyName("container-title")]
             public string[] container_title { get; set; }
+            public string issue { get; set; }
             public License[] license { get; set; }
             public class License
             {
