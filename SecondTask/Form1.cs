@@ -6,6 +6,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using Aspose.Cells;
 using System.Collections.Generic;
 using Microsoft.VisualBasic.Devices;
+using System.Diagnostics.Eventing.Reader;
 
 namespace WinFormsApp1
 {
@@ -17,7 +18,7 @@ namespace WinFormsApp1
         MatchCollection matches;
         TextInfo textInfo = new CultureInfo("ru-RU").TextInfo;
         List<string> blocks = new List<string> { "Авторы", "Название статьи",
-            "Название журнала", "DOI", "Год", "Том", "Номер", "Страницы"};
+            "Название журнала", "DOI", "Год", "Том", "Издание", "Страницы или номер"};
 
 
         public Form1()
@@ -31,6 +32,7 @@ namespace WinFormsApp1
             ArticleNameDropList.SelectedItem = ArticleNameDropList.Items[0];
             JournalNameDropList.SelectedItem = JournalNameDropList.Items[0];
             DOIDropList.SelectedItem = DOIDropList.Items[0];
+            PagesDivider.SelectedItem = PagesDivider.Items[0];
             DOIinput.Text = "https://doi.org/10.1070/RCR4987";
             Block1.Items.AddRange(blocks.ToArray()); Block2.Items.AddRange(blocks.ToArray());
             Block3.Items.AddRange(blocks.ToArray()); Block4.Items.AddRange(blocks.ToArray());
@@ -102,15 +104,6 @@ namespace WinFormsApp1
 
             if (End.Text != "Отсутствует")
                 richTextBox1.AppendText(End.Text.Trim('"'));
-
-            //richTextBox1.Text = $"{await FormAuthorsList(res)} / {await FormTitle(res)}";
-            //richTextBox1.Text = await FormJournalName(res);
-            //FormJournalName(res, richTextBox1);
-            //FormYear(res, richTextBox1);
-            //richTextBox1.AppendText(", ");
-            //AddThome(res, richTextBox1);
-            //richTextBox1.AppendText(", ");
-            //AddPage(res, richTextBox1);
         }
 
         private void AuthsLimitCheck_Click(object sender, EventArgs e)
@@ -212,25 +205,25 @@ namespace WinFormsApp1
 
         async void FormTitle(Response1 response, RichTextBox rtb)
         {
+            string title = response.message.title[0];
             switch (ArticleNameDropList.SelectedItem)
             {
-                //case "Без названия":
-                //    return "";
-
-                case "Название":
-                    rtb.AppendText(response.message.title[0]);
-                    return;
-                //return Regex.Replace(response.message.title[0], @"\s(\w)", m => m.Value.ToLower());
+                case "Название в нижнем регистре":
+                    title = Regex.Replace(title, @"\W[A-Z][a-z]+\s", m => m.Value.ToLower());
+                    break;
 
                 case "Название с заглавными буквами":
-                    rtb.AppendText(Regex.Replace(Regex.Replace(response.message.title[0], @"\b(\w)", m => m.Value.ToUpper()),
+                    title = (Regex.Replace(Regex.Replace(title, @"\b(\w)", m => m.Value.ToUpper()),
                         @"(\s(of|in|by|and|the|a|an|at|on|under|above|between|to|into|out of|from|through|along|across|before|after|till|until|ago|during|since|for|because of|due to|thanks to|in accordance with|against|behind|below|around|towards|back to|in front of|outside|on account of|upon)|\'[st])\b",
                         m => m.Value.ToLower(), RegexOptions.IgnoreCase));
-                    return;
+                    break;
 
                 default:
-                    return;
+                    break;
             }
+
+            title = Regex.Replace(title, @"<\w*>|</\w*>", "");
+            rtb.AppendText(title);
         }
 
         async void FormJournalName(Response1 response, RichTextBox rtb)
@@ -293,9 +286,6 @@ namespace WinFormsApp1
                     rtb.AppendText(DOI);
                     return;
 
-                //case "Без указания":
-                //    return "";
-
                 default:
                     return;
             }
@@ -305,20 +295,26 @@ namespace WinFormsApp1
         {
             var year = response.message.license[0].start.date.Substring(0, 4);
 
+            if (YearBrackets.Checked)
+                year = $"({year})";
+
             if (YearBold.Checked && YearItalic.Checked)
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Bold | FontStyle.Italic);
                 rtb.AppendText(year);
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
             else if (YearBold.Checked && !YearItalic.Checked)
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Bold);
                 rtb.AppendText(year);
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
             else if (!YearBold.Checked && YearItalic.Checked)
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Italic);
                 rtb.AppendText(year);
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
             else
             {
@@ -331,7 +327,7 @@ namespace WinFormsApp1
         {
             var thome = response.message.volume;
 
-            if (NumberThomePart.Checked)
+            if (IssueThomePart.Checked)
             {
                 thome = $"{thome}({response.message.issue})";
             }
@@ -340,16 +336,19 @@ namespace WinFormsApp1
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Bold | FontStyle.Italic);
                 rtb.AppendText(thome);
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
             else if (ThomeBold.Checked && !ThomeItalic.Checked)
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Bold);
                 rtb.AppendText(thome);
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
             else if (!ThomeBold.Checked && ThomeItalic.Checked)
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Italic);
                 rtb.AppendText(thome);
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
             else
             {
@@ -362,20 +361,23 @@ namespace WinFormsApp1
         {
             var number = response.message.issue;
 
-            if (NumberBold.Checked && NumberItalic.Checked)
+            if (IssueBold.Checked && IssueItalic.Checked)
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Bold | FontStyle.Italic);
                 rtb.AppendText(number);
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
-            else if (NumberBold.Checked && !NumberItalic.Checked)
+            else if (IssueBold.Checked && !IssueItalic.Checked)
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Bold);
                 rtb.AppendText(number);
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
-            else if (!NumberBold.Checked && NumberItalic.Checked)
+            else if (!IssueBold.Checked && IssueItalic.Checked)
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Italic);
                 rtb.AppendText(number);
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
             else
             {
@@ -387,21 +389,29 @@ namespace WinFormsApp1
         async void FormPage(Response1 response, RichTextBox rtb)
         {
             var page = response.message.page;
+            if (PagesDivider.Text == "Через тире")
+                page = page.Replace("-", "–");
+
+            else if (PagesDivider.Text == "Через дефис")
+                page = page.Replace("–", "-");
 
             if (PageBold.Checked && PageItalic.Checked)
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Bold | FontStyle.Italic);
                 rtb.AppendText(page);
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
             else if (PageBold.Checked && !PageItalic.Checked)
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Bold);
                 rtb.AppendText(page);
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
             else if (!PageBold.Checked && PageItalic.Checked)
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Italic);
                 rtb.AppendText(page);
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
             else
             {
@@ -412,25 +422,25 @@ namespace WinFormsApp1
 
         private void NumberThomePart_CheckedChanged(object sender, EventArgs e)
         {
-            if (NumberThomePart.Checked)
+            if (IssueThomePart.Checked)
             {
-                if (NumberCheck.Checked)
+                if (IssueCheck.Checked)
                     blocksCount -= 1;
 
-                NumberCheck.Enabled = false;
-                NumberCheck.Checked = false;
-                NumberBold.Enabled = false;
-                NumberBold.Checked = false;
-                NumberItalic.Enabled = false;
-                NumberItalic.Checked = false;
+                IssueCheck.Enabled = false;
+                IssueCheck.Checked = false;
+                IssueBold.Enabled = false;
+                IssueBold.Checked = false;
+                IssueItalic.Enabled = false;
+                IssueItalic.Checked = false;
                 CheckBlocksNumber();
             }
-            else if (!NumberThomePart.Checked)
+            else if (!IssueThomePart.Checked)
             {
-                NumberCheck.Enabled = true;
-                NumberCheck.Checked = true;
-                NumberBold.Enabled = true;
-                NumberItalic.Enabled = true;
+                IssueCheck.Enabled = true;
+                IssueCheck.Checked = true;
+                IssueBold.Enabled = true;
+                IssueItalic.Enabled = true;
                 CheckBlocksNumber();
             }
         }
@@ -543,20 +553,20 @@ namespace WinFormsApp1
             FormBlockList();
         }
 
-        private void NumberCheck_CheckedChanged(object sender, EventArgs e)
+        private void IssueCheck_CheckedChanged(object sender, EventArgs e)
         {
-            if (NumberCheck.Checked)
+            if (IssueCheck.Checked)
             {
                 blocksCount += 1;
                 CheckBlocksNumber();
-                blocks.Add("Номер");
+                blocks.Add("Издание");
             }
-            else if (!NumberCheck.Checked)
+            else if (!IssueCheck.Checked)
             {
-                if (!NumberThomePart.Checked)
+                if (!IssueThomePart.Checked)
                     blocksCount -= 1;
                 CheckBlocksNumber();
-                blocks.Remove("Номер");
+                blocks.Remove("Издание");
             }
 
             FormBlockList();
@@ -568,13 +578,13 @@ namespace WinFormsApp1
             {
                 blocksCount += 1;
                 CheckBlocksNumber();
-                blocks.Add("Страницы");
+                blocks.Add("Страницы или номер");
             }
             else
             {
                 blocksCount -= 1;
                 CheckBlocksNumber();
-                blocks.Remove("Страницы");
+                blocks.Remove("Страницы или номер");
             }
 
             FormBlockList();
@@ -675,11 +685,11 @@ namespace WinFormsApp1
                     FormThome(res, richTextBox1);
                     break;
 
-                case "Номер":
+                case "Издание":
                     FormNumber(res, richTextBox1);
                     break;
 
-                case "Страницы":
+                case "Страницы или номер":
                     FormPage(res, richTextBox1);
                     break;
             }

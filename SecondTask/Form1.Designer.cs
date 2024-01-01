@@ -55,10 +55,12 @@
             DOICheck = new CheckBox();
             DOIDropList = new ComboBox();
             PageBox = new GroupBox();
+            PagesDivider = new ComboBox();
             PageCheck = new CheckBox();
             PageItalic = new CheckBox();
             PageBold = new CheckBox();
             YearBox = new GroupBox();
+            YearBrackets = new CheckBox();
             YearCheck = new CheckBox();
             YearItalic = new CheckBox();
             YearBold = new CheckBox();
@@ -95,10 +97,10 @@
             Divider7 = new ComboBox();
             label15 = new Label();
             numberBox = new GroupBox();
-            NumberCheck = new CheckBox();
-            NumberItalic = new CheckBox();
-            NumberBold = new CheckBox();
-            NumberThomePart = new CheckBox();
+            IssueCheck = new CheckBox();
+            IssueItalic = new CheckBox();
+            IssueBold = new CheckBox();
+            IssueThomePart = new CheckBox();
             authorsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AuthorsLimiter).BeginInit();
             articleBox.SuspendLayout();
@@ -126,7 +128,7 @@
             DOIinput.Location = new Point(84, 18);
             DOIinput.Margin = new Padding(3, 4, 3, 4);
             DOIinput.Name = "DOIinput";
-            DOIinput.Size = new Size(281, 27);
+            DOIinput.Size = new Size(432, 27);
             DOIinput.TabIndex = 2;
             // 
             // authorsBox
@@ -319,7 +321,7 @@
             // ArticleNameDropList
             // 
             ArticleNameDropList.FormattingEnabled = true;
-            ArticleNameDropList.Items.AddRange(new object[] { "Название", "Название с заглавными буквами" });
+            ArticleNameDropList.Items.AddRange(new object[] { "Название в нижнем регистре", "Название с заглавными буквами" });
             ArticleNameDropList.Location = new Point(7, 24);
             ArticleNameDropList.Margin = new Padding(3, 4, 3, 4);
             ArticleNameDropList.Name = "ArticleNameDropList";
@@ -407,15 +409,25 @@
             // 
             // PageBox
             // 
+            PageBox.Controls.Add(PagesDivider);
             PageBox.Controls.Add(PageCheck);
             PageBox.Controls.Add(PageItalic);
             PageBox.Controls.Add(PageBold);
-            PageBox.Location = new Point(521, 212);
+            PageBox.Location = new Point(521, 317);
             PageBox.Name = "PageBox";
-            PageBox.Size = new Size(194, 90);
+            PageBox.Size = new Size(194, 133);
             PageBox.TabIndex = 9;
             PageBox.TabStop = false;
             PageBox.Text = "Страницы";
+            // 
+            // PagesDivider
+            // 
+            PagesDivider.FormattingEnabled = true;
+            PagesDivider.Items.AddRange(new object[] { "Через тире", "Через дефис" });
+            PagesDivider.Location = new Point(6, 90);
+            PagesDivider.Name = "PagesDivider";
+            PagesDivider.Size = new Size(180, 28);
+            PagesDivider.TabIndex = 3;
             // 
             // PageCheck
             // 
@@ -425,16 +437,16 @@
             PageCheck.CheckState = CheckState.Checked;
             PageCheck.Location = new Point(6, 0);
             PageCheck.Name = "PageCheck";
-            PageCheck.Size = new Size(101, 24);
+            PageCheck.Size = new Size(181, 24);
             PageCheck.TabIndex = 2;
-            PageCheck.Text = "Страницы";
+            PageCheck.Text = "Страницы или номер";
             PageCheck.UseVisualStyleBackColor = false;
             PageCheck.CheckedChanged += PageCheck_CheckedChanged;
             // 
             // PageItalic
             // 
             PageItalic.AutoSize = true;
-            PageItalic.Location = new Point(6, 54);
+            PageItalic.Location = new Point(6, 59);
             PageItalic.Name = "PageItalic";
             PageItalic.Size = new Size(80, 24);
             PageItalic.TabIndex = 1;
@@ -444,7 +456,7 @@
             // PageBold
             // 
             PageBold.AutoSize = true;
-            PageBold.Location = new Point(6, 24);
+            PageBold.Location = new Point(6, 29);
             PageBold.Name = "PageBold";
             PageBold.Size = new Size(124, 24);
             PageBold.TabIndex = 0;
@@ -453,15 +465,26 @@
             // 
             // YearBox
             // 
+            YearBox.Controls.Add(YearBrackets);
             YearBox.Controls.Add(YearCheck);
             YearBox.Controls.Add(YearItalic);
             YearBox.Controls.Add(YearBold);
             YearBox.Location = new Point(284, 340);
             YearBox.Name = "YearBox";
-            YearBox.Size = new Size(231, 92);
+            YearBox.Size = new Size(231, 126);
             YearBox.TabIndex = 10;
             YearBox.TabStop = false;
             YearBox.Text = "Год";
+            // 
+            // YearBrackets
+            // 
+            YearBrackets.AutoSize = true;
+            YearBrackets.Location = new Point(8, 86);
+            YearBrackets.Name = "YearBrackets";
+            YearBrackets.Size = new Size(98, 24);
+            YearBrackets.TabIndex = 3;
+            YearBrackets.Text = "В скобках";
+            YearBrackets.UseVisualStyleBackColor = true;
             // 
             // YearCheck
             // 
@@ -502,9 +525,9 @@
             ThomeBox.Controls.Add(ThomeCheck);
             ThomeBox.Controls.Add(ThomeItalic);
             ThomeBox.Controls.Add(ThomeBold);
-            ThomeBox.Location = new Point(285, 438);
+            ThomeBox.Location = new Point(521, 67);
             ThomeBox.Name = "ThomeBox";
-            ThomeBox.Size = new Size(231, 94);
+            ThomeBox.Size = new Size(194, 94);
             ThomeBox.TabIndex = 11;
             ThomeBox.TabStop = false;
             ThomeBox.Text = "Том";
@@ -566,7 +589,7 @@
             Divider1.ForeColor = SystemColors.ActiveCaptionText;
             Divider1.FormattingEnabled = true;
             Divider1.Items.AddRange(new object[] { "\" \"", "\", \"", "\". \"", "\"; \"", "\": \"", "\" / \"", "\" // \"", "\" – \"", "\". – \"" });
-            Divider1.Location = new Point(953, 138);
+            Divider1.Location = new Point(953, 119);
             Divider1.Name = "Divider1";
             Divider1.Size = new Size(151, 28);
             Divider1.TabIndex = 14;
@@ -584,7 +607,7 @@
             Divider2.BackColor = Color.LightYellow;
             Divider2.FormattingEnabled = true;
             Divider2.Items.AddRange(new object[] { "\" \"", "\", \"", "\". \"", "\"; \"", "\": \"", "\" / \"", "\" // \"", "\" – \"", "\". – \"" });
-            Divider2.Location = new Point(953, 172);
+            Divider2.Location = new Point(953, 153);
             Divider2.Name = "Divider2";
             Divider2.Size = new Size(151, 28);
             Divider2.TabIndex = 16;
@@ -602,7 +625,7 @@
             Divider3.BackColor = Color.LightYellow;
             Divider3.FormattingEnabled = true;
             Divider3.Items.AddRange(new object[] { "\" \"", "\", \"", "\". \"", "\"; \"", "\": \"", "\" / \"", "\" // \"", "\" – \"", "\". – \"" });
-            Divider3.Location = new Point(953, 206);
+            Divider3.Location = new Point(953, 187);
             Divider3.Name = "Divider3";
             Divider3.Size = new Size(151, 28);
             Divider3.TabIndex = 18;
@@ -620,7 +643,7 @@
             Divider4.BackColor = Color.LightYellow;
             Divider4.FormattingEnabled = true;
             Divider4.Items.AddRange(new object[] { "\" \"", "\", \"", "\". \"", "\"; \"", "\": \"", "\" / \"", "\" // \"", "\" – \"", "\". – \"" });
-            Divider4.Location = new Point(953, 240);
+            Divider4.Location = new Point(953, 221);
             Divider4.Name = "Divider4";
             Divider4.Size = new Size(151, 28);
             Divider4.TabIndex = 20;
@@ -638,7 +661,7 @@
             Divider5.BackColor = Color.LightYellow;
             Divider5.FormattingEnabled = true;
             Divider5.Items.AddRange(new object[] { "\" \"", "\", \"", "\". \"", "\"; \"", "\": \"", "\" / \"", "\" // \"", "\" – \"", "\". – \"" });
-            Divider5.Location = new Point(953, 274);
+            Divider5.Location = new Point(953, 255);
             Divider5.Name = "Divider5";
             Divider5.Size = new Size(151, 28);
             Divider5.TabIndex = 22;
@@ -656,7 +679,7 @@
             Divider6.BackColor = Color.LightYellow;
             Divider6.FormattingEnabled = true;
             Divider6.Items.AddRange(new object[] { "\" \"", "\", \"", "\". \"", "\"; \"", "\": \"", "\" / \"", "\" // \"", "\" – \"", "\". – \"" });
-            Divider6.Location = new Point(953, 308);
+            Divider6.Location = new Point(953, 289);
             Divider6.Name = "Divider6";
             Divider6.Size = new Size(151, 28);
             Divider6.TabIndex = 24;
@@ -782,7 +805,7 @@
             Divider7.BackColor = Color.LightYellow;
             Divider7.FormattingEnabled = true;
             Divider7.Items.AddRange(new object[] { "\" \"", "\", \"", "\". \"", "\"; \"", "\": \"", "\" / \"", "\" // \"", "\" – \"", "\". – \"" });
-            Divider7.Location = new Point(953, 342);
+            Divider7.Location = new Point(953, 323);
             Divider7.Name = "Divider7";
             Divider7.Size = new Size(151, 28);
             Divider7.TabIndex = 38;
@@ -798,61 +821,61 @@
             // 
             // numberBox
             // 
-            numberBox.Controls.Add(NumberCheck);
-            numberBox.Controls.Add(NumberItalic);
-            numberBox.Controls.Add(NumberBold);
-            numberBox.Controls.Add(NumberThomePart);
-            numberBox.Location = new Point(521, 67);
+            numberBox.Controls.Add(IssueCheck);
+            numberBox.Controls.Add(IssueItalic);
+            numberBox.Controls.Add(IssueBold);
+            numberBox.Controls.Add(IssueThomePart);
+            numberBox.Location = new Point(521, 167);
             numberBox.Name = "numberBox";
             numberBox.Size = new Size(194, 144);
             numberBox.TabIndex = 40;
             numberBox.TabStop = false;
             numberBox.Text = "Номер";
             // 
-            // NumberCheck
+            // IssueCheck
             // 
-            NumberCheck.AutoSize = true;
-            NumberCheck.BackColor = SystemColors.ActiveCaption;
-            NumberCheck.Checked = true;
-            NumberCheck.CheckState = CheckState.Checked;
-            NumberCheck.Location = new Point(6, 0);
-            NumberCheck.Name = "NumberCheck";
-            NumberCheck.Size = new Size(79, 24);
-            NumberCheck.TabIndex = 3;
-            NumberCheck.Text = "Номер";
-            NumberCheck.UseVisualStyleBackColor = false;
-            NumberCheck.CheckedChanged += NumberCheck_CheckedChanged;
+            IssueCheck.AutoSize = true;
+            IssueCheck.BackColor = SystemColors.ActiveCaption;
+            IssueCheck.Checked = true;
+            IssueCheck.CheckState = CheckState.Checked;
+            IssueCheck.Location = new Point(6, 0);
+            IssueCheck.Name = "IssueCheck";
+            IssueCheck.Size = new Size(91, 24);
+            IssueCheck.TabIndex = 3;
+            IssueCheck.Text = "Издание";
+            IssueCheck.UseVisualStyleBackColor = false;
+            IssueCheck.CheckedChanged += IssueCheck_CheckedChanged;
             // 
-            // NumberItalic
+            // IssueItalic
             // 
-            NumberItalic.AutoSize = true;
-            NumberItalic.Location = new Point(6, 109);
-            NumberItalic.Name = "NumberItalic";
-            NumberItalic.Size = new Size(80, 24);
-            NumberItalic.TabIndex = 2;
-            NumberItalic.Text = "Курсив";
-            NumberItalic.UseVisualStyleBackColor = true;
+            IssueItalic.AutoSize = true;
+            IssueItalic.Location = new Point(6, 109);
+            IssueItalic.Name = "IssueItalic";
+            IssueItalic.Size = new Size(80, 24);
+            IssueItalic.TabIndex = 2;
+            IssueItalic.Text = "Курсив";
+            IssueItalic.UseVisualStyleBackColor = true;
             // 
-            // NumberBold
+            // IssueBold
             // 
-            NumberBold.AutoSize = true;
-            NumberBold.Location = new Point(6, 73);
-            NumberBold.Name = "NumberBold";
-            NumberBold.Size = new Size(124, 24);
-            NumberBold.TabIndex = 1;
-            NumberBold.Text = "Полужирный";
-            NumberBold.UseVisualStyleBackColor = true;
+            IssueBold.AutoSize = true;
+            IssueBold.Location = new Point(6, 73);
+            IssueBold.Name = "IssueBold";
+            IssueBold.Size = new Size(124, 24);
+            IssueBold.TabIndex = 1;
+            IssueBold.Text = "Полужирный";
+            IssueBold.UseVisualStyleBackColor = true;
             // 
-            // NumberThomePart
+            // IssueThomePart
             // 
-            NumberThomePart.AutoSize = true;
-            NumberThomePart.Location = new Point(6, 24);
-            NumberThomePart.Name = "NumberThomePart";
-            NumberThomePart.Size = new Size(139, 44);
-            NumberThomePart.TabIndex = 0;
-            NumberThomePart.Text = "Сделать частью\r\nблока \"Том\"";
-            NumberThomePart.UseVisualStyleBackColor = true;
-            NumberThomePart.CheckedChanged += NumberThomePart_CheckedChanged;
+            IssueThomePart.AutoSize = true;
+            IssueThomePart.Location = new Point(6, 24);
+            IssueThomePart.Name = "IssueThomePart";
+            IssueThomePart.Size = new Size(139, 44);
+            IssueThomePart.TabIndex = 0;
+            IssueThomePart.Text = "Сделать частью\r\nблока \"Том\"";
+            IssueThomePart.UseVisualStyleBackColor = true;
+            IssueThomePart.CheckedChanged += NumberThomePart_CheckedChanged;
             // 
             // Form1
             // 
@@ -983,9 +1006,9 @@
         private ComboBox Divider7;
         private Label label15;
         private GroupBox numberBox;
-        private CheckBox NumberItalic;
-        private CheckBox NumberBold;
-        private CheckBox NumberThomePart;
+        private CheckBox IssueItalic;
+        private CheckBox IssueBold;
+        private CheckBox IssueThomePart;
         private CheckBox AuthorsCheck;
         private CheckBox TitleCheck;
         private CheckBox JournalCheck;
@@ -993,6 +1016,8 @@
         private CheckBox YearCheck;
         private CheckBox ThomeCheck;
         private CheckBox PageCheck;
-        private CheckBox NumberCheck;
+        private CheckBox IssueCheck;
+        private CheckBox YearBrackets;
+        private ComboBox PagesDivider;
     }
 }
