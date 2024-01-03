@@ -19,6 +19,7 @@ namespace WinFormsApp1
         TextInfo textInfo = new CultureInfo("ru-RU").TextInfo;
         List<string> blocks = new List<string> { "Авторы", "Название статьи",
             "Название журнала", "DOI", "Год", "Том", "Издание", "Страницы или номер"};
+        List<string> doiContent = new List<string>();
 
 
         public Form1()
@@ -706,6 +707,132 @@ namespace WinFormsApp1
             Block3.Items.AddRange(blocks.ToArray()); Block4.Items.AddRange(blocks.ToArray());
             Block5.Items.AddRange(blocks.ToArray()); Block6.Items.AddRange(blocks.ToArray());
             Block7.Items.AddRange(blocks.ToArray()); Block8.Items.AddRange(blocks.ToArray());
+        }
+
+
+
+
+
+
+        //LOAD FILE
+
+
+
+
+
+
+
+
+        private void openFileDialog()
+        {
+
+            var fileContent = string.Empty;
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+
+
+                //openFileDialog.InitialDirectory = @"C:\Users\Admin\Desktop";
+
+                openFileDialog.Filter = "Текстовые файлы (*.txt;*.docx;*.doc)|*.txt;*.docx;*.doc|Все файлы (*.*)|*.*";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.Multiselect = false;
+
+                //openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+
+                    //Read the contents of the file into a stream
+                    var fileStream = openFileDialog.OpenFile();
+
+                    using (StreamReader reader = new StreamReader(fileStream))
+                    {
+                        fileContent = reader.ReadToEnd();
+                    }
+
+                    doiContent.Add(fileContent);
+
+                    //Проверка
+                    //richTextBox1.Text = string.Join("\r\n", fileContent);
+                }
+            }
+
+        }
+
+        private void panel1_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                panelLabel.Text = "Перетащите файл сюда";
+                e.Effect = DragDropEffects.Copy;
+            }
+        }
+
+        private void panel1_DragLeave(object sender, EventArgs e)
+        {
+            panelLabel.Text = "Нажмите, чтобы выбрать файл или перетащите в это поле";
+        }
+
+        private void panel1_DragDrop(object sender, DragEventArgs e)
+        {
+
+            //var allowedExtensions = new[] { ".text", ".docx", ".doc" };
+
+            //Обработка на "Если файлов несколько" и "Если перекидывается папка с файлами"
+
+            var fileContent = string.Empty;
+
+            List<string> paths = new List<string>();
+            List<string> files = new List<string>();
+
+            foreach (string obj in (string[])e.Data.GetData(DataFormats.FileDrop))
+
+                //Если папка c файлами
+                if (Directory.Exists(obj))
+                {
+                    paths.AddRange(Directory.GetFiles(obj, "*.txt", SearchOption.AllDirectories));
+                    paths.AddRange(Directory.GetFiles(obj, "*.docx", SearchOption.AllDirectories));
+                    paths.AddRange(Directory.GetFiles(obj, "*.doc", SearchOption.AllDirectories));
+                }
+
+                //Если одиночный файл
+                else
+                {
+
+                    //Нужно подцепить регулярку
+
+                    //string pattern = @"(?<=.)(txt|doc|docx)(?=.|\z)";
+
+                    paths.Add(obj);
+                }
+
+
+            //Проверка
+            var formattedPaths = string.Join("\r\n", paths);
+
+            using (StreamReader reader = new StreamReader(formattedPaths))
+            {
+                fileContent = reader.ReadToEnd();
+            }
+
+            doiContent.Add(fileContent);
+
+        }
+
+        private void panel1_Click(object sender, EventArgs e)
+        {
+            openFileDialog();
+        }
+
+        private void panelLabel_Click(object sender, EventArgs e)
+        {
+            openFileDialog();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            openFileDialog();
         }
     }
 }
