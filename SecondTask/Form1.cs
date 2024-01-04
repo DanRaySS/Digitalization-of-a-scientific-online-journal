@@ -7,6 +7,8 @@ using Aspose.Cells;
 using System.Collections.Generic;
 using Microsoft.VisualBasic.Devices;
 using System.Diagnostics.Eventing.Reader;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace WinFormsApp1
 {
@@ -19,7 +21,7 @@ namespace WinFormsApp1
         TextInfo textInfo = new CultureInfo("ru-RU").TextInfo;
         List<string> blocks = new List<string> { "Авторы", "Название статьи",
             "Название журнала", "DOI", "Год", "Том", "Издание", "Страницы или номер"};
-        List<string> doiContent = new List<string>();
+        List<string> doiContentList = new List<string>();
 
 
         public Form1()
@@ -720,41 +722,98 @@ namespace WinFormsApp1
 
 
 
+        //Для обработки .doc | .docx
 
+        private string OpenWordprocessingDocumentReadonly(string filepath)
+        {
+            // Open a WordprocessingDocument based on a filepath.
+            using (WordprocessingDocument wordDocument =
+                WordprocessingDocument.Open(filepath, false))
+            {
+                // Assign a reference to the existing document body.  
+                Body body = wordDocument.MainDocumentPart.Document.Body;
+                //text of Docx file 
+                return body.InnerText.ToString();
+            }
+        }
 
+        private string FormattingWordBodyText(string body)
+        {
+            return string.Join("\r\n", body);
+        }
+
+        //Для открытия выбора файла
 
         private void openFileDialog()
         {
 
-            var fileContent = string.Empty;
+            var txtContent = string.Empty;
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
 
-
+                //Деффолтный путь, откуда брать файлы
                 //openFileDialog.InitialDirectory = @"C:\Users\Admin\Desktop";
 
                 openFileDialog.Filter = "Текстовые файлы (*.txt;*.docx;*.doc)|*.txt;*.docx;*.doc|Все файлы (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
-                openFileDialog.Multiselect = false;
+                openFileDialog.Multiselect = true;
 
+
+                //Чтобы не запоминал путь
                 //openFileDialog.RestoreDirectory = true;
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
 
-                    //Read the contents of the file into a stream
+                    //Читает контент файла в потоке
                     var fileStream = openFileDialog.OpenFile();
 
-                    using (StreamReader reader = new StreamReader(fileStream))
+                    //FilePath | Путь файла
+                    string fileName = openFileDialog.FileName;
+                    string[] arrAllFiles = openFileDialog.FileNames; //used when Multiselect = true 
+
+
+                    //Проверка, если файл формата .txt
+                    for (int i = 0; i < arrAllFiles.Length; i++)
                     {
-                        fileContent = reader.ReadToEnd();
+                        if (arrAllFiles[i].EndsWith(".txt"))
+                        {
+
+                            using (StreamReader reader = new StreamReader(arrAllFiles[i]))
+                            {
+                                txtContent = reader.ReadToEnd();
+                            }
+
+                            string resultTxtString = Regex.Replace(txtContent, @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
+
+
+                            doiContentList.Add(resultTxtString);
+
+                            //Проверка
+                            richTextBox1.Text = resultTxtString;
+                        }
+
+                        //Проверка, если файл формата .docx | .doc
+
+                        else if (arrAllFiles[i].EndsWith(".docx") || arrAllFiles[i].EndsWith(".doc"))
+                        //else
+                        {
+
+                            ////Unformatting word
+
+                            string wordBody = OpenWordprocessingDocumentReadonly(fileName);
+
+                            ////Formatting word
+
+                            string resultWordBody = FormattingWordBodyText(wordBody);
+
+                            doiContentList.Add(resultWordBody);
+
+                            ////Проверка
+                            richTextBox1.Text = resultWordBody;
+                        }
                     }
-
-                    doiContent.Add(fileContent);
-
-                    //Проверка
-                    //richTextBox1.Text = string.Join("\r\n", fileContent);
                 }
             }
 
@@ -816,7 +875,7 @@ namespace WinFormsApp1
                 fileContent = reader.ReadToEnd();
             }
 
-            doiContent.Add(fileContent);
+            doiContentList.Add(fileContent);
 
         }
 

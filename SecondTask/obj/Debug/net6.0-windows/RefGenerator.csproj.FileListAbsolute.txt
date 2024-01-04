@@ -43,3 +43,7 @@ C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\Sec
 C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Debug\net6.0-windows\runtimes\win\lib\net6.0\System.Security.Cryptography.Pkcs.dll
 C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Debug\net6.0-windows\RefGenerator.csproj.AssemblyReference.cache
 C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Debug\net6.0-windows\RefGenerator.csproj.CopyComplete
+C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Debug\net6.0-windows\DocumentFormat.OpenXml.dll
+C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Debug\net6.0-windows\DocumentFormat.OpenXml.Framework.dll
+C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Debug\net6.0-windows\System.IO.Packaging.dll
+C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Debug\net6.0-windows\Microsoft.Office.Interop.Word.dll

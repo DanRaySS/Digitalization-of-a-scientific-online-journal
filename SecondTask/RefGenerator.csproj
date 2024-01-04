@@ -6,10 +6,13 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Aspose.Cells" Version="23.12.0" />
+    <PackageReference Include="DocumentFormat.OpenXml" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Office.Interop.Word" Version="15.0.4797.1004" />
     <PackageReference Include="System.Collections" Version="4.3.0" />
   </ItemGroup>
 

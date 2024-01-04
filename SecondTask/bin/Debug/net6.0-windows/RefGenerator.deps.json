@@ -9,6 +9,8 @@
       "RefGenerator/1.0.0": {
         "dependencies": {
           "Aspose.Cells": "23.12.0",
+          "DocumentFormat.OpenXml": "3.0.0",
+          "Microsoft.Office.Interop.Word": "15.0.4797.1004",
           "System.Collections": "4.3.0"
         },
         "runtime": {
@@ -28,8 +30,38 @@
           }
         }
       },
+      "DocumentFormat.OpenXml/3.0.0": {
+        "dependencies": {
+          "DocumentFormat.OpenXml.Framework": "3.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/DocumentFormat.OpenXml.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
+      "DocumentFormat.OpenXml.Framework/3.0.0": {
+        "dependencies": {
+          "System.IO.Packaging": "8.0.0"
+        },
+        "runtime": {
+          "lib/net6.0/DocumentFormat.OpenXml.Framework.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.0.0.0"
+          }
+        }
+      },
       "Microsoft.NETCore.Platforms/3.1.0": {},
       "Microsoft.NETCore.Targets/1.1.0": {},
+      "Microsoft.Office.Interop.Word/15.0.4797.1004": {
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Office.Interop.Word.dll": {
+            "assemblyVersion": "15.0.0.0",
+            "fileVersion": "15.0.4797.1003"
+          }
+        }
+      },
       "Microsoft.Win32.SystemEvents/6.0.0": {},
       "System.Collections/4.3.0": {
         "dependencies": {
@@ -44,6 +76,14 @@
         }
       },
       "System.Formats.Asn1/6.0.0": {},
+      "System.IO.Packaging/8.0.0": {
+        "runtime": {
+          "lib/net6.0/System.IO.Packaging.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
+        }
+      },
       "System.Runtime/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "3.1.0",
@@ -89,6 +129,20 @@
       "path": "aspose.cells/23.12.0",
       "hashPath": "aspose.cells.23.12.0.nupkg.sha512"
     },
+    "DocumentFormat.OpenXml/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-o2xu17+4VOT4gKwpEcL5UBNYWrP1HQGkfe+K+LHvq5/07UjpzoGMBQzWMhGimzgL1Q2lEPYAp7JgBNZWTcfGKw==",
+      "path": "documentformat.openxml/3.0.0",
+      "hashPath": "documentformat.openxml.3.0.0.nupkg.sha512"
+    },
+    "DocumentFormat.OpenXml.Framework/3.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kWjZuwFsdbbKA5U3o2X6tQn0yI9gr2Oy4CHWvbc5eHRUcbl5FUi1Si44I3SW3CxyK/3AcMiC4/99wjBVLOk54A==",
+      "path": "documentformat.openxml.framework/3.0.0",
+      "hashPath": "documentformat.openxml.framework.3.0.0.nupkg.sha512"
+    },
     "Microsoft.NETCore.Platforms/3.1.0": {
       "type": "package",
       "serviceable": true,
@@ -102,6 +156,13 @@
       "sha512": "sha512-aOZA3BWfz9RXjpzt0sRJJMjAscAUm3Hoa4UWAfceV9UTYxgwZ1lZt5nO2myFf+/jetYQo4uTP7zS8sJY67BBxg==",
       "path": "microsoft.netcore.targets/1.1.0",
       "hashPath": "microsoft.netcore.targets.1.1.0.nupkg.sha512"
+    },
+    "Microsoft.Office.Interop.Word/15.0.4797.1004": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lavTOrMGK/o/t3+gGr7JuVrL8XDdnS0DwPLcYv/StOiysXO4L0C36IXTVtEJo1Mh9Aoxo9a8dgGcPi+faTlv0g==",
+      "path": "microsoft.office.interop.word/15.0.4797.1004",
+      "hashPath": "microsoft.office.interop.word.15.0.4797.1004.nupkg.sha512"
     },
     "Microsoft.Win32.SystemEvents/6.0.0": {
       "type": "package",
@@ -130,6 +191,13 @@
       "sha512": "sha512-T6fD00dQ3NTbPDy31m4eQUwKW84s03z0N2C8HpOklyeaDgaJPa/TexP4/SkORMSOwc7WhKifnA6Ya33AkzmafA==",
       "path": "system.formats.asn1/6.0.0",
       "hashPath": "system.formats.asn1.6.0.0.nupkg.sha512"
+    },
+    "System.IO.Packaging/8.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8g1V4YRpdGAxFcK8v9OjuMdIOJSpF30Zb1JGicwVZhly3I994WFyBdV6mQEo8d3T+URQe55/M0U0eIH0Hts1bg==",
+      "path": "system.io.packaging/8.0.0",
+      "hashPath": "system.io.packaging.8.0.0.nupkg.sha512"
     },
     "System.Runtime/4.3.0": {
       "type": "package",
