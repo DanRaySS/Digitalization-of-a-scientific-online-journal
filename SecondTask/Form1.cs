@@ -724,7 +724,7 @@ namespace WinFormsApp1
 
         //Для обработки .doc | .docx
 
-        private string OpenWordprocessingDocumentReadonly(string filepath)
+        private void OpenWordprocessingDocumentReadonly(string filepath)
         {
             // Open a WordprocessingDocument based on a filepath.
             using (WordprocessingDocument wordDocument =
@@ -732,15 +732,27 @@ namespace WinFormsApp1
             {
                 // Assign a reference to the existing document body.  
                 Body body = wordDocument.MainDocumentPart.Document.Body;
+                if (body.InnerText == "")
+                {
+                    return;
+                }
                 //text of Docx file 
-                return body.InnerText.ToString();
+                //return body.InnerText.ToString();
+                //List<string> result = new List<string>();
+                var bodyElements = body.ChildElements;
+                for (int i = 0; i < bodyElements.Count; i++)
+                    //Проверка на пробел и строка без символов.
+                    if (bodyElements[i].InnerText != " " && bodyElements[i].InnerText != "")
+                    {
+                        doiContentList.Add(bodyElements[i].InnerText.ToString());
+                    }
             }
         }
 
-        private string FormattingWordBodyText(string body)
-        {
-            return string.Join("\r\n", body);
-        }
+        //private string FormattingWordBodyText(string body)
+        //{
+        //    return string.Join("\r\n", body);
+        //}
 
         //Для открытия выбора файла
 
@@ -770,7 +782,7 @@ namespace WinFormsApp1
                     var fileStream = openFileDialog.OpenFile();
 
                     //FilePath | Путь файла
-                    string fileName = openFileDialog.FileName;
+                    //string fileName = openFileDialog.FileName;
                     string[] arrAllFiles = openFileDialog.FileNames; //used when Multiselect = true 
 
 
@@ -785,13 +797,27 @@ namespace WinFormsApp1
                                 txtContent = reader.ReadToEnd();
                             }
 
-                            string resultTxtString = Regex.Replace(txtContent, @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
+                            //Юзаю регулярку, убираю лишнее
+                            string txtBody = Regex.Replace(txtContent, @"^\s+$[\r\n]*", string.Empty, RegexOptions.Multiline);
 
+                            //Альтернативный вариант
+                            //string resultTxtString = Regex.Replace(txtContent, @"^\s+", string.Empty, RegexOptions.Multiline);
 
-                            doiContentList.Add(resultTxtString);
+                            //char[] delimiterChars = { '\r', '\n' };
+                            char[] delimiterChars = { '\n' };
 
-                            //Проверка
-                            richTextBox1.Text = resultTxtString;
+                            string[] resultTxtLines = txtBody.Split(delimiterChars);
+
+                            foreach (var resultTxtLine in resultTxtLines)
+                            {
+                                //Проверка на пустую строку
+                                if (resultTxtLine != " ")
+                                {
+                                    doiContentList.Add(resultTxtLine);
+                                }
+                                
+                            }
+
                         }
 
                         //Проверка, если файл формата .docx | .doc
@@ -802,16 +828,18 @@ namespace WinFormsApp1
 
                             ////Unformatting word
 
-                            string wordBody = OpenWordprocessingDocumentReadonly(fileName);
+                            //string wordBody = OpenWordprocessingDocumentReadonly(fileName);
 
                             ////Formatting word
 
-                            string resultWordBody = FormattingWordBodyText(wordBody);
+                            //string resultWordBody = FormattingWordBodyText(wordBody);
 
-                            doiContentList.Add(resultWordBody);
+                            OpenWordprocessingDocumentReadonly(arrAllFiles[i]);
 
-                            ////Проверка
-                            richTextBox1.Text = resultWordBody;
+                            //doiContentList.Add(resultWordBody);
+
+                            //////Проверка
+                            //richTextBox1.Text = resultWordBody;
                         }
                     }
                 }
@@ -876,6 +904,11 @@ namespace WinFormsApp1
             }
 
             doiContentList.Add(fileContent);
+
+            //Проверка
+            richTextBox1.Text = fileContent;
+
+            panelLabel.Text = "Нажмите, чтобы выбрать файл или перетащите в это поле";
 
         }
 
