@@ -105,7 +105,6 @@
             panelLabel = new Label();
             label17 = new Label();
             button1 = new Button();
-            button2 = new Button();
             authorsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AuthorsLimiter).BeginInit();
             articleBox.SuspendLayout();
@@ -963,21 +962,11 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click_1;
             // 
-            // button2
-            // 
-            button2.Location = new Point(1145, 328);
-            button2.Name = "button2";
-            button2.Size = new Size(112, 41);
-            button2.TabIndex = 42;
-            button2.Text = "Очистить";
-            button2.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1411, 480);
-            Controls.Add(button2);
             Controls.Add(button1);
             Controls.Add(label17);
             Controls.Add(panel1);
