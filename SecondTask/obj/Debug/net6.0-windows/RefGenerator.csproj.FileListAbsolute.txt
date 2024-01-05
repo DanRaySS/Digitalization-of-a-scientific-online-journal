@@ -27,7 +27,6 @@ C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\Sec
 C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Debug\net6.0-windows\RefGenerator.AssemblyInfoInputs.cache
 C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Debug\net6.0-windows\RefGenerator.AssemblyInfo.cs
 C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Debug\net6.0-windows\RefGenerator.csproj.CoreCompileInputs.cache
-C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Debug\net6.0-windows\RefGenerator.sourcelink.json
 C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Debug\net6.0-windows\RefGenerator.dll
 C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Debug\net6.0-windows\refint\RefGenerator.dll
 C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Debug\net6.0-windows\RefGenerator.pdb

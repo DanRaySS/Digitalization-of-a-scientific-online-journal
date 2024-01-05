@@ -744,15 +744,98 @@ namespace WinFormsApp1
                     //Проверка на пробел и строка без символов.
                     if (bodyElements[i].InnerText != " " && bodyElements[i].InnerText != "")
                     {
-                        doiContentList.Add(bodyElements[i].InnerText.ToString());
+
+                        //Если нет нумерации, то сразу добавить
+
+                        if (!char.IsDigit(bodyElements[i].InnerText[0]))
+                        {
+                            doiContentList.Add(bodyElements[i].InnerText.ToString());
+                        }
+
+                        //Начало проверки на нумерацию, проверка на первую цифру
+
+                        else
+                        {
+                            if (bodyElements[i].InnerText[1] == '.' || bodyElements[i].InnerText[1] == ')')
+                            {
+                                
+                                if (bodyElements[i].InnerText[2] == ' ' || 
+                                    bodyElements[i].InnerText[2].ToString() == " " ||
+                                    Char.IsWhiteSpace(bodyElements[i].InnerText[2]))
+                                {
+                                    string doiWordEl = bodyElements[i].InnerText.Substring(3);
+
+                                    //Убрать возвр. коретки
+
+                                    if (bodyElements[i].InnerText.EndsWith('\r'))
+                                    {
+                                        doiWordEl = doiWordEl.TrimEnd('\r');
+
+                                        doiContentList.Add(doiWordEl);
+                                    }
+
+                                    //Убрать табы
+
+                                    else if (bodyElements[i].InnerText.EndsWith('\t'))
+                                    {
+                                        doiWordEl = doiWordEl.TrimEnd('\t');
+
+                                        doiContentList.Add(doiWordEl);
+                                    }
+
+                                    //Если нет спец. знаков, то просто добавить в список
+
+                                    else
+                                    {
+                                        doiContentList.Add(doiWordEl);
+                                    }
+
+                                }
+                            }
+
+
+                            else if (char.IsDigit(bodyElements[i].InnerText[1]))
+                            {
+                                if (bodyElements[i].InnerText[2] == '.' || bodyElements[i].InnerText[2] == ')')
+                                {
+                                    if (bodyElements[i].InnerText[3] == ' ' || 
+                                        bodyElements[i].InnerText[3].ToString() == " " ||
+                                        Char.IsWhiteSpace(bodyElements[i].InnerText[3]))
+                                    {
+                                        string doiWordEl = bodyElements[i].InnerText.Substring(4);
+
+                                        //Убрать возвр. коретки
+
+                                        if (bodyElements[i].InnerText.EndsWith('\r'))
+                                        {
+                                            doiWordEl = doiWordEl.TrimEnd('\r');
+
+                                            doiContentList.Add(doiWordEl);
+                                        }
+
+                                        //Убрать табы
+
+                                        else if (bodyElements[i].InnerText.EndsWith('\t'))
+                                        {
+                                            doiWordEl = doiWordEl.TrimEnd('\t');
+
+                                            doiContentList.Add(doiWordEl);
+                                        }
+
+                                        //Если нет спец. знаков, то просто добавить в список
+
+                                        else
+                                        {
+                                            doiContentList.Add(doiWordEl);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
                     }
             }
         }
-
-        //private string FormattingWordBodyText(string body)
-        //{
-        //    return string.Join("\r\n", body);
-        //}
 
         //Для открытия выбора файла
 
@@ -787,6 +870,7 @@ namespace WinFormsApp1
 
 
                     //Проверка, если файл формата .txt
+
                     for (int i = 0; i < arrAllFiles.Length; i++)
                     {
                         if (arrAllFiles[i].EndsWith(".txt"))
@@ -804,16 +888,121 @@ namespace WinFormsApp1
                             //string resultTxtString = Regex.Replace(txtContent, @"^\s+", string.Empty, RegexOptions.Multiline);
 
                             //char[] delimiterChars = { '\r', '\n' };
-                            char[] delimiterChars = { '\n' };
+                            //char[] delimiterChars = { '\n' };
 
-                            string[] resultTxtLines = txtBody.Split(delimiterChars);
+                            string[] txtLines = txtBody.Split('\n');
 
-                            foreach (var resultTxtLine in resultTxtLines)
+                            foreach (var txtLine in txtLines)
                             {
-                                //Проверка на пустую строку
-                                if (resultTxtLine != " ")
+
+                                //Проверка на пустую строку/пробел
+
+                                if (txtLine == " " || txtLine == "")
                                 {
-                                    doiContentList.Add(resultTxtLine);
+                                    continue;
+                                }
+
+                                //Начало проверки на нумерацию, проверка на первую цифру
+
+                                if (char.IsDigit(txtLine[0]))
+                                {
+                                    if (txtLine[1] == '.' || txtLine[1] == ')')
+                                    {
+                                        if (txtLine[2] == ' ')
+                                        {
+                                            string doiTxtEl = txtLine.Substring(3);
+
+                                            //Убрать возвр. коретки
+
+                                            if (txtLine.EndsWith('\r'))
+                                            {
+                                                doiTxtEl = doiTxtEl.TrimEnd('\r');
+
+                                                doiContentList.Add(doiTxtEl);
+                                            }
+
+                                            //Убрать табы
+
+                                            else if (txtLine.EndsWith('\t'))
+                                            {
+                                                doiTxtEl = doiTxtEl.TrimEnd('\t');
+
+                                                doiContentList.Add(doiTxtEl);
+                                            }
+
+                                            //Если нет спец. знаков, то просто добавить в список
+
+                                            else
+                                            {
+                                                doiContentList.Add(doiTxtEl);
+                                            }
+
+                                        }
+                                    }
+
+
+                                    else if (char.IsDigit(txtLine[1])) 
+                                    {
+                                        if (txtLine[2] == '.' || txtLine[2] == ')')
+                                        {
+                                            if (txtLine[3] == ' ')
+                                            {
+                                                string doiTxtEl = txtLine.Substring(4);
+
+                                                //Убрать возвр. коретки
+
+                                                if (txtLine.EndsWith('\r'))
+                                                {
+                                                    doiTxtEl = doiTxtEl.TrimEnd('\r');
+
+                                                    doiContentList.Add(doiTxtEl);
+                                                }
+
+                                                //Убрать табы
+
+                                                else if (txtLine.EndsWith('\t'))
+                                                {
+                                                    doiTxtEl = doiTxtEl.TrimEnd('\t');
+
+                                                    doiContentList.Add(doiTxtEl);
+                                                }
+
+                                                //Если нет спец. знаков, то просто добавить в список
+
+                                                else
+                                                {
+                                                    doiContentList.Add(doiTxtEl);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+
+
+
+                                //Убрать возвр. коретки
+
+                                else if (txtLine.EndsWith('\r'))
+                                {
+                                    string doiTxtEl = txtLine.TrimEnd('\r');
+
+                                    doiContentList.Add(doiTxtEl);
+                                }
+
+                                //Убрать табы
+
+                                else if (txtLine.EndsWith('\t'))
+                                {
+                                    string doiTxtEl = txtLine.TrimEnd('\t');
+
+                                    doiContentList.Add(doiTxtEl);
+                                }
+
+                                //Если нет спец. знаков, то просто добавить в список
+
+                                else
+                                {
+                                    doiContentList.Add(txtLine);
                                 }
                                 
                             }
@@ -846,6 +1035,10 @@ namespace WinFormsApp1
             }
 
         }
+
+
+        //Drag and drop
+
 
         private void panel1_DragEnter(object sender, DragEventArgs e)
         {
