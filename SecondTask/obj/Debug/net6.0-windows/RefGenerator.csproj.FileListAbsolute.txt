@@ -47,3 +47,7 @@ C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\Sec
 C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Debug\net6.0-windows\System.IO.Packaging.dll
 C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Debug\net6.0-windows\Microsoft.Office.Interop.Word.dll
 C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Debug\net6.0-windows\RefGenerator.sourcelink.json
+C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Debug\net6.0-windows\DocumentFormat.OpenXml.dll
+C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Debug\net6.0-windows\DocumentFormat.OpenXml.Framework.dll
+C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Debug\net6.0-windows\Microsoft.Office.Interop.Word.dll
+C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Debug\net6.0-windows\System.IO.Packaging.dll
