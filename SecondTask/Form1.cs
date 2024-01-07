@@ -926,6 +926,10 @@ namespace WinFormsApp1
                                             doiContentList.Add(doiTxtEl);
                                         }
                                     }
+                                    else
+                                    {
+                                        doiContentList.Add(txtLine);
+                                    }
                                 }
                             }
                         }
