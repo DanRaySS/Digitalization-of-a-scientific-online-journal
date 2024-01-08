@@ -20,7 +20,6 @@ namespace WinFormsApp1
         RequestsHandler handler;
         Regex regex = new Regex(@"[A-Z]");
         MatchCollection matches;
-        TextInfo textInfo = new CultureInfo("ru-RU").TextInfo;
         List<string> blocks = new List<string> { "Авторы", "Название статьи",
             "Название журнала", "DOI", "Год", "Том", "Издание", "Страницы или номер"};
         List<string> doiContentList = new List<string>();
@@ -31,6 +30,7 @@ namespace WinFormsApp1
             InitializeComponent();
             blocksCount = 8;
             handler = new RequestsHandler();
+
             AuthPosDropList.SelectedItem = AuthPosDropList.Items[0];
             NameSepDropList.SelectedItem = NameSepDropList.Items[0];
             AuthSepDropList.SelectedItem = AuthSepDropList.Items[0];
@@ -38,11 +38,14 @@ namespace WinFormsApp1
             JournalNameDropList.SelectedItem = JournalNameDropList.Items[0];
             DOIDropList.SelectedItem = DOIDropList.Items[0];
             PagesDivider.SelectedItem = PagesDivider.Items[0];
+
             DOIinput.Text = "https://doi.org/10.1070/RCR4987";
+
             Block1.Items.AddRange(blocks.ToArray()); Block2.Items.AddRange(blocks.ToArray());
             Block3.Items.AddRange(blocks.ToArray()); Block4.Items.AddRange(blocks.ToArray());
             Block5.Items.AddRange(blocks.ToArray()); Block6.Items.AddRange(blocks.ToArray());
             Block7.Items.AddRange(blocks.ToArray()); Block8.Items.AddRange(blocks.ToArray());
+
             Divider1.SelectedItem = Divider2.SelectedItem = Divider3.SelectedItem =
             Divider4.SelectedItem = Divider5.SelectedItem = Divider6.SelectedItem =
             Divider7.SelectedItem = Divider1.Items[0];
@@ -53,6 +56,7 @@ namespace WinFormsApp1
         private async void button1_Click(object sender, EventArgs e)
         {
             richTextBox1.Text = "";
+
             if (DOIinput.Text == "")
             {
                 richTextBox1.Text = "Error, empty field.";
@@ -244,6 +248,15 @@ namespace WinFormsApp1
                     Workbook wb = new Workbook("Journals.xlsx");
                     Worksheet worksheet = wb.Worksheets[0];
                     Dictionary<int, string> pairs = new Dictionary<int, string>();
+                    journal = Regex.Replace(journal, @"(of|in|by|and|the|a|an|at|on|under|above|between|to|into|out of|from|through|along|across|before|after|till|until|ago|during|since|for|because of|due to|thanks to|in accordance with|against|behind|below|around|towards|back to|in front of|outside|on account of|upon)",
+                        "", RegexOptions.IgnoreCase);
+                    journal = Regex.Replace(journal.TrimStart(' ', '-', '–').TrimEnd(' ', '-', '–'), @"\s\s+", " ");
+
+                    if (journal.Split(' ', '-', '–').Length == 1)
+                    {
+                        rtb.AppendText(journal);
+                        return;
+                    }
 
                     for (int i = 0; i < worksheet.Cells.MaxDataRow; i++)
                     {

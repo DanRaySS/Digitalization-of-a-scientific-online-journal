@@ -14,6 +14,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = RefGenerator
-build_property.ProjectDir = C:\Users\user\Documents\GitHub\Digitalization-of-a-scientific-online-journal\SecondTask\
-build_property.EnableComHosting = 
-build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.ProjectDir = C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\
