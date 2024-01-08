@@ -729,10 +729,101 @@ namespace WinFormsApp1
 
         //LOAD FILE
 
-        //Для обработки .doc | .docx
-        private void OpenWordprocessingDocumentReadonly(string filepath)
+        //Проверка на нумерацию 
+
+        private void CheckOnNumeration(string txtLine)
         {
-            // Open a WordprocessingDocument based on a filepath.
+            if (!char.IsDigit(txtLine[0]))
+            {
+                if (!char.IsDigit(txtLine[1]))
+                {
+                    doiContentList.Add(txtLine);
+                    return;
+                }
+            }
+
+            if (txtLine[1] != '.')
+            {
+                if (txtLine[1] != ')')
+                {
+                    if (txtLine[2] != '.')
+                    {
+                        if (txtLine[2] != ')')
+                        {
+                            doiContentList.Add(txtLine);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            string doiTxtEl = string.Empty;
+
+            if (txtLine[2] != ' ' && !string.IsNullOrWhiteSpace(txtLine[2].ToString()))
+            {
+                if (txtLine[3] != ' ' && !string.IsNullOrWhiteSpace(txtLine[3].ToString()))
+                {
+                    doiContentList.Add(txtLine);
+                    return;
+                }
+
+                else
+                {
+                    doiTxtEl = txtLine.Substring(4);
+                }
+            }
+
+            else
+            {
+                doiTxtEl = txtLine.Substring(3);
+            }
+
+            //Убрать возвр. коретки и табы
+
+            if (!txtLine.EndsWith('\r'))
+            {
+                if (!txtLine.EndsWith('\t'))
+                {
+                    doiContentList.Add(doiTxtEl);
+                    return;
+                }
+            }
+
+            if (txtLine.EndsWith('\r'))
+            {
+                doiTxtEl = doiTxtEl.TrimEnd('\r');
+                if (doiTxtEl.EndsWith('\t'))
+                {
+                    doiTxtEl = doiTxtEl.TrimEnd('\t');
+                    doiContentList.Add(doiTxtEl);
+                    return;
+                }
+                doiContentList.Add(doiTxtEl);
+                return;
+            }
+
+            else if (txtLine.EndsWith('\t'))
+            {
+                doiTxtEl = doiTxtEl.TrimEnd('\t');
+                if (doiTxtEl.EndsWith('\r'))
+                {
+                    doiTxtEl = doiTxtEl.TrimEnd('\r');
+                    doiContentList.Add(doiTxtEl);
+                    return;
+                }
+                doiContentList.Add(doiTxtEl);
+                return;
+            }
+
+            //Если нет спец. знаков, то просто добавить в список
+
+            doiContentList.Add(doiTxtEl);
+        }
+
+        //Для обработки .doc | .docx
+        private void ReadWordDocument(string filepath)
+        {
+            // Open a Document based on a filepath.
 
             using (WordprocessingDocument wordDocument =
                 WordprocessingDocument.Open(filepath, false))
@@ -756,84 +847,10 @@ namespace WinFormsApp1
                     {
                         //Если нет нумерации, то сразу добавить
 
-                        if (!char.IsDigit(bodyElements[i].InnerText[0]))
-                        {
-                            doiContentList.Add(bodyElements[i].InnerText.ToString());
-                        }
+                        string bodyElement = bodyElements[i].InnerText.ToString();
 
-                        //Начало проверки на нумерацию, проверка на первую цифру
+                        CheckOnNumeration(bodyElement);
 
-                        else if (bodyElements[i].InnerText[1] == '.' || bodyElements[i].InnerText[1] == ')')
-                        {
-                            if (bodyElements[i].InnerText[2] == ' ' || 
-                                bodyElements[i].InnerText[2].ToString() == " " ||
-                                Char.IsWhiteSpace(bodyElements[i].InnerText[2]))
-                            {
-                                string doiWordEl = bodyElements[i].InnerText.Substring(3);
-
-                                //Убрать возвр. коретки
-
-                                if (bodyElements[i].InnerText.EndsWith('\r'))
-                                {
-                                    doiWordEl = doiWordEl.TrimEnd('\r');
-                                    doiContentList.Add(doiWordEl);
-                                }
-
-                                //Убрать табы
-
-                                else if (bodyElements[i].InnerText.EndsWith('\t'))
-                                {
-                                    doiWordEl = doiWordEl.TrimEnd('\t');
-                                    doiContentList.Add(doiWordEl);
-                                }
-
-                                //Если нет спец. знаков, то просто добавить в список
-
-                                else
-                                {
-                                    doiContentList.Add(doiWordEl);
-                                }
-
-                            }
-
-                            else if (char.IsDigit(bodyElements[i].InnerText[1]))
-                            {
-                                if (bodyElements[i].InnerText[2] == '.' || bodyElements[i].InnerText[2] == ')')
-                                {
-                                    if (bodyElements[i].InnerText[3] == ' ' || 
-                                        bodyElements[i].InnerText[3].ToString() == " " ||
-                                        Char.IsWhiteSpace(bodyElements[i].InnerText[3]))
-                                    {
-                                        string doiWordEl = bodyElements[i].InnerText.Substring(4);
-
-                                        //Убрать возвр. коретки
-
-                                        if (bodyElements[i].InnerText.EndsWith('\r'))
-                                        {
-                                            doiWordEl = doiWordEl.TrimEnd('\r');
-
-                                            doiContentList.Add(doiWordEl);
-                                        }
-
-                                        //Убрать табы
-
-                                        else if (bodyElements[i].InnerText.EndsWith('\t'))
-                                        {
-                                            doiWordEl = doiWordEl.TrimEnd('\t');
-
-                                            doiContentList.Add(doiWordEl);
-                                        }
-
-                                        //Если нет спец. знаков, то просто добавить в список
-
-                                        else
-                                        {
-                                            doiContentList.Add(doiWordEl);
-                                        }
-                                    }
-                                }
-                            }
-                        }
                     }
             }
         }
@@ -844,11 +861,28 @@ namespace WinFormsApp1
 
             for (int i = 0; i < arrAllFiles.Length; i++)
             {
-                //Проверка, если файл формата .txt
+                //Проверка, если файл формата .txt || .doc/x
 
-                if (arrAllFiles[i].EndsWith(".txt"))
+                var pathOfFile = arrAllFiles[i];
+
+                if (!pathOfFile.EndsWith(".txt") && !pathOfFile.EndsWith(".docx") && !pathOfFile.EndsWith(".doc"))
                 {
-                    using (StreamReader reader = new StreamReader(arrAllFiles[i]))
+                    //Неподдерживаемый формат файла.
+
+                    return;
+                }
+
+                if (pathOfFile.EndsWith(".docx") || pathOfFile.EndsWith(".doc"))
+                {
+                    ReadWordDocument(pathOfFile);
+                }
+
+                //Тогда остаётся .txt
+
+                else
+                {
+
+                    using (StreamReader reader = new StreamReader(pathOfFile))
                     {
                         txtContent = reader.ReadToEnd();
                     }
@@ -873,110 +907,10 @@ namespace WinFormsApp1
                             continue;
                         }
 
-                        //Начало проверки на нумерацию, проверка на первую цифру
+                        //Начало проверки на нумерацию
 
-                        if (char.IsDigit(txtLine[0]))
-                        {
-                            if (txtLine[1] == '.' || txtLine[1] == ')')
-                            {
-                                if (txtLine[2] == ' ')
-                                {
-                                    string doiTxtEl = txtLine.Substring(3);
-
-                                    //Убрать возвр. коретки
-
-                                    if (txtLine.EndsWith('\r'))
-                                    {
-                                        doiTxtEl = doiTxtEl.TrimEnd('\r');
-                                        doiContentList.Add(doiTxtEl);
-                                    }
-
-                                    //Убрать табы
-
-                                    else if (txtLine.EndsWith('\t'))
-                                    {
-                                        doiTxtEl = doiTxtEl.TrimEnd('\t');
-                                        doiContentList.Add(doiTxtEl);
-                                    }
-
-                                    //Если нет спец. знаков, то просто добавить в список
-
-                                    else
-                                    {
-                                        doiContentList.Add(doiTxtEl);
-                                    }
-                                }
-                            }
-
-                            else if (char.IsDigit(txtLine[1]))
-                            {
-                                if (txtLine[2] == '.' || txtLine[2] == ')')
-                                {
-                                    if (txtLine[3] == ' ')
-                                    {
-                                        string doiTxtEl = txtLine.Substring(4);
-
-                                        //Убрать возвр. коретки
-
-                                        if (txtLine.EndsWith('\r'))
-                                        {
-                                            doiTxtEl = doiTxtEl.TrimEnd('\r');
-                                            doiContentList.Add(doiTxtEl);
-                                        }
-
-                                        //Убрать табы
-
-                                        else if (txtLine.EndsWith('\t'))
-                                        {
-                                            doiTxtEl = doiTxtEl.TrimEnd('\t');
-                                            doiContentList.Add(doiTxtEl);
-                                        }
-
-                                        //Если нет спец. знаков, то просто добавить в список
-
-                                        else
-                                        {
-                                            doiContentList.Add(doiTxtEl);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        doiContentList.Add(txtLine);
-                                    }
-                                }
-                            }
-                        }
-
-                        //Убрать возвр. коретки
-
-                        else if (txtLine.EndsWith('\r'))
-                        {
-                            string doiTxtEl = txtLine.TrimEnd('\r');
-                            doiContentList.Add(doiTxtEl);
-                        }
-
-                        //Убрать табы
-
-                        else if (txtLine.EndsWith('\t'))
-                        {
-                            string doiTxtEl = txtLine.TrimEnd('\t');
-                            doiContentList.Add(doiTxtEl);
-                        }
-
-                        //Если нет спец. знаков, то просто добавить в список
-
-                        else
-                        {
-                            doiContentList.Add(txtLine);
-                        }
+                        CheckOnNumeration(txtLine);
                     }
-                }
-
-                //Проверка, если файл формата .docx | .doc
-
-                else if (arrAllFiles[i].EndsWith(".docx") || arrAllFiles[i].EndsWith(".doc"))
-                {
-                    OpenWordprocessingDocumentReadonly(arrAllFiles[i]);
                 }
             }
         }
@@ -1009,7 +943,6 @@ namespace WinFormsApp1
                     GetDoiFromFileNames(arrAllFiles);
                 }
             }
-
         }
 
         //Drag and drop
