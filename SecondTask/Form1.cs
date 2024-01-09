@@ -13,6 +13,7 @@ using System.Collections;
 using System.Linq;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Vml.Office;
 
 namespace WinFormsApp1
 {
@@ -53,6 +54,15 @@ namespace WinFormsApp1
             Divider7.SelectedItem = Divider1.Items[0];
 
             End.SelectedItem = End.Items[0];
+
+            Block1.SelectedItem = Block1.Items[0];
+            Block2.SelectedItem = Block2.Items[1];
+            Block3.SelectedItem = Block3.Items[2];
+            Block4.SelectedItem = Block4.Items[3];
+            Block5.SelectedItem = Block5.Items[4];
+            Block6.SelectedItem = Block6.Items[5];
+            Block7.SelectedItem = Block7.Items[6];
+            Block8.SelectedItem = Block8.Items[7];
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -252,7 +262,7 @@ namespace WinFormsApp1
         {
             var journal = response.message.container_title[0];
 
-            if (journal == ""|| journal == null)
+            if (journal == "" || journal == null)
             {
                 rtb.AppendText("Произошла ошибка в блоке \"Название журнала\"");
                 return;
