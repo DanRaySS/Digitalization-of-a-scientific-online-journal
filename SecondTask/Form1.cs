@@ -11,6 +11,8 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System.Collections;
 using System.Linq;
+using DocumentFormat.OpenXml.Spreadsheet;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace WinFormsApp1
 {
@@ -70,8 +72,6 @@ namespace WinFormsApp1
                 richTextBox1.Text = "Error, wrong input.";
                 return;
             }
-
-            int num = 0;
 
             if (Block1.Text != "" && Block1.Enabled)
                 CheckBlock(Block1.Text, res);
@@ -134,6 +134,14 @@ namespace WinFormsApp1
 
         async void FormAuthorsList(Response1 response, RichTextBox rtb)
         {
+            var authors = response.message.author;
+
+            if (authors.Length == 0 || authors == null)
+            {
+                rtb.AppendText("Произошла ошибка в блоке \"Авторы\"");
+                return;
+            }
+
             string firstW, secondW, initialEnd, initialsSeparator;
             string nameSeparator = NameSepDropList.Text.Trim('"');
             string authorsSeparator = $"{AuthSepDropList.Text} ";
@@ -149,8 +157,6 @@ namespace WinFormsApp1
             else
                 initialsSeparator = "";
 
-
-            var authors = response.message.author;
             int authorsLength = authors.Length;
             if (AuthsLimitCheck.Checked && authorsLength > (int)AuthorsLimiter.Value)
             {
@@ -215,6 +221,13 @@ namespace WinFormsApp1
         async void FormTitle(Response1 response, RichTextBox rtb)
         {
             string title = response.message.title[0];
+
+            if (title == "" || title == null)
+            {
+                rtb.AppendText("Произошла ошибка в блоке \"Название статьи\"");
+                return;
+            }
+
             switch (ArticleNameDropList.SelectedItem)
             {
                 case "Название в нижнем регистре":
@@ -238,6 +251,13 @@ namespace WinFormsApp1
         async void FormJournalName(Response1 response, RichTextBox rtb)
         {
             var journal = response.message.container_title[0];
+
+            if (journal == ""|| journal == null)
+            {
+                rtb.AppendText("Произошла ошибка в блоке \"Название журнала\"");
+                return;
+            }
+
             switch (JournalNameDropList.SelectedItem)
             {
                 case "Полное":
@@ -245,8 +265,8 @@ namespace WinFormsApp1
                     return;
 
                 case "Аббревиатура":
-                    Workbook wb = new Workbook("Journals.xlsx");
-                    Worksheet worksheet = wb.Worksheets[0];
+                    Aspose.Cells.Workbook wb = new Aspose.Cells.Workbook("Journals.xlsx");
+                    Aspose.Cells.Worksheet worksheet = wb.Worksheets[0];
                     Dictionary<int, string> pairs = new Dictionary<int, string>();
                     journal = Regex.Replace(journal, @"(of|in|by|and|the|a|an|at|on|under|above|between|to|into|out of|from|through|along|across|before|after|till|until|ago|during|since|for|because of|due to|thanks to|in accordance with|against|behind|below|around|towards|back to|in front of|outside|on account of|upon)",
                         "", RegexOptions.IgnoreCase);
@@ -313,6 +333,12 @@ namespace WinFormsApp1
         {
             var year = response.message.license[0].start.date.Substring(0, 4);
 
+            if (year == "" || year == null)
+            {
+                rtb.AppendText("Произошла ошибка в блоке \"Год\"");
+                return;
+            }
+
             if (YearBrackets.Checked)
                 year = $"({year})";
 
@@ -345,6 +371,12 @@ namespace WinFormsApp1
         {
             var thome = response.message.volume;
 
+            if (thome == "" || thome == null)
+            {
+                rtb.AppendText("Произошла ошибка в блоке \"Том\"");
+                return;
+            }
+
             if (IssueThomePart.Checked)
             {
                 thome = $"{thome}({response.message.issue})";
@@ -375,38 +407,51 @@ namespace WinFormsApp1
             }
         }
 
-        async void FormNumber(Response1 response, RichTextBox rtb)
+        async void FormIssue(Response1 response, RichTextBox rtb)
         {
-            var number = response.message.issue;
+            var issue = response.message.issue;
+
+            if (issue == "" || issue == null)
+            {
+                rtb.AppendText("Произошла ошибка в блоке \"Издание\"");
+                return;
+            }
 
             if (IssueBold.Checked && IssueItalic.Checked)
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Bold | FontStyle.Italic);
-                rtb.AppendText(number);
+                rtb.AppendText(issue);
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
             else if (IssueBold.Checked && !IssueItalic.Checked)
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Bold);
-                rtb.AppendText(number);
+                rtb.AppendText(issue);
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
             else if (!IssueBold.Checked && IssueItalic.Checked)
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Italic);
-                rtb.AppendText(number);
+                rtb.AppendText(issue);
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
             }
             else
             {
                 rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
-                rtb.AppendText(number);
+                rtb.AppendText(issue);
             }
         }
 
         async void FormPage(Response1 response, RichTextBox rtb)
         {
             var page = response.message.page;
+
+            if (page == null)
+            {
+                rtb.AppendText("Необходим ввод номера статьи");
+                return;
+            }
+
             if (PagesDivider.Text == "Через тире")
                 page = page.Replace("-", "–");
 
@@ -476,6 +521,7 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Авторы");
+                DeleteUncheckedBlock("Авторы");
             }
 
             FormBlockList();
@@ -494,6 +540,7 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Название статьи");
+                DeleteUncheckedBlock("Название статьи");
             }
 
             FormBlockList();
@@ -512,6 +559,7 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Название журнала");
+                DeleteUncheckedBlock("Название журнала");
             }
 
             FormBlockList();
@@ -530,6 +578,7 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("DOI");
+                DeleteUncheckedBlock("DOI");
             }
 
             FormBlockList();
@@ -548,6 +597,7 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Год");
+                DeleteUncheckedBlock("Год");
             }
 
             FormBlockList();
@@ -566,6 +616,7 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Том");
+                DeleteUncheckedBlock("Том");
             }
 
             FormBlockList();
@@ -585,6 +636,7 @@ namespace WinFormsApp1
                     blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Издание");
+                DeleteUncheckedBlock("Издание");
             }
 
             FormBlockList();
@@ -603,6 +655,7 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Страницы или номер");
+                DeleteUncheckedBlock("Страницы или номер");
             }
 
             FormBlockList();
@@ -704,7 +757,7 @@ namespace WinFormsApp1
                     break;
 
                 case "Издание":
-                    FormNumber(res, richTextBox1);
+                    FormIssue(res, richTextBox1);
                     break;
 
                 case "Страницы или номер":
@@ -726,6 +779,25 @@ namespace WinFormsApp1
             Block7.Items.AddRange(blocks.ToArray()); Block8.Items.AddRange(blocks.ToArray());
         }
 
+        private void DeleteUncheckedBlock(string s)
+        {
+            if (Block1.Text == s)
+                Block1.Text = "";
+            if (Block2.Text == s)
+                Block2.Text = "";
+            if (Block3.Text == s)
+                Block3.Text = "";
+            if (Block4.Text == s)
+                Block4.Text = "";
+            if (Block5.Text == s)
+                Block5.Text = "";
+            if (Block6.Text == s)
+                Block6.Text = "";
+            if (Block7.Text == s)
+                Block7.Text = "";
+            if (Block8.Text == s)
+                Block8.Text = "";
+        }
 
         //LOAD FILE
 
@@ -1016,17 +1088,86 @@ namespace WinFormsApp1
 
         private void panel1_Click(object sender, EventArgs e)
         {
+            doiContentList.Clear();
+
             openFileDialog();
         }
 
         private void panelLabel_Click(object sender, EventArgs e)
         {
+            doiContentList.Clear();
+
             openFileDialog();
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        async private void button1_Click_1(object sender, EventArgs e)
         {
+            doiContentList.Clear();
+
             openFileDialog();
+
+            richTextBox1.Text = "";
+
+            if (doiContentList.Count == 0)
+            {
+                richTextBox1.Text = "Error, empty list or wrong input.";
+                return;
+            }
+
+            for (int i = 0; i < doiContentList.Count; i++)
+            {
+                Response1 res = await handler.GetMetadata(doiContentList[i]);
+
+                if (res.status == "error")
+                {
+                    richTextBox1.Text = "Error, wrong input.";
+                    richTextBox1.AppendText("\n");
+                    continue;
+                }
+
+                if (Block1.Text != "" && Block1.Enabled)
+                    CheckBlock(Block1.Text, res);
+                if (Divider1.Enabled)
+                    richTextBox1.AppendText(Divider1.Text.Trim('"'));
+
+                if (Block2.Text != "" && Block2.Enabled)
+                    CheckBlock(Block2.Text, res);
+                if (Divider2.Enabled)
+                    richTextBox1.AppendText(Divider2.Text.Trim('"'));
+
+                if (Block3.Text != "" && Block3.Enabled)
+                    CheckBlock(Block3.Text, res);
+                if (Divider3.Enabled)
+                    richTextBox1.AppendText(Divider3.Text.Trim('"'));
+
+                if (Block4.Text != "" && Block4.Enabled)
+                    CheckBlock(Block4.Text, res);
+                if (Divider4.Enabled)
+                    richTextBox1.AppendText(Divider4.Text.Trim('"'));
+
+                if (Block5.Text != "" && Block5.Enabled)
+                    CheckBlock(Block5.Text, res);
+                if (Divider5.Enabled)
+                    richTextBox1.AppendText(Divider5.Text.Trim('"'));
+
+                if (Block6.Text != "" && Block6.Enabled)
+                    CheckBlock(Block6.Text, res);
+                if (Divider6.Enabled)
+                    richTextBox1.AppendText(Divider6.Text.Trim('"'));
+
+                if (Block7.Text != "" && Block7.Enabled)
+                    CheckBlock(Block7.Text, res);
+                if (Divider7.Enabled)
+                    richTextBox1.AppendText(Divider7.Text.Trim('"'));
+
+                if (Block8.Text != "" && Block8.Enabled)
+                    CheckBlock(Block8.Text, res);
+
+                if (End.Text != "Отсутствует")
+                    richTextBox1.AppendText(End.Text.Trim('"'));
+
+                richTextBox1.AppendText("\n");
+            }
         }
     }
 }
