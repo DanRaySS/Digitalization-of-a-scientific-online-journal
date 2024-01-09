@@ -811,6 +811,75 @@ namespace WinFormsApp1
 
         //LOAD FILE
 
+        //Вывод загрузочных файлов 
+
+        private async Task OutputLoadFilesAsync()
+        {
+
+            richTextBox1.Text = "";
+
+            if (doiContentList.Count == 0)
+            {
+                richTextBox1.Text = "Error, empty list or wrong input.";
+                return;
+            }
+
+            for (int i = 0; i < doiContentList.Count; i++)
+            {
+                Response1 res = await handler.GetMetadata(doiContentList[i]);
+
+                if (res.status == "error")
+                {
+                    richTextBox1.Text = "Error, wrong input.";
+                    richTextBox1.AppendText("\n");
+                    continue;
+                }
+
+                if (Block1.Text != "" && Block1.Enabled)
+                    CheckBlock(Block1.Text, res);
+                if (Divider1.Enabled)
+                    richTextBox1.AppendText(Divider1.Text.Trim('"'));
+
+                if (Block2.Text != "" && Block2.Enabled)
+                    CheckBlock(Block2.Text, res);
+                if (Divider2.Enabled)
+                    richTextBox1.AppendText(Divider2.Text.Trim('"'));
+
+                if (Block3.Text != "" && Block3.Enabled)
+                    CheckBlock(Block3.Text, res);
+                if (Divider3.Enabled)
+                    richTextBox1.AppendText(Divider3.Text.Trim('"'));
+
+                if (Block4.Text != "" && Block4.Enabled)
+                    CheckBlock(Block4.Text, res);
+                if (Divider4.Enabled)
+                    richTextBox1.AppendText(Divider4.Text.Trim('"'));
+
+                if (Block5.Text != "" && Block5.Enabled)
+                    CheckBlock(Block5.Text, res);
+                if (Divider5.Enabled)
+                    richTextBox1.AppendText(Divider5.Text.Trim('"'));
+
+                if (Block6.Text != "" && Block6.Enabled)
+                    CheckBlock(Block6.Text, res);
+                if (Divider6.Enabled)
+                    richTextBox1.AppendText(Divider6.Text.Trim('"'));
+
+                if (Block7.Text != "" && Block7.Enabled)
+                    CheckBlock(Block7.Text, res);
+                if (Divider7.Enabled)
+                    richTextBox1.AppendText(Divider7.Text.Trim('"'));
+
+                if (Block8.Text != "" && Block8.Enabled)
+                    CheckBlock(Block8.Text, res);
+
+                if (End.Text != "Отсутствует")
+                    richTextBox1.AppendText(End.Text.Trim('"'));
+
+                richTextBox1.AppendText("\n");
+            }
+        }
+
         //Проверка на нумерацию 
 
         private void CheckOnNumeration(string txtLine)
@@ -902,7 +971,7 @@ namespace WinFormsApp1
             doiContentList.Add(doiTxtEl);
         }
 
-        //Для обработки .doc | .docx
+        //Для обработки .docx
         private void ReadWordDocument(string filepath)
         {
             // Open a Document based on a filepath.
@@ -943,18 +1012,20 @@ namespace WinFormsApp1
 
             for (int i = 0; i < arrAllFiles.Length; i++)
             {
-                //Проверка, если файл формата .txt || .doc/x
+                //Проверка, если файл формата .txt || .docx
 
                 var pathOfFile = arrAllFiles[i];
 
-                if (!pathOfFile.EndsWith(".txt") && !pathOfFile.EndsWith(".docx") && !pathOfFile.EndsWith(".doc"))
+                if (!pathOfFile.EndsWith(".txt") && !pathOfFile.EndsWith(".docx"))
                 {
                     //Неподдерживаемый формат файла.
+
+                    //panelLabel.Text = "Неподдерживаемый формат файла";
 
                     return;
                 }
 
-                if (pathOfFile.EndsWith(".docx") || pathOfFile.EndsWith(".doc"))
+                if (pathOfFile.EndsWith(".docx"))
                 {
                     ReadWordDocument(pathOfFile);
                 }
@@ -1006,7 +1077,7 @@ namespace WinFormsApp1
                 //Деффолтный путь, откуда брать файлы
                 //openFileDialog.InitialDirectory = @"C:\Users\Admin\Desktop";
 
-                openFileDialog.Filter = "Текстовые файлы (*.txt;*.docx;*.doc)|*.txt;*.docx;*.doc|Все файлы (*.*)|*.*";
+                openFileDialog.Filter = "Текстовые файлы (*.txt;*.docx)|*.txt;*.docx|Все файлы (*.*)|*.*";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.Multiselect = true;
 
@@ -1015,6 +1086,7 @@ namespace WinFormsApp1
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
+
                     //Читает контент файла в потоке
                     var fileStream = openFileDialog.OpenFile();
 
@@ -1024,6 +1096,7 @@ namespace WinFormsApp1
 
                     GetDoiFromFileNames(arrAllFiles);
                 }
+                panelLabel.Text = "Нажмите, чтобы выбрать файл или перетащите в это поле";
             }
         }
 
@@ -1062,7 +1135,6 @@ namespace WinFormsApp1
                 {
                     paths.AddRange(Directory.GetFiles(obj, "*.txt", SearchOption.AllDirectories));
                     paths.AddRange(Directory.GetFiles(obj, "*.docx", SearchOption.AllDirectories));
-                    paths.AddRange(Directory.GetFiles(obj, "*.doc", SearchOption.AllDirectories));
                 }
 
                 //Если одиночный файл
@@ -1070,77 +1142,20 @@ namespace WinFormsApp1
                 {
 
                     //Можно подцепить регулярку
-                    //string pattern = @"(?<=.)(txt|doc|docx)(?=.|\z)";
+                    //string pattern = @"(?<=.)(txt|docx)(?=.|\z)";
 
                     paths.Add(obj);
                 }
 
             string[] arrAllFiles = paths.ToArray();
 
+            doiContentList.Clear();
+
             GetDoiFromFileNames(arrAllFiles);
 
-            richTextBox1.Text = "";
+            panelLabel.Text = "Подождите, идёт загрузка...";
 
-            if (doiContentList.Count == 0)
-            {
-                richTextBox1.Text = "Error, empty list or wrong input.";
-                return;
-            }
-
-            for (int i = 0; i < doiContentList.Count; i++)
-            {
-                Response1 res = await handler.GetMetadata(doiContentList[i]);
-
-                if (res.status == "error")
-                {
-                    richTextBox1.Text = "Error, wrong input.";
-                    richTextBox1.AppendText("\n");
-                    continue;
-                }
-
-                if (Block1.Text != "" && Block1.Enabled)
-                    CheckBlock(Block1.Text, res);
-                if (Divider1.Enabled)
-                    richTextBox1.AppendText(Divider1.Text.Trim('"'));
-
-                if (Block2.Text != "" && Block2.Enabled)
-                    CheckBlock(Block2.Text, res);
-                if (Divider2.Enabled)
-                    richTextBox1.AppendText(Divider2.Text.Trim('"'));
-
-                if (Block3.Text != "" && Block3.Enabled)
-                    CheckBlock(Block3.Text, res);
-                if (Divider3.Enabled)
-                    richTextBox1.AppendText(Divider3.Text.Trim('"'));
-
-                if (Block4.Text != "" && Block4.Enabled)
-                    CheckBlock(Block4.Text, res);
-                if (Divider4.Enabled)
-                    richTextBox1.AppendText(Divider4.Text.Trim('"'));
-
-                if (Block5.Text != "" && Block5.Enabled)
-                    CheckBlock(Block5.Text, res);
-                if (Divider5.Enabled)
-                    richTextBox1.AppendText(Divider5.Text.Trim('"'));
-
-                if (Block6.Text != "" && Block6.Enabled)
-                    CheckBlock(Block6.Text, res);
-                if (Divider6.Enabled)
-                    richTextBox1.AppendText(Divider6.Text.Trim('"'));
-
-                if (Block7.Text != "" && Block7.Enabled)
-                    CheckBlock(Block7.Text, res);
-                if (Divider7.Enabled)
-                    richTextBox1.AppendText(Divider7.Text.Trim('"'));
-
-                if (Block8.Text != "" && Block8.Enabled)
-                    CheckBlock(Block8.Text, res);
-
-                if (End.Text != "Отсутствует")
-                    richTextBox1.AppendText(End.Text.Trim('"'));
-
-                richTextBox1.AppendText("\n");
-            }
+            await OutputLoadFilesAsync();
 
             panelLabel.Text = "Нажмите, чтобы выбрать файл или перетащите в это поле";
         }
@@ -1151,68 +1166,11 @@ namespace WinFormsApp1
 
             openFileDialog();
 
-            richTextBox1.Text = "";
+            panelLabel.Text = "Подождите, идёт загрузка...";
 
-            if (doiContentList.Count == 0)
-            {
-                richTextBox1.Text = "Error, empty list or wrong input.";
-                return;
-            }
+            await OutputLoadFilesAsync();
 
-            for (int i = 0; i < doiContentList.Count; i++)
-            {
-                Response1 res = await handler.GetMetadata(doiContentList[i]);
-
-                if (res.status == "error")
-                {
-                    richTextBox1.Text = "Error, wrong input.";
-                    richTextBox1.AppendText("\n");
-                    continue;
-                }
-
-                if (Block1.Text != "" && Block1.Enabled)
-                    CheckBlock(Block1.Text, res);
-                if (Divider1.Enabled)
-                    richTextBox1.AppendText(Divider1.Text.Trim('"'));
-
-                if (Block2.Text != "" && Block2.Enabled)
-                    CheckBlock(Block2.Text, res);
-                if (Divider2.Enabled)
-                    richTextBox1.AppendText(Divider2.Text.Trim('"'));
-
-                if (Block3.Text != "" && Block3.Enabled)
-                    CheckBlock(Block3.Text, res);
-                if (Divider3.Enabled)
-                    richTextBox1.AppendText(Divider3.Text.Trim('"'));
-
-                if (Block4.Text != "" && Block4.Enabled)
-                    CheckBlock(Block4.Text, res);
-                if (Divider4.Enabled)
-                    richTextBox1.AppendText(Divider4.Text.Trim('"'));
-
-                if (Block5.Text != "" && Block5.Enabled)
-                    CheckBlock(Block5.Text, res);
-                if (Divider5.Enabled)
-                    richTextBox1.AppendText(Divider5.Text.Trim('"'));
-
-                if (Block6.Text != "" && Block6.Enabled)
-                    CheckBlock(Block6.Text, res);
-                if (Divider6.Enabled)
-                    richTextBox1.AppendText(Divider6.Text.Trim('"'));
-
-                if (Block7.Text != "" && Block7.Enabled)
-                    CheckBlock(Block7.Text, res);
-                if (Divider7.Enabled)
-                    richTextBox1.AppendText(Divider7.Text.Trim('"'));
-
-                if (Block8.Text != "" && Block8.Enabled)
-                    CheckBlock(Block8.Text, res);
-
-                if (End.Text != "Отсутствует")
-                    richTextBox1.AppendText(End.Text.Trim('"'));
-
-                richTextBox1.AppendText("\n");
-            }
+            panelLabel.Text = "Нажмите, чтобы выбрать файл или перетащите в это поле";
         }
 
         async private void panelLabel_Click(object sender, EventArgs e)
@@ -1221,68 +1179,11 @@ namespace WinFormsApp1
 
             openFileDialog();
 
-            richTextBox1.Text = "";
+            panelLabel.Text = "Подождите, идёт загрузка...";
 
-            if (doiContentList.Count == 0)
-            {
-                richTextBox1.Text = "Error, empty list or wrong input.";
-                return;
-            }
+            await OutputLoadFilesAsync();
 
-            for (int i = 0; i < doiContentList.Count; i++)
-            {
-                Response1 res = await handler.GetMetadata(doiContentList[i]);
-
-                if (res.status == "error")
-                {
-                    richTextBox1.Text = "Error, wrong input.";
-                    richTextBox1.AppendText("\n");
-                    continue;
-                }
-
-                if (Block1.Text != "" && Block1.Enabled)
-                    CheckBlock(Block1.Text, res);
-                if (Divider1.Enabled)
-                    richTextBox1.AppendText(Divider1.Text.Trim('"'));
-
-                if (Block2.Text != "" && Block2.Enabled)
-                    CheckBlock(Block2.Text, res);
-                if (Divider2.Enabled)
-                    richTextBox1.AppendText(Divider2.Text.Trim('"'));
-
-                if (Block3.Text != "" && Block3.Enabled)
-                    CheckBlock(Block3.Text, res);
-                if (Divider3.Enabled)
-                    richTextBox1.AppendText(Divider3.Text.Trim('"'));
-
-                if (Block4.Text != "" && Block4.Enabled)
-                    CheckBlock(Block4.Text, res);
-                if (Divider4.Enabled)
-                    richTextBox1.AppendText(Divider4.Text.Trim('"'));
-
-                if (Block5.Text != "" && Block5.Enabled)
-                    CheckBlock(Block5.Text, res);
-                if (Divider5.Enabled)
-                    richTextBox1.AppendText(Divider5.Text.Trim('"'));
-
-                if (Block6.Text != "" && Block6.Enabled)
-                    CheckBlock(Block6.Text, res);
-                if (Divider6.Enabled)
-                    richTextBox1.AppendText(Divider6.Text.Trim('"'));
-
-                if (Block7.Text != "" && Block7.Enabled)
-                    CheckBlock(Block7.Text, res);
-                if (Divider7.Enabled)
-                    richTextBox1.AppendText(Divider7.Text.Trim('"'));
-
-                if (Block8.Text != "" && Block8.Enabled)
-                    CheckBlock(Block8.Text, res);
-
-                if (End.Text != "Отсутствует")
-                    richTextBox1.AppendText(End.Text.Trim('"'));
-
-                richTextBox1.AppendText("\n");
-            }
+            panelLabel.Text = "Нажмите, чтобы выбрать файл или перетащите в это поле";
         }
 
         async private void button1_Click_1(object sender, EventArgs e)
@@ -1291,68 +1192,11 @@ namespace WinFormsApp1
 
             openFileDialog();
 
-            richTextBox1.Text = "";
+            panelLabel.Text = "Подождите, идёт загрузка...";
 
-            if (doiContentList.Count == 0)
-            {
-                richTextBox1.Text = "Error, empty list or wrong input.";
-                return;
-            }
+            await OutputLoadFilesAsync();
 
-            for (int i = 0; i < doiContentList.Count; i++)
-            {
-                Response1 res = await handler.GetMetadata(doiContentList[i]);
-
-                if (res.status == "error")
-                {
-                    richTextBox1.Text = "Error, wrong input.";
-                    richTextBox1.AppendText("\n");
-                    continue;
-                }
-
-                if (Block1.Text != "" && Block1.Enabled)
-                    CheckBlock(Block1.Text, res);
-                if (Divider1.Enabled)
-                    richTextBox1.AppendText(Divider1.Text.Trim('"'));
-
-                if (Block2.Text != "" && Block2.Enabled)
-                    CheckBlock(Block2.Text, res);
-                if (Divider2.Enabled)
-                    richTextBox1.AppendText(Divider2.Text.Trim('"'));
-
-                if (Block3.Text != "" && Block3.Enabled)
-                    CheckBlock(Block3.Text, res);
-                if (Divider3.Enabled)
-                    richTextBox1.AppendText(Divider3.Text.Trim('"'));
-
-                if (Block4.Text != "" && Block4.Enabled)
-                    CheckBlock(Block4.Text, res);
-                if (Divider4.Enabled)
-                    richTextBox1.AppendText(Divider4.Text.Trim('"'));
-
-                if (Block5.Text != "" && Block5.Enabled)
-                    CheckBlock(Block5.Text, res);
-                if (Divider5.Enabled)
-                    richTextBox1.AppendText(Divider5.Text.Trim('"'));
-
-                if (Block6.Text != "" && Block6.Enabled)
-                    CheckBlock(Block6.Text, res);
-                if (Divider6.Enabled)
-                    richTextBox1.AppendText(Divider6.Text.Trim('"'));
-
-                if (Block7.Text != "" && Block7.Enabled)
-                    CheckBlock(Block7.Text, res);
-                if (Divider7.Enabled)
-                    richTextBox1.AppendText(Divider7.Text.Trim('"'));
-
-                if (Block8.Text != "" && Block8.Enabled)
-                    CheckBlock(Block8.Text, res);
-
-                if (End.Text != "Отсутствует")
-                    richTextBox1.AppendText(End.Text.Trim('"'));
-
-                richTextBox1.AppendText("\n");
-            }
+            panelLabel.Text = "Нажмите, чтобы выбрать файл или перетащите в это поле";
         }
     }
 }
