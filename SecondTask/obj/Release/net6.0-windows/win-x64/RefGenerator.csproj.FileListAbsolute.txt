@@ -517,3 +517,6 @@ C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitaliza
 C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Release\net6.0-windows\win-x64\RefGenerator.pdb
 C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Release\net6.0-windows\win-x64\RefGenerator.genruntimeconfig.cache
 C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\obj\Release\net6.0-windows\win-x64\ref\RefGenerator.dll
+C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Release\net6.0-windows\win-x64\DocumentFormat.OpenXml.dll
+C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Release\net6.0-windows\win-x64\DocumentFormat.OpenXml.Framework.dll
+C:\Users\alesh\OneDrive\Рабочий стол\Новая папка\Digitalization-of-a-scientific-online-journal\SecondTask\bin\Release\net6.0-windows\win-x64\Microsoft.Office.Interop.Word.dll

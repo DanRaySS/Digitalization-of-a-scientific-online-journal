@@ -48,6 +48,14 @@
               "target": "Package",
               "version": "[23.12.0, )"
             },
+            "DocumentFormat.OpenXml": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.Office.Interop.Word": {
+              "target": "Package",
+              "version": "[15.0.4797.1004, )"
+            },
             "System.Collections": {
               "target": "Package",
               "version": "[4.3.0, )"
