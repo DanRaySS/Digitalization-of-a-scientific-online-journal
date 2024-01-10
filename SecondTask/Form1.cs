@@ -24,7 +24,7 @@ namespace WinFormsApp1
         Regex regex = new Regex(@"[A-Z]");
         MatchCollection matches;
         List<string> blocks = new List<string> { "Авторы", "Название статьи",
-            "Название журнала", "DOI", "Год", "Том", "Издание", "Страницы или номер"};
+            "Название журнала", "DOI", "Год", "Том", "Издание", "Страницы или номер", ""};
         List<string> doiContentList = new List<string>();
 
 
@@ -76,6 +76,7 @@ namespace WinFormsApp1
             }
 
             Response1 res = await handler.GetMetadata(DOIinput.Text);
+            res.DOI = DOIinput.Text.Replace("https://doi.org/", "");
 
             if (res.status == "error")
             {
@@ -173,38 +174,70 @@ namespace WinFormsApp1
                 authorsLength = (int)AuthorsLimiter.Value;
                 prevLarger = true;
             }
-            string[] authorsStr = new string[authorsLength];
+            List<string> authorsStr = new List<string>();
 
             if (AuthPosDropList.Text == "Инициалы/Фамилия")
             {
                 for (int i = 0; i < authorsLength; i++)
                 {
-                    matches = regex.Matches(authors[i].given);
-                    string[] initials = new string[matches.Count];
-                    for (int j = 0; j < matches.Count(); j++)
-                        initials[j] = $"{matches[j].Value}{initialEnd}";
+                    if (authors[i].given == null || authors[i].given == "")
+                        firstW = "";
+                    else
+                    {
+                        matches = regex.Matches(authors[i].given);
+                        string[] initials = new string[matches.Count];
+                        for (int j = 0; j < matches.Count(); j++)
+                            initials[j] = $"{matches[j].Value}{initialEnd}";
 
-                    firstW = String.Join(initialsSeparator, initials);
-                    secondW = authors[i].family;
+                        firstW = String.Join(initialsSeparator, initials);
+                    }
 
-                    authorsStr[i] =
-                        $"{firstW}{nameSeparator}{secondW}";
+                    if (authors[i].family == null || authors[i].family == "")
+                        secondW = "";
+                    else
+                        secondW = authors[i].family;
+
+                    if (secondW == "")
+                        if (firstW == "")
+                            continue;
+                        else
+                            authorsStr.Add(firstW);
+                    else if (firstW == "")
+                        authorsStr.Add(secondW);
+                    else
+                        authorsStr.Add($"{firstW}{nameSeparator}{secondW}");
                 }
             }
             else
             {
                 for (int i = 0; i < authorsLength; i++)
                 {
-                    matches = regex.Matches(authors[i].given);
-                    string[] initials = new string[matches.Count];
-                    for (int j = 0; j < matches.Count(); j++)
-                        initials[j] = $"{matches[j].Value}{initialEnd}";
+                    if (authors[i].given == null || authors[i].given == "")
+                        secondW = "";
+                    else
+                    {
+                        matches = regex.Matches(authors[i].given);
+                        string[] initials = new string[matches.Count];
+                        for (int j = 0; j < matches.Count(); j++)
+                            initials[j] = $"{matches[j].Value}{initialEnd}";
 
-                    firstW = authors[i].family;
-                    secondW = String.Join(initialsSeparator, initials);
+                        secondW = String.Join(initialsSeparator, initials);
+                    }
 
-                    authorsStr[i] =
-                        $"{firstW}{nameSeparator}{secondW}";
+                    if (authors[i].family == null || authors[i].family == "")
+                        firstW = "";
+                    else
+                        firstW = authors[i].family;
+
+                    if (secondW == "")
+                        if (firstW == "")
+                            continue;
+                        else
+                            authorsStr.Add(firstW);
+                    else if (firstW == "")
+                        authorsStr.Add(secondW);
+                    else
+                        authorsStr.Add($"{firstW}{nameSeparator}{secondW}");
                 }
             }
 
@@ -213,7 +246,7 @@ namespace WinFormsApp1
                 string lastAuthor = authorsStr.Last();
                 List<string> tempAuthorsStr = new List<string>(authorsStr);
                 tempAuthorsStr.RemoveAt(authorsLength - 1);
-                authorsStr = tempAuthorsStr.ToArray();
+                authorsStr = tempAuthorsStr;
                 rtb.AppendText($"{String.Join(authorsSeparator, authorsStr)} and {lastAuthor}");
                 return;
             }
@@ -230,9 +263,15 @@ namespace WinFormsApp1
 
         async void FormTitle(Response1 response, RichTextBox rtb)
         {
+            if (response.message == null)
+            {
+                rtb.AppendText("Произошла ошибка в блоке \"Название статьи\"");
+                return;
+            }
+
             string title = response.message.title[0];
 
-            if (title == "" || title == null)
+            if (title == "")
             {
                 rtb.AppendText("Произошла ошибка в блоке \"Название статьи\"");
                 return;
@@ -260,7 +299,15 @@ namespace WinFormsApp1
 
         async void FormJournalName(Response1 response, RichTextBox rtb)
         {
+            if (response.message.container_title.Length == 0 || response.message.container_title == null)
+            {
+                rtb.AppendText("Произошла ошибка в блоке \"Название журнала\"");
+                return;
+            }
+
             var journal = response.message.container_title[0];
+
+            journal = Regex.Replace(journal, @"&amp;", "&");
 
             if (journal == "" || journal == null)
             {
@@ -278,7 +325,7 @@ namespace WinFormsApp1
                     Aspose.Cells.Workbook wb = new Aspose.Cells.Workbook("Journals.xlsx");
                     Aspose.Cells.Worksheet worksheet = wb.Worksheets[0];
                     Dictionary<int, string> pairs = new Dictionary<int, string>();
-                    journal = Regex.Replace(journal, @"\b(of|in|by|and|the|a|an|at|on|under|above|between|to|into|out of|from|through|along|across|before|after|till|until|ago|during|since|for|because of|due to|thanks to|in accordance with|against|behind|below|around|towards|back to|in front of|outside|on account of|upon)\b",
+                    journal = Regex.Replace(journal, @"(\b(of|in|by|and|the|an|at|on|under|above|between|to|into|out of|from|through|along|across|before|after|till|until|ago|during|since|for|because of|due to|thanks to|in accordance with|against|behind|below|around|towards|back to|in front of|outside|on account of|upon)\b) | \ba\s",
                         "", RegexOptions.IgnoreCase);
                     journal = Regex.Replace(journal.TrimStart(' ', '-', '–').TrimEnd(' ', '-', '–'), @"\s\s+", " ");
 
@@ -299,7 +346,15 @@ namespace WinFormsApp1
                         else mask = $@"\b({worksheet.Cells[i, 0].Value.ToString().TrimStart('=')})\b";
 
                         if (Regex.Match(journal, mask, RegexOptions.IgnoreCase).Value.ToString() != "")
-                            pairs.Add(i, mask);
+                        {
+                            if (Regex.Match(journal, mask, RegexOptions.IgnoreCase).Value.ToString().Length -
+                                worksheet.Cells[i, 0].Value.ToString().TrimStart('=').TrimEnd('-').Length == 1 
+                                && worksheet.Cells[i, 1].Value.ToString().Length >= 
+                                Regex.Match(journal, mask, RegexOptions.IgnoreCase).Value.ToString().Length)
+                                continue;
+                            else
+                                pairs.Add(i, mask);
+                        }
                     }
                     foreach (var el in pairs)
                     {
@@ -320,9 +375,9 @@ namespace WinFormsApp1
             }
         }
 
-        async void FormDOI(RichTextBox rtb)
+        async void FormDOI(Response1 res, RichTextBox rtb)
         {
-            var DOI = DOIinput.Text.Replace("https://doi.org/", "");
+            var DOI = res.DOI;
 
             switch (DOIDropList.SelectedItem)
             {
@@ -341,13 +396,18 @@ namespace WinFormsApp1
 
         async void FormYear(Response1 response, RichTextBox rtb)
         {
-            var year = response.message.license[0].start.date.Substring(0, 4);
+            string year;
 
-            if (year == "" || year == null)
-            {
-                rtb.AppendText("Произошла ошибка в блоке \"Год\"");
-                return;
-            }
+            if (response.message.published_print == null)
+                if (response.message.created == null)
+                {
+                    rtb.AppendText("Произошла ошибка в блоке \"Год\"");
+                    return;
+                }
+                else
+                    year = response.message.created.date_parts[0][0].ToString();
+            else
+                year = response.message.published_print.date_parts[0][0].ToString();
 
             if (YearBrackets.Checked)
                 year = $"({year})";
@@ -461,6 +521,18 @@ namespace WinFormsApp1
                 rtb.AppendText("Необходим ввод номера статьи");
                 return;
             }
+            
+            if (checkOnePage.Checked)
+            {
+                int divInd = page.IndexOf('-');
+                if (divInd == -1)
+                {
+                    divInd = page.IndexOf('–');
+                }
+
+                if (divInd != -1)
+                    page = page.Substring(0, divInd);
+            }
 
             if (PagesDivider.Text == "Через тире")
                 page = page.Replace("-", "–");
@@ -531,7 +603,6 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Авторы");
-                DeleteUncheckedBlock("Авторы");
             }
 
             FormBlockList();
@@ -550,7 +621,6 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Название статьи");
-                DeleteUncheckedBlock("Название статьи");
             }
 
             FormBlockList();
@@ -569,7 +639,6 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Название журнала");
-                DeleteUncheckedBlock("Название журнала");
             }
 
             FormBlockList();
@@ -588,7 +657,6 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("DOI");
-                DeleteUncheckedBlock("DOI");
             }
 
             FormBlockList();
@@ -607,7 +675,6 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Год");
-                DeleteUncheckedBlock("Год");
             }
 
             FormBlockList();
@@ -626,7 +693,6 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Том");
-                DeleteUncheckedBlock("Том");
             }
 
             FormBlockList();
@@ -646,7 +712,6 @@ namespace WinFormsApp1
                     blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Издание");
-                DeleteUncheckedBlock("Издание");
             }
 
             FormBlockList();
@@ -665,7 +730,6 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Страницы или номер");
-                DeleteUncheckedBlock("Страницы или номер");
             }
 
             FormBlockList();
@@ -755,7 +819,7 @@ namespace WinFormsApp1
                     break;
 
                 case "DOI":
-                    FormDOI(richTextBox1);
+                    FormDOI(res, richTextBox1);
                     break;
 
                 case "Год":
@@ -789,26 +853,6 @@ namespace WinFormsApp1
             Block7.Items.AddRange(blocks.ToArray()); Block8.Items.AddRange(blocks.ToArray());
         }
 
-        private void DeleteUncheckedBlock(string s)
-        {
-            if (Block1.Text == s)
-                Block1.Text = "";
-            if (Block2.Text == s)
-                Block2.Text = "";
-            if (Block3.Text == s)
-                Block3.Text = "";
-            if (Block4.Text == s)
-                Block4.Text = "";
-            if (Block5.Text == s)
-                Block5.Text = "";
-            if (Block6.Text == s)
-                Block6.Text = "";
-            if (Block7.Text == s)
-                Block7.Text = "";
-            if (Block8.Text == s)
-                Block8.Text = "";
-        }
-
 
         //LOAD FILE
 
@@ -828,6 +872,7 @@ namespace WinFormsApp1
             for (int i = 0; i < doiContentList.Count; i++)
             {
                 Response1 res = await handler.GetMetadata(doiContentList[i]);
+                res.DOI = doiContentList[i].Replace("https://doi.org/", "");
 
                 if (res.status == "error")
                 {
@@ -1196,6 +1241,15 @@ namespace WinFormsApp1
 
             openFileDialog();
 
+            panelLabel.Text = "Подождите...";
+
+            await OutputLoadFilesAsync();
+
+            panelLabel.Text = "Нажмите, чтобы выбрать файл(ы)\n или перетащите в это поле";
+        }
+
+        async private void RepeatButton_Click(object sender, EventArgs e)
+        {
             panelLabel.Text = "Подождите...";
 
             await OutputLoadFilesAsync();
