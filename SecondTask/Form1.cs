@@ -809,6 +809,7 @@ namespace WinFormsApp1
                 Block8.Text = "";
         }
 
+
         //LOAD FILE
 
         //Вывод загрузочных файлов 
@@ -1072,6 +1073,9 @@ namespace WinFormsApp1
 
         private void openFileDialog()
         {
+
+            //richTextBox1.Size = new Size(200, 900);
+
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
                 //Деффолтный путь, откуда брать файлы
@@ -1091,7 +1095,7 @@ namespace WinFormsApp1
                     var fileStream = openFileDialog.OpenFile();
 
                     //FilePath | Путь файла
-                    //string fileName = openFileDialog.FileName;
+                    //string fileName = openFileDialog.FileName;z
                     string[] arrAllFiles = openFileDialog.FileNames; //used when Multiselect = true 
 
                     GetDoiFromFileNames(arrAllFiles);
@@ -1153,11 +1157,11 @@ namespace WinFormsApp1
 
             GetDoiFromFileNames(arrAllFiles);
 
-            panelLabel.Text = "Подождите, идёт загрузка...";
+            panelLabel.Text = "Подождите...";
 
             await OutputLoadFilesAsync();
 
-            panelLabel.Text = "Нажмите, чтобы выбрать файл или перетащите в это поле";
+            panelLabel.Text = "Нажмите, чтобы выбрать файл(ы)\n или перетащите в это поле";
         }
 
         async private void panel1_Click(object sender, EventArgs e)
@@ -1166,11 +1170,11 @@ namespace WinFormsApp1
 
             openFileDialog();
 
-            panelLabel.Text = "Подождите, идёт загрузка...";
+            panelLabel.Text = "Подождите...";
 
             await OutputLoadFilesAsync();
 
-            panelLabel.Text = "Нажмите, чтобы выбрать файл или перетащите в это поле";
+            panelLabel.Text = "Нажмите, чтобы выбрать файл(ы)\n или перетащите в это поле";
         }
 
         async private void panelLabel_Click(object sender, EventArgs e)
@@ -1179,11 +1183,11 @@ namespace WinFormsApp1
 
             openFileDialog();
 
-            panelLabel.Text = "Подождите, идёт загрузка...";
+            panelLabel.Text = "Подождите...";
 
             await OutputLoadFilesAsync();
 
-            panelLabel.Text = "Нажмите, чтобы выбрать файл или перетащите в это поле";
+            panelLabel.Text = "Нажмите, чтобы выбрать файл(ы)\n или перетащите в это поле";
         }
 
         async private void button1_Click_1(object sender, EventArgs e)
@@ -1192,11 +1196,11 @@ namespace WinFormsApp1
 
             openFileDialog();
 
-            panelLabel.Text = "Подождите, идёт загрузка...";
+            panelLabel.Text = "Подождите...";
 
             await OutputLoadFilesAsync();
 
-            panelLabel.Text = "Нажмите, чтобы выбрать файл или перетащите в это поле";
+            panelLabel.Text = "Нажмите, чтобы выбрать файл(ы)\n или перетащите в это поле";
         }
     }
 }

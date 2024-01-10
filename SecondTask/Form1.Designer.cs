@@ -105,6 +105,9 @@
             panelLabel = new Label();
             label17 = new Label();
             button1 = new Button();
+            label16 = new Label();
+            label18 = new Label();
+            label19 = new Label();
             authorsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AuthorsLimiter).BeginInit();
             articleBox.SuspendLayout();
@@ -119,9 +122,9 @@
             // 
             // DOIInputButton
             // 
-            DOIInputButton.Location = new Point(12, 12);
+            DOIInputButton.Location = new Point(12, 14);
             DOIInputButton.Name = "DOIInputButton";
-            DOIInputButton.Size = new Size(56, 23);
+            DOIInputButton.Size = new Size(78, 30);
             DOIInputButton.TabIndex = 0;
             DOIInputButton.Text = "Ввести";
             DOIInputButton.UseVisualStyleBackColor = true;
@@ -129,8 +132,9 @@
             // 
             // DOIinput
             // 
-            DOIinput.Location = new Point(74, 14);
+            DOIinput.Location = new Point(96, 18);
             DOIinput.Name = "DOIinput";
+            DOIinput.PlaceholderText = "https://doi.org/10.1070/RCR4987";
             DOIinput.Size = new Size(378, 23);
             DOIinput.TabIndex = 2;
             // 
@@ -151,7 +155,7 @@
             authorsBox.Controls.Add(label2);
             authorsBox.Location = new Point(12, 50);
             authorsBox.Name = "authorsBox";
-            authorsBox.Size = new Size(231, 349);
+            authorsBox.Size = new Size(235, 318);
             authorsBox.TabIndex = 3;
             authorsBox.TabStop = false;
             authorsBox.Text = "Авторы";
@@ -175,7 +179,7 @@
             // AuthorsLimiter
             // 
             AuthorsLimiter.Enabled = false;
-            AuthorsLimiter.Location = new Point(134, 251);
+            AuthorsLimiter.Location = new Point(133, 283);
             AuthorsLimiter.Name = "AuthorsLimiter";
             AuthorsLimiter.Size = new Size(86, 23);
             AuthorsLimiter.TabIndex = 19;
@@ -184,7 +188,7 @@
             // 
             label4.AutoSize = true;
             label4.Enabled = false;
-            label4.Location = new Point(9, 255);
+            label4.Location = new Point(6, 286);
             label4.Name = "label4";
             label4.Size = new Size(93, 15);
             label4.TabIndex = 18;
@@ -193,7 +197,7 @@
             // AuthsLimitCheck
             // 
             AuthsLimitCheck.AutoSize = true;
-            AuthsLimitCheck.Location = new Point(9, 226);
+            AuthsLimitCheck.Location = new Point(8, 147);
             AuthsLimitCheck.Name = "AuthsLimitCheck";
             AuthsLimitCheck.Size = new Size(61, 19);
             AuthsLimitCheck.TabIndex = 16;
@@ -204,17 +208,17 @@
             // AndCheck
             // 
             AndCheck.AutoSize = true;
-            AndCheck.Location = new Point(9, 291);
+            AndCheck.Location = new Point(8, 106);
             AndCheck.Name = "AndCheck";
-            AndCheck.Size = new Size(128, 49);
+            AndCheck.Size = new Size(196, 34);
             AndCheck.TabIndex = 15;
-            AndCheck.Text = "Союз “and” между\r\nпоследним и \r\nпредпоследним";
+            AndCheck.Text = "Союз “and” между последним \r\nи предпоследним";
             AndCheck.UseVisualStyleBackColor = true;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(9, 178);
+            label3.Location = new Point(6, 236);
             label3.Name = "label3";
             label3.Size = new Size(99, 30);
             label3.TabIndex = 14;
@@ -224,7 +228,7 @@
             // 
             AuthSepDropList.FormattingEnabled = true;
             AuthSepDropList.Items.AddRange(new object[] { ",", ";" });
-            AuthSepDropList.Location = new Point(134, 182);
+            AuthSepDropList.Location = new Point(133, 240);
             AuthSepDropList.Name = "AuthSepDropList";
             AuthSepDropList.Size = new Size(86, 23);
             AuthSepDropList.TabIndex = 13;
@@ -232,28 +236,28 @@
             // InitialsSpaceCheck
             // 
             InitialsSpaceCheck.AutoSize = true;
-            InitialsSpaceCheck.Location = new Point(9, 87);
+            InitialsSpaceCheck.Location = new Point(8, 81);
             InitialsSpaceCheck.Name = "InitialsSpaceCheck";
-            InitialsSpaceCheck.Size = new Size(108, 34);
+            InitialsSpaceCheck.Size = new Size(181, 19);
             InitialsSpaceCheck.TabIndex = 12;
-            InitialsSpaceCheck.Text = "Пробел между\r\nинициалами";
+            InitialsSpaceCheck.Text = "Пробел между инициалами";
             InitialsSpaceCheck.UseVisualStyleBackColor = true;
             // 
             // InitialsDotCheck
             // 
             InitialsDotCheck.AutoSize = true;
-            InitialsDotCheck.Location = new Point(9, 47);
+            InitialsDotCheck.Location = new Point(8, 56);
             InitialsDotCheck.Name = "InitialsDotCheck";
-            InitialsDotCheck.Size = new Size(94, 34);
+            InitialsDotCheck.Size = new Size(158, 19);
             InitialsDotCheck.TabIndex = 11;
-            InitialsDotCheck.Text = "Точка после\r\nинициалов";
+            InitialsDotCheck.Text = "Точка после инициалов";
             InitialsDotCheck.UseVisualStyleBackColor = true;
             // 
             // NameSepDropList
             // 
             NameSepDropList.FormattingEnabled = true;
             NameSepDropList.Items.AddRange(new object[] { "\"\"", "\" \"", "\",\"", "\", \"" });
-            NameSepDropList.Location = new Point(134, 134);
+            NameSepDropList.Location = new Point(133, 189);
             NameSepDropList.Name = "NameSepDropList";
             NameSepDropList.Size = new Size(86, 23);
             NameSepDropList.TabIndex = 10;
@@ -261,7 +265,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(9, 125);
+            label5.Location = new Point(6, 177);
             label5.Name = "label5";
             label5.Size = new Size(116, 45);
             label5.TabIndex = 9;
@@ -271,15 +275,15 @@
             // 
             AuthPosDropList.FormattingEnabled = true;
             AuthPosDropList.Items.AddRange(new object[] { "Инициалы/Фамилия", "Фамилия/Инициалы" });
-            AuthPosDropList.Location = new Point(87, 18);
+            AuthPosDropList.Location = new Point(92, 24);
             AuthPosDropList.Name = "AuthPosDropList";
-            AuthPosDropList.Size = new Size(133, 23);
+            AuthPosDropList.Size = new Size(135, 23);
             AuthPosDropList.TabIndex = 5;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(9, 21);
+            label2.Location = new Point(6, 27);
             label2.Name = "label2";
             label2.Size = new Size(72, 15);
             label2.TabIndex = 0;
@@ -289,7 +293,7 @@
             // 
             articleBox.Controls.Add(TitleCheck);
             articleBox.Controls.Add(ArticleNameDropList);
-            articleBox.Location = new Point(249, 50);
+            articleBox.Location = new Point(253, 50);
             articleBox.Name = "articleBox";
             articleBox.Size = new Size(201, 52);
             articleBox.TabIndex = 4;
@@ -315,7 +319,7 @@
             // 
             ArticleNameDropList.FormattingEnabled = true;
             ArticleNameDropList.Items.AddRange(new object[] { "Название в нижнем регистре", "Название с заглавными буквами" });
-            ArticleNameDropList.Location = new Point(6, 18);
+            ArticleNameDropList.Location = new Point(6, 21);
             ArticleNameDropList.Name = "ArticleNameDropList";
             ArticleNameDropList.Size = new Size(189, 23);
             ArticleNameDropList.TabIndex = 0;
@@ -325,11 +329,11 @@
             journalBox.Controls.Add(JournalCheck);
             journalBox.Controls.Add(checkDots);
             journalBox.Controls.Add(JournalNameDropList);
-            journalBox.Location = new Point(249, 107);
+            journalBox.Location = new Point(252, 117);
             journalBox.Margin = new Padding(3, 2, 3, 2);
             journalBox.Name = "journalBox";
             journalBox.Padding = new Padding(3, 2, 3, 2);
-            journalBox.Size = new Size(201, 86);
+            journalBox.Size = new Size(201, 80);
             journalBox.TabIndex = 7;
             journalBox.TabStop = false;
             journalBox.Text = "Название журнала";
@@ -352,7 +356,7 @@
             // checkDots
             // 
             checkDots.AutoSize = true;
-            checkDots.Location = new Point(6, 49);
+            checkDots.Location = new Point(6, 50);
             checkDots.Margin = new Padding(3, 2, 3, 2);
             checkDots.Name = "checkDots";
             checkDots.Size = new Size(78, 19);
@@ -374,7 +378,7 @@
             // 
             DOIBox.Controls.Add(DOICheck);
             DOIBox.Controls.Add(DOIDropList);
-            DOIBox.Location = new Point(249, 198);
+            DOIBox.Location = new Point(253, 198);
             DOIBox.Margin = new Padding(3, 2, 3, 2);
             DOIBox.Name = "DOIBox";
             DOIBox.Padding = new Padding(3, 2, 3, 2);
@@ -402,7 +406,7 @@
             // 
             DOIDropList.FormattingEnabled = true;
             DOIDropList.Items.AddRange(new object[] { "Сокращенное", "Как url-ссылка" });
-            DOIDropList.Location = new Point(6, 20);
+            DOIDropList.Location = new Point(6, 23);
             DOIDropList.Margin = new Padding(3, 2, 3, 2);
             DOIDropList.Name = "DOIDropList";
             DOIDropList.Size = new Size(189, 23);
@@ -414,11 +418,11 @@
             PageBox.Controls.Add(PageCheck);
             PageBox.Controls.Add(PageItalic);
             PageBox.Controls.Add(PageBold);
-            PageBox.Location = new Point(456, 238);
+            PageBox.Location = new Point(460, 239);
             PageBox.Margin = new Padding(3, 2, 3, 2);
             PageBox.Name = "PageBox";
             PageBox.Padding = new Padding(3, 2, 3, 2);
-            PageBox.Size = new Size(170, 100);
+            PageBox.Size = new Size(170, 94);
             PageBox.TabIndex = 9;
             PageBox.TabStop = false;
             PageBox.Text = "Страницы";
@@ -427,7 +431,7 @@
             // 
             PagesDivider.FormattingEnabled = true;
             PagesDivider.Items.AddRange(new object[] { "Через тире", "Через дефис" });
-            PagesDivider.Location = new Point(5, 68);
+            PagesDivider.Location = new Point(5, 64);
             PagesDivider.Margin = new Padding(3, 2, 3, 2);
             PagesDivider.Name = "PagesDivider";
             PagesDivider.Size = new Size(158, 23);
@@ -451,7 +455,7 @@
             // PageItalic
             // 
             PageItalic.AutoSize = true;
-            PageItalic.Location = new Point(5, 44);
+            PageItalic.Location = new Point(6, 44);
             PageItalic.Margin = new Padding(3, 2, 3, 2);
             PageItalic.Name = "PageItalic";
             PageItalic.Size = new Size(65, 19);
@@ -476,7 +480,7 @@
             YearBox.Controls.Add(YearCheck);
             YearBox.Controls.Add(YearItalic);
             YearBox.Controls.Add(YearBold);
-            YearBox.Location = new Point(248, 255);
+            YearBox.Location = new Point(252, 255);
             YearBox.Margin = new Padding(3, 2, 3, 2);
             YearBox.Name = "YearBox";
             YearBox.Padding = new Padding(3, 2, 3, 2);
@@ -488,7 +492,7 @@
             // YearBrackets
             // 
             YearBrackets.AutoSize = true;
-            YearBrackets.Location = new Point(7, 64);
+            YearBrackets.Location = new Point(7, 66);
             YearBrackets.Margin = new Padding(3, 2, 3, 2);
             YearBrackets.Name = "YearBrackets";
             YearBrackets.Size = new Size(80, 19);
@@ -514,7 +518,7 @@
             // YearItalic
             // 
             YearItalic.AutoSize = true;
-            YearItalic.Location = new Point(7, 42);
+            YearItalic.Location = new Point(7, 44);
             YearItalic.Margin = new Padding(3, 2, 3, 2);
             YearItalic.Name = "YearItalic";
             YearItalic.Size = new Size(65, 19);
@@ -525,7 +529,7 @@
             // YearBold
             // 
             YearBold.AutoSize = true;
-            YearBold.Location = new Point(7, 20);
+            YearBold.Location = new Point(7, 22);
             YearBold.Margin = new Padding(3, 2, 3, 2);
             YearBold.Name = "YearBold";
             YearBold.Size = new Size(101, 19);
@@ -538,7 +542,7 @@
             ThomeBox.Controls.Add(ThomeCheck);
             ThomeBox.Controls.Add(ThomeItalic);
             ThomeBox.Controls.Add(ThomeBold);
-            ThomeBox.Location = new Point(456, 50);
+            ThomeBox.Location = new Point(460, 50);
             ThomeBox.Margin = new Padding(3, 2, 3, 2);
             ThomeBox.Name = "ThomeBox";
             ThomeBox.Padding = new Padding(3, 2, 3, 2);
@@ -586,11 +590,13 @@
             // 
             // richTextBox1
             // 
+            richTextBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             richTextBox1.BorderStyle = BorderStyle.FixedSingle;
-            richTextBox1.Location = new Point(12, 404);
+            richTextBox1.Location = new Point(12, 407);
             richTextBox1.Margin = new Padding(3, 2, 3, 2);
+            richTextBox1.MinimumSize = new Size(300, 20);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(954, 66);
+            richTextBox1.Size = new Size(1000, 76);
             richTextBox1.TabIndex = 12;
             richTextBox1.Text = "";
             // 
@@ -756,7 +762,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(760, 298);
+            label7.Location = new Point(760, 300);
             label7.Name = "label7";
             label7.Size = new Size(114, 15);
             label7.TabIndex = 29;
@@ -860,11 +866,11 @@
             numberBox.Controls.Add(IssueItalic);
             numberBox.Controls.Add(IssueBold);
             numberBox.Controls.Add(IssueThomePart);
-            numberBox.Location = new Point(456, 125);
+            numberBox.Location = new Point(460, 126);
             numberBox.Margin = new Padding(3, 2, 3, 2);
             numberBox.Name = "numberBox";
             numberBox.Padding = new Padding(3, 2, 3, 2);
-            numberBox.Size = new Size(170, 108);
+            numberBox.Size = new Size(170, 106);
             numberBox.TabIndex = 40;
             numberBox.TabStop = false;
             numberBox.Text = "Номер";
@@ -887,7 +893,7 @@
             // IssueItalic
             // 
             IssueItalic.AutoSize = true;
-            IssueItalic.Location = new Point(5, 82);
+            IssueItalic.Location = new Point(5, 81);
             IssueItalic.Margin = new Padding(3, 2, 3, 2);
             IssueItalic.Name = "IssueItalic";
             IssueItalic.Size = new Size(65, 19);
@@ -898,7 +904,7 @@
             // IssueBold
             // 
             IssueBold.AutoSize = true;
-            IssueBold.Location = new Point(5, 55);
+            IssueBold.Location = new Point(5, 56);
             IssueBold.Margin = new Padding(3, 2, 3, 2);
             IssueBold.Name = "IssueBold";
             IssueBold.Size = new Size(101, 19);
@@ -909,7 +915,7 @@
             // IssueThomePart
             // 
             IssueThomePart.AutoSize = true;
-            IssueThomePart.Location = new Point(5, 18);
+            IssueThomePart.Location = new Point(5, 20);
             IssueThomePart.Margin = new Padding(3, 2, 3, 2);
             IssueThomePart.Name = "IssueThomePart";
             IssueThomePart.Size = new Size(113, 34);
@@ -924,7 +930,7 @@
             panel1.BackColor = SystemColors.ControlLight;
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(panelLabel);
-            panel1.Location = new Point(1018, 50);
+            panel1.Location = new Point(1018, 76);
             panel1.Name = "panel1";
             panel1.Size = new Size(358, 261);
             panel1.TabIndex = 41;
@@ -937,24 +943,25 @@
             // 
             panelLabel.Location = new Point(-1, 0);
             panelLabel.Name = "panelLabel";
-            panelLabel.Size = new Size(354, 260);
+            panelLabel.Size = new Size(358, 260);
             panelLabel.TabIndex = 0;
-            panelLabel.Text = "Нажмите, чтобы выбрать файл или перетащите в это поле";
+            panelLabel.Text = "Нажмите, чтобы выбрать файл(ы) \r\nили перетащите в это поле";
             panelLabel.TextAlign = ContentAlignment.MiddleCenter;
             panelLabel.Click += panelLabel_Click;
             // 
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(1018, 22);
+            label17.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            label17.Location = new Point(1017, 22);
             label17.Name = "label17";
-            label17.Size = new Size(103, 15);
+            label17.Size = new Size(131, 19);
             label17.TabIndex = 0;
             label17.Text = "Выбор файла(ов)";
             // 
             // button1
             // 
-            button1.Location = new Point(1018, 328);
+            button1.Location = new Point(1018, 352);
             button1.Name = "button1";
             button1.Size = new Size(112, 41);
             button1.TabIndex = 1;
@@ -962,11 +969,43 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click_1;
             // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(1018, 49);
+            label16.Name = "label16";
+            label16.Size = new Size(201, 15);
+            label16.TabIndex = 42;
+            label16.Text = "Поддерживаемый формат файлов:";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
+            label18.Location = new Point(1219, 49);
+            label18.Name = "label18";
+            label18.Size = new Size(60, 15);
+            label18.TabIndex = 43;
+            label18.Text = ".txt .docx";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 10F, FontStyle.Bold, GraphicsUnit.Point);
+            label19.Location = new Point(12, 378);
+            label19.Name = "label19";
+            label19.Size = new Size(55, 19);
+            label19.TabIndex = 44;
+            label19.Text = "Вывод";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1411, 480);
+            ClientSize = new Size(1411, 490);
+            Controls.Add(label19);
+            Controls.Add(label18);
+            Controls.Add(label16);
             Controls.Add(button1);
             Controls.Add(label17);
             Controls.Add(panel1);
@@ -1112,5 +1151,8 @@
         private Label label17;
         private Button button1;
         private Button button2;
+        private Label label16;
+        private Label label18;
+        private Label label19;
     }
 }
