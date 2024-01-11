@@ -348,8 +348,8 @@ namespace WinFormsApp1
                         if (Regex.Match(journal, mask, RegexOptions.IgnoreCase).Value.ToString() != "")
                         {
                             if (Regex.Match(journal, mask, RegexOptions.IgnoreCase).Value.ToString().Length -
-                                worksheet.Cells[i, 0].Value.ToString().TrimStart('=').TrimEnd('-').Length == 1 
-                                && worksheet.Cells[i, 1].Value.ToString().Length >= 
+                                worksheet.Cells[i, 0].Value.ToString().TrimStart('=').TrimEnd('-').Length == 1
+                                && worksheet.Cells[i, 1].Value.ToString().Length >=
                                 Regex.Match(journal, mask, RegexOptions.IgnoreCase).Value.ToString().Length)
                                 continue;
                             else
@@ -521,7 +521,7 @@ namespace WinFormsApp1
                 rtb.AppendText("Необходим ввод номера статьи");
                 return;
             }
-            
+
             if (checkOnePage.Checked)
             {
                 int divInd = page.IndexOf('-');

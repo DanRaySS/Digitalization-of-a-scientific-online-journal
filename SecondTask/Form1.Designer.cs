@@ -55,6 +55,7 @@
             DOICheck = new CheckBox();
             DOIDropList = new ComboBox();
             PageBox = new GroupBox();
+            checkOnePage = new CheckBox();
             PagesDivider = new ComboBox();
             PageCheck = new CheckBox();
             PageItalic = new CheckBox();
@@ -108,7 +109,6 @@
             label16 = new Label();
             label18 = new Label();
             label19 = new Label();
-            checkOnePage = new CheckBox();
             RepeatButton = new Button();
             authorsBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)AuthorsLimiter).BeginInit();
@@ -436,6 +436,16 @@
             PageBox.TabIndex = 9;
             PageBox.TabStop = false;
             PageBox.Text = "Страницы";
+            // 
+            // checkOnePage
+            // 
+            checkOnePage.AutoSize = true;
+            checkOnePage.Location = new Point(7, 89);
+            checkOnePage.Name = "checkOnePage";
+            checkOnePage.Size = new Size(136, 24);
+            checkOnePage.TabIndex = 4;
+            checkOnePage.Text = "Одна страница";
+            checkOnePage.UseVisualStyleBackColor = true;
             // 
             // PagesDivider
             // 
@@ -980,16 +990,6 @@
             label19.Size = new Size(66, 23);
             label19.TabIndex = 44;
             label19.Text = "Вывод";
-            // 
-            // checkOnePage
-            // 
-            checkOnePage.AutoSize = true;
-            checkOnePage.Location = new Point(7, 89);
-            checkOnePage.Name = "checkOnePage";
-            checkOnePage.Size = new Size(136, 24);
-            checkOnePage.TabIndex = 4;
-            checkOnePage.Text = "Одна страница";
-            checkOnePage.UseVisualStyleBackColor = true;
             // 
             // RepeatButton
             // 
