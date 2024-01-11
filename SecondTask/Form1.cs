@@ -14,6 +14,7 @@ using System.Linq;
 using DocumentFormat.OpenXml.Spreadsheet;
 using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.Vml.Office;
+using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 
 namespace WinFormsApp1
 {
@@ -71,7 +72,9 @@ namespace WinFormsApp1
 
             if (DOIinput.Text == "")
             {
-                richTextBox1.Text = "Error, empty field.";
+                richTextBox1.SelectionColor = System.Drawing.Color.Red;
+                richTextBox1.AppendText("Error, empty field.");
+                richTextBox1.SelectionColor = System.Drawing.Color.Black;
                 return;
             }
 
@@ -80,7 +83,9 @@ namespace WinFormsApp1
 
             if (res.status == "error")
             {
-                richTextBox1.Text = "Error, wrong input.";
+                richTextBox1.SelectionColor = System.Drawing.Color.Red;
+                richTextBox1.AppendText("Error, wrong input.");
+                richTextBox1.SelectionColor = System.Drawing.Color.Red;
                 return;
             }
 
@@ -149,7 +154,9 @@ namespace WinFormsApp1
 
             if (authors.Length == 0 || authors == null)
             {
+                rtb.SelectionColor = System.Drawing.Color.Red;
                 rtb.AppendText("Произошла ошибка в блоке \"Авторы\"");
+                rtb.SelectionColor = System.Drawing.Color.Black;
                 return;
             }
 
@@ -265,7 +272,9 @@ namespace WinFormsApp1
         {
             if (response.message == null)
             {
+                rtb.SelectionColor = System.Drawing.Color.Red;
                 rtb.AppendText("Произошла ошибка в блоке \"Название статьи\"");
+                rtb.SelectionColor = System.Drawing.Color.Black;
                 return;
             }
 
@@ -273,7 +282,9 @@ namespace WinFormsApp1
 
             if (title == "")
             {
+                rtb.SelectionColor = System.Drawing.Color.Red;
                 rtb.AppendText("Произошла ошибка в блоке \"Название статьи\"");
+                rtb.SelectionColor = System.Drawing.Color.Black;
                 return;
             }
 
@@ -301,7 +312,9 @@ namespace WinFormsApp1
         {
             if (response.message.container_title.Length == 0 || response.message.container_title == null)
             {
+                rtb.SelectionColor = System.Drawing.Color.Red;
                 rtb.AppendText("Произошла ошибка в блоке \"Название журнала\"");
+                rtb.SelectionColor = System.Drawing.Color.Black;
                 return;
             }
 
@@ -311,7 +324,9 @@ namespace WinFormsApp1
 
             if (journal == "" || journal == null)
             {
+                rtb.SelectionColor = System.Drawing.Color.Red;
                 rtb.AppendText("Произошла ошибка в блоке \"Название журнала\"");
+                rtb.SelectionColor = System.Drawing.Color.Black;
                 return;
             }
 
@@ -401,7 +416,9 @@ namespace WinFormsApp1
             if (response.message.published_print == null)
                 if (response.message.created == null)
                 {
+                    rtb.SelectionColor = System.Drawing.Color.Red;
                     rtb.AppendText("Произошла ошибка в блоке \"Год\"");
+                    rtb.SelectionColor = System.Drawing.Color.Red;
                     return;
                 }
                 else
@@ -443,7 +460,9 @@ namespace WinFormsApp1
 
             if (thome == "" || thome == null)
             {
+                rtb.SelectionColor = System.Drawing.Color.Red;
                 rtb.AppendText("Произошла ошибка в блоке \"Том\"");
+                rtb.SelectionColor = System.Drawing.Color.Red;
                 return;
             }
 
@@ -483,7 +502,9 @@ namespace WinFormsApp1
 
             if (issue == "" || issue == null)
             {
+                rtb.SelectionColor = System.Drawing.Color.Red;
                 rtb.AppendText("Произошла ошибка в блоке \"Издание\"");
+                rtb.SelectionColor = System.Drawing.Color.Red;
                 return;
             }
 
@@ -518,7 +539,9 @@ namespace WinFormsApp1
 
             if (page == null)
             {
+                rtb.SelectionColor = System.Drawing.Color.Red;
                 rtb.AppendText("Необходим ввод номера статьи");
+                rtb.SelectionColor = System.Drawing.Color.Red;
                 return;
             }
 
@@ -865,7 +888,9 @@ namespace WinFormsApp1
 
             if (doiContentList.Count == 0)
             {
-                richTextBox1.Text = "Error, empty list or wrong input.";
+                richTextBox1.SelectionColor = System.Drawing.Color.Red;
+                richTextBox1.AppendText("Error, empty list or wrong input.");
+                richTextBox1.SelectionColor = System.Drawing.Color.Black;
                 return;
             }
 
@@ -876,7 +901,9 @@ namespace WinFormsApp1
 
                 if (res.status == "error")
                 {
-                    richTextBox1.Text = "Error, wrong input.";
+                    richTextBox1.SelectionColor = System.Drawing.Color.Red;
+                    richTextBox1.AppendText("Error, wrong input.");
+                    richTextBox1.SelectionColor = System.Drawing.Color.Black;
                     richTextBox1.AppendText("\n");
                     continue;
                 }
