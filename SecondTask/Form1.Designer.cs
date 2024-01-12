@@ -108,7 +108,6 @@
             FileSelection = new Label();
             ChooseFileButton = new Button();
             SupportedFiles = new Label();
-            SupportedFormats = new Label();
             Output = new Label();
             RepeatButton = new Button();
             ButtonChangeLang = new Button();
@@ -1008,21 +1007,13 @@
             // SupportedFiles
             // 
             SupportedFiles.AutoSize = true;
+            SupportedFiles.BackColor = SystemColors.Control;
+            SupportedFiles.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             SupportedFiles.Location = new Point(1018, 49);
             SupportedFiles.Name = "SupportedFiles";
-            SupportedFiles.Size = new Size(201, 15);
+            SupportedFiles.Size = new Size(253, 15);
             SupportedFiles.TabIndex = 42;
-            SupportedFiles.Text = "Поддерживаемый формат файлов:";
-            // 
-            // SupportedFormats
-            // 
-            SupportedFormats.AutoSize = true;
-            SupportedFormats.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            SupportedFormats.Location = new Point(1225, 49);
-            SupportedFormats.Name = "SupportedFormats";
-            SupportedFormats.Size = new Size(60, 15);
-            SupportedFormats.TabIndex = 43;
-            SupportedFormats.Text = ".txt .docx";
+            SupportedFiles.Text = "Поддерживаемый формат файлов: .txt .docx";
             // 
             // Output
             // 
@@ -1063,7 +1054,6 @@
             Controls.Add(ButtonChangeLang);
             Controls.Add(RepeatButton);
             Controls.Add(Output);
-            Controls.Add(SupportedFormats);
             Controls.Add(SupportedFiles);
             Controls.Add(ChooseFileButton);
             Controls.Add(FileSelection);
@@ -1211,7 +1201,6 @@
         private Button ChooseFileButton;
         private Button RepeatButton;
         private Label SupportedFiles;
-        private Label SupportedFormats;
         private Label Output;
         private CheckBox PageOnePage;
         private CheckBox JournalTitleItalic;

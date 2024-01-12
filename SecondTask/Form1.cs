@@ -16,6 +16,7 @@ using DocumentFormat.OpenXml.Bibliography;
 using DocumentFormat.OpenXml.Vml.Office;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using static System.Reflection.Metadata.BlobBuilder;
+using System.Security.Policy;
 
 namespace WinFormsApp1
 {
@@ -1772,11 +1773,11 @@ namespace WinFormsApp1
 
                 InitialsDotCheck.Text = "Dot(s) after initials";
                 InitialsSpaceCheck.Text = "Space(s) between initials";
-                AndCheck.Text = "'and' between penultimate and last";
+                AndCheck.Text = "'and' between penultimate \nand last";
 
                 //AuthsLimitCheck.Text = "";
                 //byte AuthsLimitCheckY = 147;
-                AuthsLimitCheck.Location = new Point(8, 133);
+                //AuthsLimitCheck.Location = new Point(8, 133);
 
                 AuthorsDividingInitialsSurname.Text = "dividing mark \nbetween initials \nand surname";
                 AuthorsDividingAuthors.Text = "dividing mark \nbetween authors";
@@ -1814,16 +1815,16 @@ namespace WinFormsApp1
                 ThomeItalic.Text = "Italic";
 
                 IssueBox.Text = "Issue";
-                IssueBox.Size = new Size(170, 91);
+                //IssueBox.Size = new Size(170, 91);
                 IssueCheck.Text = "Issue";
-                IssueThomePart.Text = "To link with volume";
+                IssueThomePart.Text = "To link \nwith volume";
                 IssueBold.Text = "Bold";
-                IssueBold.Location = new Point(5, 43);
+                //IssueBold.Location = new Point(5, 43);
                 IssueItalic.Text = "Italic";
-                IssueItalic.Location = new Point(5, 66);
+                //IssueItalic.Location = new Point(5, 66);
 
 
-                PageBox.Location = new Point(476, 227);
+                //PageBox.Location = new Point(476, 227);
                 PageBox.Text = "Page(s) or article number";
                 PageCheck.Text = "Page(s) or article number";
                 PageBold.Text = "Bold";
@@ -1853,8 +1854,7 @@ namespace WinFormsApp1
                 End.Items.Add(".");
 
                 FileSelection.Text = "File selection";
-                SupportedFiles.Text = "Supported files:";
-                SupportedFormats.Location = new Point(1115, 49);
+                SupportedFiles.Text = "Supported files: .txt .docx";
                 panelLabel.Text = "Drag and drop file here";
                 ChooseFileButton.Text = "Choose file";
                 RepeatButton.Text = "Refresh references";
@@ -1885,7 +1885,129 @@ namespace WinFormsApp1
 
             else if (ButtonChangeLang.Text == "RU")
             {
-                //Снова перевод на русский... когда-нибудь.....
+                ButtonChangeLang.Text = "EN";
+
+                DOIInputButton.Text = "Ввести";
+
+
+                AuthorsCheck.Text = "Авторы";
+                authorsBox.Text = "Авторы";
+
+                AuthorsPosition.Text = "Положение";
+                AuthPosDropList.Items.Clear();
+                AuthPosDropList.Items.Add("Инициалы/Фамилия");
+                AuthPosDropList.Items.Add("Фамилия/Инициалы");
+
+                InitialsDotCheck.Text = "Точка после инициалов";
+                InitialsSpaceCheck.Text = "Пробел между инициалами";
+                AndCheck.Text = "Союз “and” между последним \r\nи предпоследним";
+
+                //AuthsLimitCheck.Text = "";
+                //byte AuthsLimitCheckY = 147;
+                //AuthsLimitCheck.Location = new Point(8, 133);
+
+                AuthorsDividingInitialsSurname.Text = "Разделитель\r\nмежду инициалами\r\nи фамилией";
+                AuthorsDividingAuthors.Text = "Разделитель\r\nмежду авторами";
+                AuthorsNumber.Text = "Кол-во авторов";
+
+                Output.Text = "Вывод";
+
+                articleBox.Text = "Название статьи";
+                TitleCheck.Text = "Название статьи";
+                ArticleNameDropList.Items.Clear();
+                ArticleNameDropList.Items.Add("Название в нижнем регистре");
+                ArticleNameDropList.Items.Add("Название с заглавными буквами");
+
+                journalBox.Text = "Название журнала";
+                JournalCheck.Text = "Название журнала";
+                JournalNameDropList.Items.Clear();
+                JournalNameDropList.Items.Add("Полное");
+                JournalNameDropList.Items.Add("Аббревиатура");
+                checkDots.Text = "Без точек";
+                JournalTitleItalic.Text = "Курсив";
+
+                DOIDropList.Items.Clear();
+                DOIDropList.Items.Add("Сокращенное");
+                DOIDropList.Items.Add("Как url - ссылка");
+
+                YearBox.Text = "Год";
+                YearCheck.Text = "Год";
+                YearBold.Text = "Полужирный";
+                YearItalic.Text = "Курсив";
+                YearBrackets.Text = "В скобках";
+
+                ThomeBox.Text = "Том";
+                ThomeCheck.Text = "Том";
+                ThomeBold.Text = "Полужирный";
+                ThomeItalic.Text = "Курсив";
+
+                IssueBox.Text = "Издание";
+                //IssueBox.Size = new Size(170, 91);
+                IssueCheck.Text = "Издание";
+                IssueThomePart.Text = "Сделать частью\r\nблока \"Том\"";
+                IssueBold.Text = "Полужирный";
+                //IssueBold.Location = new Point(5, 43);
+                IssueItalic.Text = "Курсив";
+                //IssueItalic.Location = new Point(5, 66);
+
+
+                //PageBox.Location = new Point(476, 227);
+                PageBox.Text = "Страницы или номер";
+                PageCheck.Text = "Страницы или номер";
+                PageBold.Text = "Полужирный";
+                PageItalic.Text = "Курсив";
+                PageOnePage.Text = "Одна страница";
+                PagesDivider.Items.Clear();
+                PagesDivider.Items.Add("Через тире");
+                PagesDivider.Items.Add("Через дефис");
+
+                BlockLabel.Text = "Блоки";
+
+                Block1.Items.Clear(); Block2.Items.Clear(); Block3.Items.Clear();
+                Block4.Items.Clear(); Block5.Items.Clear(); Block6.Items.Clear();
+                Block7.Items.Clear(); Block8.Items.Clear();
+
+                Block1.Items.AddRange(blocksRU.ToArray()); Block2.Items.AddRange(blocksRU.ToArray());
+                Block3.Items.AddRange(blocksRU.ToArray()); Block4.Items.AddRange(blocksRU.ToArray());
+                Block5.Items.AddRange(blocksRU.ToArray()); Block6.Items.AddRange(blocksRU.ToArray());
+                Block7.Items.AddRange(blocksRU.ToArray()); Block8.Items.AddRange(blocksRU.ToArray());
+
+                DividingLabel.Text = "Разделители";
+
+                EndingLabel.Text = "Символ окончания";
+                End.Items.Clear();
+                End.Items.Add("n/a");
+                End.Items.Add(";");
+                End.Items.Add(".");
+
+                FileSelection.Text = "Выбор файла(ов)";
+                SupportedFiles.Text = "Поддерживаемый формат файлов: .txt .docx";
+                panelLabel.Text = "Нажмите, чтобы выбрать файл(ы) \r\nили перетащите в это поле";
+                ChooseFileButton.Text = "Выбрать файл(ы)";
+                RepeatButton.Text = "Обновить ссылки";
+
+                AuthPosDropList.SelectedItem = AuthPosDropList.Items[0];
+                NameSepDropList.SelectedItem = NameSepDropList.Items[0];
+                AuthSepDropList.SelectedItem = AuthSepDropList.Items[0];
+                ArticleNameDropList.SelectedItem = ArticleNameDropList.Items[0];
+                JournalNameDropList.SelectedItem = JournalNameDropList.Items[0];
+                DOIDropList.SelectedItem = DOIDropList.Items[0];
+                PagesDivider.SelectedItem = PagesDivider.Items[0];
+
+                Divider1.SelectedItem = Divider2.SelectedItem = Divider3.SelectedItem =
+                Divider4.SelectedItem = Divider5.SelectedItem = Divider6.SelectedItem =
+                Divider7.SelectedItem = Divider1.Items[0];
+
+                End.SelectedItem = End.Items[0];
+
+                Block1.SelectedItem = Block1.Items[0];
+                Block2.SelectedItem = Block2.Items[1];
+                Block3.SelectedItem = Block3.Items[2];
+                Block4.SelectedItem = Block4.Items[3];
+                Block5.SelectedItem = Block5.Items[4];
+                Block6.SelectedItem = Block6.Items[5];
+                Block7.SelectedItem = Block7.Items[6];
+                Block8.SelectedItem = Block8.Items[7];
             }
         }
     }
