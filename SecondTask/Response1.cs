@@ -20,6 +20,11 @@ namespace WinFormsApp1
         public class Message
         {
             public Author[]? author { get; set; }
+            public class Author
+            {
+                public string given { get; set; }
+                public string family { get; set; }
+            }
 
             [JsonPropertyName("published-print")]
             public PublishedPrint? published_print { get; set; }

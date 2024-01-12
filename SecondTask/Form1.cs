@@ -25,7 +25,7 @@ namespace WinFormsApp1
         Regex regex = new Regex(@"[A-Z]");
         MatchCollection matches;
         List<string> blocks = new List<string> { "Авторы", "Название статьи",
-            "Название журнала", "DOI", "Год", "Том", "Издание", "Страницы или номер", ""};
+            "Название журнала", "DOI", "Год", "Том", "Издание", "Страницы или номер"};
         List<string> doiContentList = new List<string>();
 
 
@@ -43,7 +43,7 @@ namespace WinFormsApp1
             DOIDropList.SelectedItem = DOIDropList.Items[0];
             PagesDivider.SelectedItem = PagesDivider.Items[0];
 
-            DOIinput.Text = "https://doi.org/10.1070/RCR4987";
+            DOIinput.Text = "https://doi.org/10.15826/chimtech.2020.7.1.02";
 
             Block1.Items.AddRange(blocks.ToArray()); Block2.Items.AddRange(blocks.ToArray());
             Block3.Items.AddRange(blocks.ToArray()); Block4.Items.AddRange(blocks.ToArray());
@@ -79,53 +79,88 @@ namespace WinFormsApp1
             }
 
             Response1 res = await handler.GetMetadata(DOIinput.Text);
-            res.DOI = DOIinput.Text.Replace("https://doi.org/", "");
+            res.DOI = DOIinput.Text.Replace("https://doi.org/", "").TrimEnd(' ').TrimStart(' ');
 
             if (res.status == "error")
             {
                 richTextBox1.SelectionColor = System.Drawing.Color.Red;
                 richTextBox1.AppendText("Error, wrong input.");
-                richTextBox1.SelectionColor = System.Drawing.Color.Red;
+                richTextBox1.SelectionColor = System.Drawing.Color.Black;
                 return;
             }
 
             if (Block1.Text != "" && Block1.Enabled)
                 CheckBlock(Block1.Text, res);
-            if (Divider1.Enabled)
-                richTextBox1.AppendText(Divider1.Text.Trim('"'));
 
             if (Block2.Text != "" && Block2.Enabled)
+            {
+                if (richTextBox1.Text.Last() == '.')
+                    richTextBox1.AppendText(Divider1.Text.Trim('"').Replace(".", ""));
+                else
+                    richTextBox1.AppendText(Divider1.Text.Trim('"'));
+
                 CheckBlock(Block2.Text, res);
-            if (Divider2.Enabled)
-                richTextBox1.AppendText(Divider2.Text.Trim('"'));
+            }
 
             if (Block3.Text != "" && Block3.Enabled)
+            {
+                if (richTextBox1.Text.Last() == '.')
+                    richTextBox1.AppendText(Divider2.Text.Trim('"').Replace(".", ""));
+                else
+                    richTextBox1.AppendText(Divider2.Text.Trim('"'));
+
                 CheckBlock(Block3.Text, res);
-            if (Divider3.Enabled)
-                richTextBox1.AppendText(Divider3.Text.Trim('"'));
+            }
 
             if (Block4.Text != "" && Block4.Enabled)
+            {
+                if (richTextBox1.Text.Last() == '.')
+                    richTextBox1.AppendText(Divider3.Text.Trim('"').Replace(".", ""));
+                else
+                    richTextBox1.AppendText(Divider3.Text.Trim('"'));
+
                 CheckBlock(Block4.Text, res);
-            if (Divider4.Enabled)
-                richTextBox1.AppendText(Divider4.Text.Trim('"'));
+            }
 
             if (Block5.Text != "" && Block5.Enabled)
+            {
+                if (richTextBox1.Text.Last() == '.')
+                    richTextBox1.AppendText(Divider4.Text.Trim('"').Replace(".", ""));
+                else
+                    richTextBox1.AppendText(Divider4.Text.Trim('"'));
+
                 CheckBlock(Block5.Text, res);
-            if (Divider5.Enabled)
-                richTextBox1.AppendText(Divider5.Text.Trim('"'));
+            }
 
             if (Block6.Text != "" && Block6.Enabled)
+            {
+                if (richTextBox1.Text.Last() == '.')
+                    richTextBox1.AppendText(Divider5.Text.Trim('"').Replace(".", ""));
+                else
+                    richTextBox1.AppendText(Divider5.Text.Trim('"'));
+
                 CheckBlock(Block6.Text, res);
-            if (Divider6.Enabled)
-                richTextBox1.AppendText(Divider6.Text.Trim('"'));
+            }
 
             if (Block7.Text != "" && Block7.Enabled)
+            {
+                if (richTextBox1.Text.Last() == '.')
+                    richTextBox1.AppendText(Divider6.Text.Trim('"').Replace(".", ""));
+                else
+                    richTextBox1.AppendText(Divider6.Text.Trim('"'));
+
                 CheckBlock(Block7.Text, res);
-            if (Divider7.Enabled)
-                richTextBox1.AppendText(Divider7.Text.Trim('"'));
+            }
 
             if (Block8.Text != "" && Block8.Enabled)
+            {
+                if (richTextBox1.Text.Last() == '.')
+                    richTextBox1.AppendText(Divider7.Text.Trim('"').Replace(".", ""));
+                else
+                    richTextBox1.AppendText(Divider7.Text.Trim('"'));
+
                 CheckBlock(Block8.Text, res);
+            }
 
             if (End.Text != "Отсутствует")
                 richTextBox1.AppendText(End.Text.Trim('"'));
@@ -270,7 +305,7 @@ namespace WinFormsApp1
 
         async void FormTitle(Response1 response, RichTextBox rtb)
         {
-            if (response.message == null)
+            if (response.message.title.Length == 0 || response.message.title == null)
             {
                 rtb.SelectionColor = System.Drawing.Color.Red;
                 rtb.AppendText("Произошла ошибка в блоке \"Название статьи\"");
@@ -288,6 +323,8 @@ namespace WinFormsApp1
                 return;
             }
 
+            //title = Regex.Replace(title.Replace("\n", ""), @"\s\s+", "");
+
             switch (ArticleNameDropList.SelectedItem)
             {
                 case "Название в нижнем регистре":
@@ -304,7 +341,8 @@ namespace WinFormsApp1
                     break;
             }
 
-            title = Regex.Replace(title, @"<\w*>|</\w*>", "");
+            title = Regex.Replace(title, @"<.*?>|</.*?>", "");
+            title = Regex.Replace(title, @"\[sub .+?\]", m => m.Value.Replace("[sub ", "").Replace("]", ""));
             rtb.AppendText(title);
         }
 
@@ -330,10 +368,14 @@ namespace WinFormsApp1
                 return;
             }
 
+            if (JournalTitleItalic.Checked)
+                rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Italic);
+
             switch (JournalNameDropList.SelectedItem)
             {
                 case "Полное":
                     rtb.AppendText(journal);
+                    rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
                     return;
 
                 case "Аббревиатура":
@@ -347,6 +389,7 @@ namespace WinFormsApp1
                     if (journal.Split(' ', '-', '–').Length == 1)
                     {
                         rtb.AppendText(journal);
+                        rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
                         return;
                     }
 
@@ -383,9 +426,11 @@ namespace WinFormsApp1
                         journal = journal.Replace(".", "");
 
                     rtb.AppendText(journal);
+                    rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
                     return;
 
                 default:
+                    rtb.SelectionFont = new System.Drawing.Font(rtb.Font, FontStyle.Regular);
                     return;
             }
         }
@@ -418,7 +463,7 @@ namespace WinFormsApp1
                 {
                     rtb.SelectionColor = System.Drawing.Color.Red;
                     rtb.AppendText("Произошла ошибка в блоке \"Год\"");
-                    rtb.SelectionColor = System.Drawing.Color.Red;
+                    rtb.SelectionColor = System.Drawing.Color.Black;
                     return;
                 }
                 else
@@ -462,13 +507,14 @@ namespace WinFormsApp1
             {
                 rtb.SelectionColor = System.Drawing.Color.Red;
                 rtb.AppendText("Произошла ошибка в блоке \"Том\"");
-                rtb.SelectionColor = System.Drawing.Color.Red;
+                rtb.SelectionColor = System.Drawing.Color.Black;
                 return;
             }
 
             if (IssueThomePart.Checked)
             {
-                thome = $"{thome}({response.message.issue})";
+                if (response.message.issue != null && response.message.issue != "")
+                    thome = $"{thome}({response.message.issue})";
             }
 
             if (ThomeBold.Checked && ThomeItalic.Checked)
@@ -504,7 +550,7 @@ namespace WinFormsApp1
             {
                 rtb.SelectionColor = System.Drawing.Color.Red;
                 rtb.AppendText("Произошла ошибка в блоке \"Издание\"");
-                rtb.SelectionColor = System.Drawing.Color.Red;
+                rtb.SelectionColor = System.Drawing.Color.Black;
                 return;
             }
 
@@ -541,7 +587,7 @@ namespace WinFormsApp1
             {
                 rtb.SelectionColor = System.Drawing.Color.Red;
                 rtb.AppendText("Необходим ввод номера статьи");
-                rtb.SelectionColor = System.Drawing.Color.Red;
+                rtb.SelectionColor = System.Drawing.Color.Black;
                 return;
             }
 
@@ -626,6 +672,7 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Авторы");
+                ClearBlock("Авторы");
             }
 
             FormBlockList();
@@ -644,6 +691,7 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Название статьи");
+                ClearBlock("Название статьи");
             }
 
             FormBlockList();
@@ -662,6 +710,7 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Название журнала");
+                ClearBlock("Название журнала");
             }
 
             FormBlockList();
@@ -680,6 +729,7 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("DOI");
+                ClearBlock("DOI");
             }
 
             FormBlockList();
@@ -698,6 +748,7 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Год");
+                ClearBlock("Год");
             }
 
             FormBlockList();
@@ -716,6 +767,7 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Том");
+                ClearBlock("Том");
             }
 
             FormBlockList();
@@ -735,6 +787,7 @@ namespace WinFormsApp1
                     blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Издание");
+                ClearBlock("Издание");
             }
 
             FormBlockList();
@@ -753,6 +806,7 @@ namespace WinFormsApp1
                 blocksCount -= 1;
                 CheckBlocksNumber();
                 blocks.Remove("Страницы или номер");
+                ClearBlock("Страницы или номер");
             }
 
             FormBlockList();
@@ -876,6 +930,25 @@ namespace WinFormsApp1
             Block7.Items.AddRange(blocks.ToArray()); Block8.Items.AddRange(blocks.ToArray());
         }
 
+        private void ClearBlock(string s)
+        {
+            if (Block1.Text == s)
+                Block1.Text = "";
+            if (Block2.Text == s)
+                Block2.Text = "";
+            if (Block3.Text == s)
+                Block3.Text = "";
+            if (Block4.Text == s)
+                Block4.Text = "";
+            if (Block5.Text == s)
+                Block5.Text = "";
+            if (Block6.Text == s)
+                Block6.Text = "";
+            if (Block7.Text == s)
+                Block7.Text = "";
+            if (Block8.Text == s)
+                Block8.Text = "";
+        }
 
         //LOAD FILE
 
@@ -897,7 +970,7 @@ namespace WinFormsApp1
             for (int i = 0; i < doiContentList.Count; i++)
             {
                 Response1 res = await handler.GetMetadata(doiContentList[i]);
-                res.DOI = doiContentList[i].Replace("https://doi.org/", "");
+                res.DOI = doiContentList[i].Replace("https://doi.org/", "").TrimEnd(' ').TrimStart(' ');
 
                 if (res.status == "error")
                 {
@@ -910,41 +983,76 @@ namespace WinFormsApp1
 
                 if (Block1.Text != "" && Block1.Enabled)
                     CheckBlock(Block1.Text, res);
-                if (Divider1.Enabled)
-                    richTextBox1.AppendText(Divider1.Text.Trim('"'));
 
                 if (Block2.Text != "" && Block2.Enabled)
+                {
+                    if (richTextBox1.Text.Last() == '.')
+                        richTextBox1.AppendText(Divider1.Text.Trim('"').Replace(".", ""));
+                    else
+                        richTextBox1.AppendText(Divider1.Text.Trim('"'));
+
                     CheckBlock(Block2.Text, res);
-                if (Divider2.Enabled)
-                    richTextBox1.AppendText(Divider2.Text.Trim('"'));
+                }
 
                 if (Block3.Text != "" && Block3.Enabled)
+                {
+                    if (richTextBox1.Text.Last() == '.')
+                        richTextBox1.AppendText(Divider2.Text.Trim('"').Replace(".", ""));
+                    else
+                        richTextBox1.AppendText(Divider2.Text.Trim('"'));
+
                     CheckBlock(Block3.Text, res);
-                if (Divider3.Enabled)
-                    richTextBox1.AppendText(Divider3.Text.Trim('"'));
+                }
 
                 if (Block4.Text != "" && Block4.Enabled)
+                {
+                    if (richTextBox1.Text.Last() == '.')
+                        richTextBox1.AppendText(Divider3.Text.Trim('"').Replace(".", ""));
+                    else
+                        richTextBox1.AppendText(Divider3.Text.Trim('"'));
+
                     CheckBlock(Block4.Text, res);
-                if (Divider4.Enabled)
-                    richTextBox1.AppendText(Divider4.Text.Trim('"'));
+                }
 
                 if (Block5.Text != "" && Block5.Enabled)
+                {
+                    if (richTextBox1.Text.Last() == '.')
+                        richTextBox1.AppendText(Divider4.Text.Trim('"').Replace(".", ""));
+                    else
+                        richTextBox1.AppendText(Divider4.Text.Trim('"'));
+
                     CheckBlock(Block5.Text, res);
-                if (Divider5.Enabled)
-                    richTextBox1.AppendText(Divider5.Text.Trim('"'));
+                }
 
                 if (Block6.Text != "" && Block6.Enabled)
+                {
+                    if (richTextBox1.Text.Last() == '.')
+                        richTextBox1.AppendText(Divider5.Text.Trim('"').Replace(".", ""));
+                    else
+                        richTextBox1.AppendText(Divider5.Text.Trim('"'));
+
                     CheckBlock(Block6.Text, res);
-                if (Divider6.Enabled)
-                    richTextBox1.AppendText(Divider6.Text.Trim('"'));
+                }
 
                 if (Block7.Text != "" && Block7.Enabled)
+                {
+                    if (richTextBox1.Text.Last() == '.')
+                        richTextBox1.AppendText(Divider6.Text.Trim('"').Replace(".", ""));
+                    else
+                        richTextBox1.AppendText(Divider6.Text.Trim('"'));
+
                     CheckBlock(Block7.Text, res);
-                if (Divider7.Enabled)
-                    richTextBox1.AppendText(Divider7.Text.Trim('"'));
+                }
 
                 if (Block8.Text != "" && Block8.Enabled)
+                {
+                    if (richTextBox1.Text.Last() == '.')
+                        richTextBox1.AppendText(Divider7.Text.Trim('"').Replace(".", ""));
+                    else
+                        richTextBox1.AppendText(Divider7.Text.Trim('"'));
+
                     CheckBlock(Block8.Text, res);
+                }
 
                 if (End.Text != "Отсутствует")
                     richTextBox1.AppendText(End.Text.Trim('"'));
