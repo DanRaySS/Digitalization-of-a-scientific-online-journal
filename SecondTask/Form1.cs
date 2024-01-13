@@ -467,15 +467,13 @@ namespace WinFormsApp1
 
                         if (worksheet.Cells[i, 0].Value.ToString().Last() == '-')
                         {
-                            mask = $@"\b({worksheet.Cells[i, 0].Value.ToString().TrimStart('=').TrimEnd('-')})\w*";
+                            mask = $@"\b({worksheet.Cells[i, 0].Value.ToString().TrimStart('=').TrimEnd('-')})\w*\b";
                         }
-                        else mask = $@"\b({worksheet.Cells[i, 0].Value.ToString().TrimStart('=')})\b";
+                        else mask = $@"\b({worksheet.Cells[i, 0].Value.ToString().TrimStart('=')})((\b)|(s\b))";
 
                         if (Regex.Match(journal, mask, RegexOptions.IgnoreCase).Value.ToString() != "")
                         {
-                            if (Regex.Match(journal, mask, RegexOptions.IgnoreCase).Value.ToString().Length -
-                                worksheet.Cells[i, 0].Value.ToString().TrimStart('=').TrimEnd('-').Length == 1
-                                && worksheet.Cells[i, 1].Value.ToString().Length >=
+                            if (worksheet.Cells[i, 1].Value.ToString().Length >=
                                 Regex.Match(journal, mask, RegexOptions.IgnoreCase).Value.ToString().Length)
                                 continue;
                             else
