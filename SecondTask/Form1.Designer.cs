@@ -336,7 +336,7 @@
             journalBox.Controls.Add(JournalCheck);
             journalBox.Controls.Add(checkDots);
             journalBox.Controls.Add(JournalNameDropList);
-            journalBox.Location = new Point(255, 117);
+            journalBox.Location = new Point(256, 106);
             journalBox.Margin = new Padding(3, 2, 3, 2);
             journalBox.Name = "journalBox";
             journalBox.Padding = new Padding(3, 2, 3, 2);
@@ -397,11 +397,11 @@
             // 
             DOIBox.Controls.Add(DOICheck);
             DOIBox.Controls.Add(DOIDropList);
-            DOIBox.Location = new Point(254, 216);
+            DOIBox.Location = new Point(476, 301);
             DOIBox.Margin = new Padding(3, 2, 3, 2);
             DOIBox.Name = "DOIBox";
             DOIBox.Padding = new Padding(3, 2, 3, 2);
-            DOIBox.Size = new Size(215, 54);
+            DOIBox.Size = new Size(170, 67);
             DOIBox.TabIndex = 8;
             DOIBox.TabStop = false;
             DOIBox.Text = "DOI";
@@ -429,7 +429,7 @@
             DOIDropList.Location = new Point(6, 23);
             DOIDropList.Margin = new Padding(3, 2, 3, 2);
             DOIDropList.Name = "DOIDropList";
-            DOIDropList.Size = new Size(203, 23);
+            DOIDropList.Size = new Size(157, 23);
             DOIDropList.TabIndex = 0;
             // 
             // PageBox
@@ -439,11 +439,11 @@
             PageBox.Controls.Add(PageCheck);
             PageBox.Controls.Add(PageItalic);
             PageBox.Controls.Add(PageBold);
-            PageBox.Location = new Point(476, 242);
+            PageBox.Location = new Point(476, 171);
             PageBox.Margin = new Padding(3, 2, 3, 2);
             PageBox.Name = "PageBox";
             PageBox.Padding = new Padding(3, 2, 3, 2);
-            PageBox.Size = new Size(170, 126);
+            PageBox.Size = new Size(170, 125);
             PageBox.TabIndex = 9;
             PageBox.TabStop = false;
             PageBox.Text = "Страницы";
@@ -513,11 +513,11 @@
             YearBox.Controls.Add(YearCheck);
             YearBox.Controls.Add(YearItalic);
             YearBox.Controls.Add(YearBold);
-            YearBox.Location = new Point(254, 274);
+            YearBox.Location = new Point(256, 204);
             YearBox.Margin = new Padding(3, 2, 3, 2);
             YearBox.Name = "YearBox";
             YearBox.Padding = new Padding(3, 2, 3, 2);
-            YearBox.Size = new Size(215, 94);
+            YearBox.Size = new Size(215, 92);
             YearBox.TabIndex = 10;
             YearBox.TabStop = false;
             YearBox.Text = "Год";
@@ -575,11 +575,11 @@
             ThomeBox.Controls.Add(ThomeCheck);
             ThomeBox.Controls.Add(ThomeItalic);
             ThomeBox.Controls.Add(ThomeBold);
-            ThomeBox.Location = new Point(476, 50);
+            ThomeBox.Location = new Point(256, 301);
             ThomeBox.Margin = new Padding(3, 2, 3, 2);
             ThomeBox.Name = "ThomeBox";
             ThomeBox.Padding = new Padding(3, 2, 3, 2);
-            ThomeBox.Size = new Size(170, 70);
+            ThomeBox.Size = new Size(215, 67);
             ThomeBox.TabIndex = 11;
             ThomeBox.TabStop = false;
             ThomeBox.Text = "Том";
@@ -602,7 +602,7 @@
             // ThomeItalic
             // 
             ThomeItalic.AutoSize = true;
-            ThomeItalic.Location = new Point(6, 43);
+            ThomeItalic.Location = new Point(6, 42);
             ThomeItalic.Margin = new Padding(3, 2, 3, 2);
             ThomeItalic.Name = "ThomeItalic";
             ThomeItalic.Size = new Size(65, 19);
@@ -613,7 +613,7 @@
             // ThomeBold
             // 
             ThomeBold.AutoSize = true;
-            ThomeBold.Location = new Point(6, 20);
+            ThomeBold.Location = new Point(6, 21);
             ThomeBold.Margin = new Padding(3, 2, 3, 2);
             ThomeBold.Name = "ThomeBold";
             ThomeBold.Size = new Size(101, 19);
@@ -767,7 +767,7 @@
             // 
             End.BackColor = Color.LightCoral;
             End.FormattingEnabled = true;
-            End.Items.AddRange(new object[] { "Отсутствует", ".", ";" });
+            End.Items.AddRange(new object[] { "", ".", ";" });
             End.Location = new Point(764, 328);
             End.Margin = new Padding(3, 2, 3, 2);
             End.Name = "End";
@@ -901,11 +901,11 @@
             IssueBox.Controls.Add(IssueItalic);
             IssueBox.Controls.Add(IssueBold);
             IssueBox.Controls.Add(IssueThomePart);
-            IssueBox.Location = new Point(476, 126);
+            IssueBox.Location = new Point(476, 50);
             IssueBox.Margin = new Padding(3, 2, 3, 2);
             IssueBox.Name = "IssueBox";
             IssueBox.Padding = new Padding(3, 2, 3, 2);
-            IssueBox.Size = new Size(170, 106);
+            IssueBox.Size = new Size(170, 112);
             IssueBox.TabIndex = 40;
             IssueBox.TabStop = false;
             IssueBox.Text = "Номер";
@@ -928,7 +928,7 @@
             // IssueItalic
             // 
             IssueItalic.AutoSize = true;
-            IssueItalic.Location = new Point(5, 81);
+            IssueItalic.Location = new Point(5, 85);
             IssueItalic.Margin = new Padding(3, 2, 3, 2);
             IssueItalic.Name = "IssueItalic";
             IssueItalic.Size = new Size(65, 19);
@@ -939,7 +939,7 @@
             // IssueBold
             // 
             IssueBold.AutoSize = true;
-            IssueBold.Location = new Point(5, 56);
+            IssueBold.Location = new Point(5, 60);
             IssueBold.Margin = new Padding(3, 2, 3, 2);
             IssueBold.Name = "IssueBold";
             IssueBold.Size = new Size(101, 19);
@@ -950,7 +950,7 @@
             // IssueThomePart
             // 
             IssueThomePart.AutoSize = true;
-            IssueThomePart.Location = new Point(5, 20);
+            IssueThomePart.Location = new Point(5, 23);
             IssueThomePart.Margin = new Padding(3, 2, 3, 2);
             IssueThomePart.Name = "IssueThomePart";
             IssueThomePart.Size = new Size(113, 34);

@@ -27,9 +27,9 @@ namespace WinFormsApp1
         Regex regex = new Regex(@"[A-Z]");
         MatchCollection matches;
         List<string> blocksRU = new List<string> { "Авторы", "Название статьи",
-            "Название журнала", "DOI", "Год", "Том", "Издание", "Страницы или номер"};        
+            "Название журнала", "Год", "Том", "Издание", "Страницы или номер", "DOI"};        
         List<string> blocksEN = new List<string> { "Author(s)", "Article title",
-            "Journal title", "DOI", "Year", "Thome", "Issue", "Page(s) or article number"};
+            "Journal title", "Year", "Volume", "Issue", "Page(s) or article number", "DOI"};
         List<string> doiContentList = new List<string>();
 
         public Form1()
@@ -185,12 +185,12 @@ namespace WinFormsApp1
 
             if (ButtonChangeLang.Text == "EN")
             {
-                if (End.Text != "Отсутствует")
+                if (End.Text != "")
                     richTextBox1.AppendText(End.Text.Trim('"'));
             }
             else
             {
-                if (End.Text != "n/a")
+                if (End.Text != "")
                     richTextBox1.AppendText(End.Text.Trim('"'));
             }
         }
@@ -589,7 +589,7 @@ namespace WinFormsApp1
                 }
                 else
                 {
-                    rtb.AppendText("Error in block \"Thome\"");
+                    rtb.AppendText("Error in block \"Volume\"");
                 }
                 rtb.SelectionColor = System.Drawing.Color.Black;
                 return;
@@ -939,7 +939,7 @@ namespace WinFormsApp1
                 }
                 else
                 {
-                    blocksEN.Add("Thome");
+                    blocksEN.Add("Volume");
                 }
             }
             else
@@ -953,8 +953,8 @@ namespace WinFormsApp1
                 }
                 else
                 {
-                    blocksEN.Remove("Thome");
-                    ClearBlock("Thome");
+                    blocksEN.Remove("Volume");
+                    ClearBlock("Volume");
                 }
             }
 
@@ -1126,7 +1126,7 @@ namespace WinFormsApp1
                     break;
 
                 case "Том":
-                case "Thome":
+                case "Volume":
                     FormThome(res, richTextBox1);
                     break;
 
@@ -1310,12 +1310,12 @@ namespace WinFormsApp1
 
                 if (ButtonChangeLang.Text == "EN")
                 {
-                    if (End.Text != "Отсутствует")
+                    if (End.Text != "")
                         richTextBox1.AppendText(End.Text.Trim('"'));
                 }
                 else
                 {
-                    if (End.Text != "n/a")
+                    if (End.Text != "")
                         richTextBox1.AppendText(End.Text.Trim('"'));
                 }
 
@@ -1849,7 +1849,7 @@ namespace WinFormsApp1
 
                 EndingLabel.Text = "Ending character";
                 End.Items.Clear();
-                End.Items.Add("n/a");
+                End.Items.Add("");
                 End.Items.Add(";");
                 End.Items.Add(".");
 
@@ -1976,7 +1976,7 @@ namespace WinFormsApp1
 
                 EndingLabel.Text = "Символ окончания";
                 End.Items.Clear();
-                End.Items.Add("n/a");
+                End.Items.Add("");
                 End.Items.Add(";");
                 End.Items.Add(".");
 
