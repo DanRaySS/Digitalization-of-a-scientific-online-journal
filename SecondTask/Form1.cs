@@ -117,59 +117,59 @@ namespace WinFormsApp1
                 savedData[35] = "";
             else
                 savedData[35] = Block3.SelectedItem.ToString();
-            if (Block3.SelectedItem == null)
+            if (Block4.SelectedItem == null)
                 savedData[36] = "";
             else
                 savedData[36] = Block4.SelectedItem.ToString();
-            if (Block3.SelectedItem == null)
+            if (Block5.SelectedItem == null)
                 savedData[37] = "";
             else
                 savedData[37] = Block5.SelectedItem.ToString();
-            if (Block3.SelectedItem == null)
+            if (Block6.SelectedItem == null)
                 savedData[38] = "";
             else
                 savedData[38] = Block6.SelectedItem.ToString();
-            if (Block3.SelectedItem == null)
+            if (Block7.SelectedItem == null)
                 savedData[39] = "";
             else
                 savedData[39] = Block7.SelectedItem.ToString();
-            if (Block3.SelectedItem == null)
+            if (Block8.SelectedItem == null)
                 savedData[40] = "";
             else
                 savedData[40] = Block8.SelectedItem.ToString();
-            if (Block3.SelectedItem == null)
+            if (Divider1.SelectedItem == null)
                 savedData[41] = "";
             else
                 savedData[41] = Divider1.SelectedItem.ToString();
-            if (Block3.SelectedItem == null)
+            if (Divider2.SelectedItem == null)
                 savedData[42] = "";
             else
                 savedData[42] = Divider2.SelectedItem.ToString();
-            if (Block3.SelectedItem == null)
+            if (Divider3.SelectedItem == null)
                 savedData[43] = "";
             else
                 savedData[43] = Divider3.SelectedItem.ToString();
-            if (Block3.SelectedItem == null)
+            if (Divider4.SelectedItem == null)
                 savedData[44] = "";
             else
                 savedData[44] = Divider4.SelectedItem.ToString();
-            if (Block3.SelectedItem == null)
+            if (Divider5.SelectedItem == null)
                 savedData[45] = "";
             else
                 savedData[45] = Divider5.SelectedItem.ToString();
-            if (Block3.SelectedItem == null)
+            if (Divider6.SelectedItem == null)
                 savedData[46] = "";
             else
                 savedData[46] = Divider6.SelectedItem.ToString();
-            if (Block3.SelectedItem == null)
+            if (Divider7.SelectedItem == null)
                 savedData[47] = "";
             else
                 savedData[47] = Divider7.SelectedItem.ToString();
-            if (Block3.SelectedItem == null)
+            if (End.SelectedItem == null)
                 savedData[48] = "";
             else
                 savedData[48] = End.SelectedItem.ToString();
-            if (Block3.SelectedItem == null)
+            if (DOIinput.Text == null)
                 savedData[49] = "";
             else
                 savedData[49] = DOIinput.Text.ToString();
