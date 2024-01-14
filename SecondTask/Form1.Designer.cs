@@ -1098,6 +1098,8 @@
             Controls.Add(DOIInputButton);
             Name = "Form1";
             Text = "Chimica Techno Acta reference generator";
+            FormClosing += Form1_FormClosing;
+            Load += Form1_Load;
             authorsBox.ResumeLayout(false);
             authorsBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)AuthorsLimiter).EndInit();

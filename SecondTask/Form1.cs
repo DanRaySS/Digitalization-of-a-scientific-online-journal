@@ -17,6 +17,7 @@ using DocumentFormat.OpenXml.Vml.Office;
 using DocumentFormat.OpenXml.Office2016.Drawing.ChartDrawing;
 using static System.Reflection.Metadata.BlobBuilder;
 using System.Security.Policy;
+using System.IO;
 
 namespace WinFormsApp1
 {
@@ -27,10 +28,11 @@ namespace WinFormsApp1
         Regex regex = new Regex(@"[A-Z]");
         MatchCollection matches;
         List<string> blocksRU = new List<string> { "Авторы", "Название статьи",
-            "Название журнала", "Год", "Том", "Издание", "Страницы или номер", "DOI"};        
+            "Название журнала", "Год", "Том", "Издание", "Страницы или номер", "DOI"};
         List<string> blocksEN = new List<string> { "Author(s)", "Article title",
             "Journal title", "Year", "Volume", "Issue", "Page(s) or article number", "DOI"};
         List<string> doiContentList = new List<string>();
+
 
         public Form1()
         {
@@ -38,39 +40,469 @@ namespace WinFormsApp1
             blocksCount = 8;
             handler = new RequestsHandler();
 
-            AuthPosDropList.SelectedItem = AuthPosDropList.Items[0];
-            NameSepDropList.SelectedItem = NameSepDropList.Items[0];
-            AuthSepDropList.SelectedItem = AuthSepDropList.Items[0];
-            ArticleNameDropList.SelectedItem = ArticleNameDropList.Items[0];
-            JournalNameDropList.SelectedItem = JournalNameDropList.Items[0];
-            DOIDropList.SelectedItem = DOIDropList.Items[0];
-            PagesDivider.SelectedItem = PagesDivider.Items[0];
-
-            DOIinput.Text = "https://doi.org/10.15826/chimtech.2020.7.1.02";
-
             Block1.Items.Clear(); Block2.Items.Clear(); Block3.Items.Clear();
             Block4.Items.Clear(); Block5.Items.Clear(); Block6.Items.Clear();
-            Block7.Items.Clear(); Block8.Items.Clear(); 
+            Block7.Items.Clear(); Block8.Items.Clear();
 
             Block1.Items.AddRange(blocksRU.ToArray()); Block2.Items.AddRange(blocksRU.ToArray());
             Block3.Items.AddRange(blocksRU.ToArray()); Block4.Items.AddRange(blocksRU.ToArray());
             Block5.Items.AddRange(blocksRU.ToArray()); Block6.Items.AddRange(blocksRU.ToArray());
             Block7.Items.AddRange(blocksRU.ToArray()); Block8.Items.AddRange(blocksRU.ToArray());
+        }
 
-            Divider1.SelectedItem = Divider2.SelectedItem = Divider3.SelectedItem =
-            Divider4.SelectedItem = Divider5.SelectedItem = Divider6.SelectedItem =
-            Divider7.SelectedItem = Divider1.Items[0];
+        void SaveFile(string obj, string location)
+        {
+            if (obj.Count() > 1)
+            {
+                if (File.Exists(obj))
+                {
+                    File.Create(obj).Close();
+                }
+                File.WriteAllText(location, obj);
+            }
+        }
 
-            End.SelectedItem = End.Items[0];
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            string[] savedData = new string[50];
 
-            Block1.SelectedItem = Block1.Items[0];
-            Block2.SelectedItem = Block2.Items[1];
-            Block3.SelectedItem = Block3.Items[2];
-            Block4.SelectedItem = Block4.Items[3];
-            Block5.SelectedItem = Block5.Items[4];
-            Block6.SelectedItem = Block6.Items[5];
-            Block7.SelectedItem = Block7.Items[6];
-            Block8.SelectedItem = Block8.Items[7];
+            savedData[0] = AuthorsCheck.Checked.ToString();
+            if (AuthPosDropList.SelectedItem == null)
+                savedData[1] = "";
+            else
+                savedData[1] = AuthPosDropList.SelectedItem.ToString();
+            savedData[2] = InitialsDotCheck.Checked.ToString();
+            savedData[3] = InitialsSpaceCheck.Checked.ToString();
+            savedData[4] = AndCheck.Checked.ToString();
+            savedData[5] = AuthsLimitCheck.Checked.ToString();
+            if (NameSepDropList.SelectedItem == null)
+                savedData[6] = "";
+            else
+                savedData[6] = NameSepDropList.SelectedItem.ToString();
+            if (AuthSepDropList.SelectedItem == null)
+                savedData[7] = "";
+            else
+                savedData[7] = AuthSepDropList.SelectedItem.ToString();
+            savedData[8] = AuthorsLimiter.Value.ToString();
+            savedData[9] = TitleCheck.Checked.ToString();
+            if (ArticleNameDropList.SelectedItem == null)
+                savedData[10] = "";
+            else
+                savedData[10] = ArticleNameDropList.SelectedItem.ToString();
+            savedData[11] = JournalCheck.Checked.ToString();
+            if (JournalNameDropList.SelectedItem == null)
+                savedData[12] = "";
+            else
+                savedData[12] = JournalNameDropList.SelectedItem.ToString();
+            savedData[13] = checkDots.Checked.ToString();
+            savedData[14] = JournalTitleItalic.Checked.ToString();
+            savedData[15] = YearCheck.Checked.ToString();
+            savedData[16] = YearBold.Checked.ToString();
+            savedData[17] = YearItalic.Checked.ToString();
+            savedData[18] = YearBrackets.Checked.ToString();
+            savedData[19] = ThomeCheck.Checked.ToString();
+            savedData[20] = ThomeBold.Checked.ToString();
+            savedData[21] = ThomeItalic.Checked.ToString();
+            savedData[22] = IssueCheck.Checked.ToString();
+            savedData[23] = IssueThomePart.Checked.ToString();
+            savedData[24] = IssueBold.Checked.ToString();
+            savedData[25] = IssueItalic.Checked.ToString();
+            savedData[26] = PageCheck.Checked.ToString();
+            savedData[27] = PageBold.Checked.ToString();
+            savedData[28] = PageItalic.Checked.ToString();
+            savedData[29] = PageOnePage.Checked.ToString();
+            if (PagesDivider.SelectedItem == null)
+                savedData[30] = "";
+            else
+                savedData[30] = PagesDivider.SelectedItem.ToString();
+            savedData[31] = DOICheck.Checked.ToString();
+            if (DOIDropList.SelectedItem == null)
+                savedData[32] = "";
+            else
+                savedData[32] = DOIDropList.SelectedItem.ToString();
+            if (Block1.SelectedItem == null)
+                savedData[33] = "";
+            else
+                savedData[33] = Block1.SelectedItem.ToString();
+            if (Block2.SelectedItem == null)
+                savedData[34] = "";
+            else
+                savedData[34] = Block2.SelectedItem.ToString();
+            if (Block3.SelectedItem == null)
+                savedData[35] = "";
+            else
+                savedData[35] = Block3.SelectedItem.ToString();
+            if (Block3.SelectedItem == null)
+                savedData[36] = "";
+            else
+                savedData[36] = Block4.SelectedItem.ToString();
+            if (Block3.SelectedItem == null)
+                savedData[37] = "";
+            else
+                savedData[37] = Block5.SelectedItem.ToString();
+            if (Block3.SelectedItem == null)
+                savedData[38] = "";
+            else
+                savedData[38] = Block6.SelectedItem.ToString();
+            if (Block3.SelectedItem == null)
+                savedData[39] = "";
+            else
+                savedData[39] = Block7.SelectedItem.ToString();
+            if (Block3.SelectedItem == null)
+                savedData[40] = "";
+            else
+                savedData[40] = Block8.SelectedItem.ToString();
+            if (Block3.SelectedItem == null)
+                savedData[41] = "";
+            else
+                savedData[41] = Divider1.SelectedItem.ToString();
+            if (Block3.SelectedItem == null)
+                savedData[42] = "";
+            else
+                savedData[42] = Divider2.SelectedItem.ToString();
+            if (Block3.SelectedItem == null)
+                savedData[43] = "";
+            else
+                savedData[43] = Divider3.SelectedItem.ToString();
+            if (Block3.SelectedItem == null)
+                savedData[44] = "";
+            else
+                savedData[44] = Divider4.SelectedItem.ToString();
+            if (Block3.SelectedItem == null)
+                savedData[45] = "";
+            else
+                savedData[45] = Divider5.SelectedItem.ToString();
+            if (Block3.SelectedItem == null)
+                savedData[46] = "";
+            else
+                savedData[46] = Divider6.SelectedItem.ToString();
+            if (Block3.SelectedItem == null)
+                savedData[47] = "";
+            else
+                savedData[47] = Divider7.SelectedItem.ToString();
+            if (Block3.SelectedItem == null)
+                savedData[48] = "";
+            else
+                savedData[48] = End.SelectedItem.ToString();
+            if (Block3.SelectedItem == null)
+                savedData[49] = "";
+            else
+                savedData[49] = DOIinput.Text.ToString();
+
+            File.WriteAllLines("savedSettings.txt", savedData);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            if (!File.Exists("savedSettings.txt"))
+            {
+                AuthPosDropList.SelectedItem = AuthPosDropList.Items[0];
+                NameSepDropList.SelectedItem = NameSepDropList.Items[0];
+                AuthSepDropList.SelectedItem = AuthSepDropList.Items[0];
+                ArticleNameDropList.SelectedItem = ArticleNameDropList.Items[0];
+                JournalNameDropList.SelectedItem = JournalNameDropList.Items[0];
+                DOIDropList.SelectedItem = DOIDropList.Items[0];
+                PagesDivider.SelectedItem = PagesDivider.Items[0];
+
+                DOIinput.Text = "https://doi.org/10.15826/chimtech.2020.7.1.02";
+
+                Divider1.SelectedItem = Divider2.SelectedItem = Divider3.SelectedItem =
+                Divider4.SelectedItem = Divider5.SelectedItem = Divider6.SelectedItem =
+                Divider7.SelectedItem = Divider1.Items[0];
+
+                End.SelectedItem = End.Items[0];
+
+                Block1.SelectedItem = Block1.Items[0];
+                Block2.SelectedItem = Block2.Items[1];
+                Block3.SelectedItem = Block3.Items[2];
+                Block4.SelectedItem = Block4.Items[3];
+                Block5.SelectedItem = Block5.Items[4];
+                Block6.SelectedItem = Block6.Items[5];
+                Block7.SelectedItem = Block7.Items[6];
+                Block8.SelectedItem = Block8.Items[7];
+                return;
+            }
+
+            string[] savedObjs = File.ReadAllLines("savedSettings.txt");
+
+            for (var i = 0; i < savedObjs.Length; i++)
+            {
+                //1ый столбец
+
+
+                if (savedObjs[0] == "True")
+                {
+                    AuthorsCheck.Checked = true;
+                }
+                else
+                {
+                    AuthorsCheck.Checked = false;
+                }
+
+                AuthPosDropList.SelectedItem = savedObjs[1];
+
+                if (savedObjs[2] == "True")
+                {
+                    InitialsDotCheck.Checked = true;
+                }
+                else
+                {
+                    InitialsDotCheck.Checked = false;
+                }
+                if (savedObjs[3] == "True")
+                {
+                    InitialsSpaceCheck.Checked = true;
+                }
+                else
+                {
+                    InitialsSpaceCheck.Checked = false;
+                }
+                if (savedObjs[4] == "True")
+                {
+                    AndCheck.Checked = true;
+                }
+                else
+                {
+                    AndCheck.Checked = false;
+                }
+                if (savedObjs[5] == "True")
+                {
+                    AuthsLimitCheck.Checked = true;
+                }
+                else
+                {
+                    AuthsLimitCheck.Checked = false;
+                }
+
+                NameSepDropList.SelectedItem = savedObjs[6];
+                AuthSepDropList.SelectedItem = savedObjs[7];
+                AuthorsLimiter.Value = decimal.Parse(savedObjs[8]);
+
+
+                //2ой столбец
+
+
+                if (savedObjs[9] == "True")
+                {
+                    TitleCheck.Checked = true;
+                }
+                else
+                {
+                    TitleCheck.Checked = false;
+                }
+
+                ArticleNameDropList.SelectedItem = savedObjs[10];
+
+                if (savedObjs[11] == "True")
+                {
+                    JournalCheck.Checked = true;
+                }
+                else
+                {
+                    JournalCheck.Checked = false;
+                }
+
+                JournalNameDropList.SelectedItem = savedObjs[12];
+
+                if (savedObjs[13] == "True")
+                {
+                    checkDots.Checked = true;
+                }
+                else
+                {
+                    checkDots.Checked = false;
+                }
+
+                if (savedObjs[14] == "True")
+                {
+                    JournalTitleItalic.Checked = true;
+                }
+                else
+                {
+                    JournalTitleItalic.Checked = false;
+                }  
+                    
+                if (savedObjs[15] == "True")
+                {
+                    YearCheck.Checked = true;
+                }
+                else
+                {
+                    YearCheck.Checked = false;
+                }   
+                    
+                if (savedObjs[16] == "True")
+                {
+                    YearBold.Checked = true;
+                }
+                else
+                {
+                    YearBold.Checked = false;
+                }
+                if (savedObjs[17] == "True")
+                {
+                    YearItalic.Checked = true;
+                }
+                else
+                {
+                    YearItalic.Checked = false;
+                }
+                if (savedObjs[18] == "True")
+                {
+                    YearBrackets.Checked = true;
+                }
+                else
+                {
+                    YearBrackets.Checked = false;
+                }
+
+                if (savedObjs[19] == "True")
+                {
+                    ThomeCheck.Checked = true;
+                }
+                else
+                {
+                    ThomeCheck.Checked = false;
+                }
+
+                if (savedObjs[20] == "True")
+                {
+                    ThomeBold.Checked = true;
+                }
+                else
+                {
+                    ThomeBold.Checked = false;
+                }
+
+                if (savedObjs[21] == "True")
+                {
+                    ThomeItalic.Checked = true;
+                }
+                else
+                {
+                    ThomeItalic.Checked = false;
+                }
+
+
+                //3ий столбец
+
+                if (savedObjs[22] == "True")
+                {
+                    IssueCheck.Checked = true;
+                }
+                else
+                {
+                    IssueCheck.Checked = false;
+                }
+                if (savedObjs[23] == "True")
+                {
+                    IssueThomePart.Checked = true;
+                }
+                else
+                {
+                    IssueThomePart.Checked = false;
+                }
+                if (savedObjs[24] == "True")
+                {
+                    IssueBold.Checked = true;
+                }
+                else
+                {
+                    IssueBold.Checked = false;
+                }
+                if (savedObjs[25] == "True")
+                {
+                    IssueItalic.Checked = true;
+                }
+                else
+                {
+                    IssueItalic.Checked = false;
+                }
+                if (savedObjs[26] == "True")
+                {
+                    PageCheck.Checked = true;
+                }
+                else
+                {
+                    PageCheck.Checked = false;
+                }
+                if (savedObjs[27] == "True")
+                {
+                    PageBold.Checked = true;
+                }
+                else
+                {
+                    PageBold.Checked = false;
+                }
+                if (savedObjs[28] == "True")
+                {
+                    PageItalic.Checked = true;
+                }
+                else
+                {
+                    PageItalic.Checked = false;
+                }
+                if (savedObjs[29] == "True")
+                {
+                    PageOnePage.Checked = true;
+                }
+                else
+                {
+                    PageOnePage.Checked = false;
+                }
+
+                PagesDivider.SelectedItem = savedObjs[30];
+
+                if (savedObjs[31] == "True")
+                {
+                    DOICheck.Checked = true;
+                }
+                else
+                {
+                    DOICheck.Checked = false;
+                }
+
+                DOIDropList.SelectedItem = savedObjs[32];
+
+
+                //"Блоки" столбец
+
+
+
+                Block1.SelectedItem = savedObjs[33];
+                Block2.SelectedItem = savedObjs[34];
+                Block3.SelectedItem = savedObjs[35];
+                Block4.SelectedItem = savedObjs[36];
+                Block5.SelectedItem = savedObjs[37];
+                Block6.SelectedItem = savedObjs[38];
+                Block7.SelectedItem = savedObjs[39];
+                Block8.SelectedItem = savedObjs[40];
+
+
+                //"Разделители" столбец
+
+
+                Divider1.SelectedItem = savedObjs[41];
+                Divider2.SelectedItem = savedObjs[42];
+                Divider3.SelectedItem = savedObjs[43];
+                Divider4.SelectedItem = savedObjs[44];
+                Divider5.SelectedItem = savedObjs[45];
+                Divider6.SelectedItem = savedObjs[46];
+                Divider7.SelectedItem = savedObjs[47];
+
+
+                //"Символ окончания"
+
+
+                End.SelectedItem = savedObjs[48];
+
+
+                //DOIIIIII
+
+                DOIinput.Text = savedObjs[49];
+
+                return;
+            }
         }
 
         private async void button1_Click(object sender, EventArgs e)
@@ -380,7 +812,7 @@ namespace WinFormsApp1
                 case "Название в нижнем регистре":
                 case "Lower-case words":
                     title = Regex.Replace(title, @"\W[A-Z][a-z]+\s", m => m.Value.ToLower());
-                    break;      
+                    break;
 
                 case "Название с заглавными буквами":
                 case "Upper-case words":
@@ -1846,10 +2278,6 @@ namespace WinFormsApp1
                 DividingLabel.Text = "Dividing marks";
 
                 EndingLabel.Text = "Ending character";
-                End.Items.Clear();
-                End.Items.Add("");
-                End.Items.Add(";");
-                End.Items.Add(".");
 
                 FileSelection.Text = "File selection";
                 SupportedFiles.Text = "Supported files: .txt .docx";
@@ -1973,10 +2401,6 @@ namespace WinFormsApp1
                 DividingLabel.Text = "Разделители";
 
                 EndingLabel.Text = "Символ окончания";
-                End.Items.Clear();
-                End.Items.Add("");
-                End.Items.Add(";");
-                End.Items.Add(".");
 
                 FileSelection.Text = "Выбор файла(ов)";
                 SupportedFiles.Text = "Поддерживаемый формат файлов: .txt .docx";
