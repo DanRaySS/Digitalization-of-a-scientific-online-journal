@@ -67,10 +67,7 @@ namespace WinFormsApp1
             string[] savedData = new string[50];
 
             savedData[0] = AuthorsCheck.Checked.ToString();
-            if (AuthPosDropList.SelectedItem == null)
-                savedData[1] = "";
-            else
-                savedData[1] = AuthPosDropList.SelectedItem.ToString();
+            savedData[1] = AuthPosDropList.SelectedIndex.ToString();
             savedData[2] = InitialsDotCheck.Checked.ToString();
             savedData[3] = InitialsSpaceCheck.Checked.ToString();
             savedData[4] = AndCheck.Checked.ToString();
@@ -85,15 +82,9 @@ namespace WinFormsApp1
                 savedData[7] = AuthSepDropList.SelectedItem.ToString();
             savedData[8] = AuthorsLimiter.Value.ToString();
             savedData[9] = TitleCheck.Checked.ToString();
-            if (ArticleNameDropList.SelectedItem == null)
-                savedData[10] = "";
-            else
-                savedData[10] = ArticleNameDropList.SelectedItem.ToString();
+            savedData[10] = ArticleNameDropList.SelectedIndex.ToString();
             savedData[11] = JournalCheck.Checked.ToString();
-            if (JournalNameDropList.SelectedItem == null)
-                savedData[12] = "";
-            else
-                savedData[12] = JournalNameDropList.SelectedItem.ToString();
+            savedData[12] = JournalNameDropList.SelectedIndex.ToString();
             savedData[13] = checkDots.Checked.ToString();
             savedData[14] = JournalTitleItalic.Checked.ToString();
             savedData[15] = YearCheck.Checked.ToString();
@@ -111,15 +102,9 @@ namespace WinFormsApp1
             savedData[27] = PageBold.Checked.ToString();
             savedData[28] = PageItalic.Checked.ToString();
             savedData[29] = PageOnePage.Checked.ToString();
-            if (PagesDivider.SelectedItem == null)
-                savedData[30] = "";
-            else
-                savedData[30] = PagesDivider.SelectedItem.ToString();
+            savedData[30] = PagesDivider.SelectedIndex.ToString();
             savedData[31] = DOICheck.Checked.ToString();
-            if (DOIDropList.SelectedItem == null)
-                savedData[32] = "";
-            else
-                savedData[32] = DOIDropList.SelectedItem.ToString();
+            savedData[32] = DOIDropList.SelectedIndex.ToString();
             if (Block1.SelectedItem == null)
                 savedData[33] = "";
             else
@@ -239,7 +224,7 @@ namespace WinFormsApp1
                     AuthorsCheck.Checked = false;
                 }
 
-                AuthPosDropList.SelectedItem = savedObjs[1];
+                AuthPosDropList.SelectedIndex = Int32.Parse(savedObjs[1]);
 
                 if (savedObjs[2] == "True")
                 {
@@ -291,7 +276,7 @@ namespace WinFormsApp1
                     TitleCheck.Checked = false;
                 }
 
-                ArticleNameDropList.SelectedItem = savedObjs[10];
+                ArticleNameDropList.SelectedIndex = Int32.Parse(savedObjs[10]);
 
                 if (savedObjs[11] == "True")
                 {
@@ -302,7 +287,7 @@ namespace WinFormsApp1
                     JournalCheck.Checked = false;
                 }
 
-                JournalNameDropList.SelectedItem = savedObjs[12];
+                JournalNameDropList.SelectedIndex = Int32.Parse(savedObjs[12]);
 
                 if (savedObjs[13] == "True")
                 {
@@ -451,7 +436,7 @@ namespace WinFormsApp1
                     PageOnePage.Checked = false;
                 }
 
-                PagesDivider.SelectedItem = savedObjs[30];
+                PagesDivider.SelectedIndex = Int32.Parse(savedObjs[30]);
 
                 if (savedObjs[31] == "True")
                 {
@@ -462,7 +447,7 @@ namespace WinFormsApp1
                     DOICheck.Checked = false;
                 }
 
-                DOIDropList.SelectedItem = savedObjs[32];
+                DOIDropList.SelectedIndex = Int32.Parse(savedObjs[32]);
 
 
                 //"Блоки" столбец
@@ -2192,6 +2177,15 @@ namespace WinFormsApp1
 
                 DOIInputButton.Text = "Input";
 
+                AuthorsCheck.Checked = true;
+                TitleCheck.Checked = true;
+                JournalCheck.Checked = true;
+                YearCheck.Checked = true;
+                ThomeCheck.Checked = true;
+                IssueCheck.Checked = true;
+                PageCheck.Checked = true;
+                DOICheck.Checked = true;
+                IssueThomePart.Checked = false;
 
                 AuthorsCheck.Text = "Author(s)";
                 authorsBox.Text = "Author(s)";
@@ -2266,6 +2260,9 @@ namespace WinFormsApp1
 
                 BlockLabel.Text = "Blocks";
 
+                blocksEN = new List<string>{ "Author(s)", "Article title",
+                    "Journal title", "Year", "Volume", "Issue", "Page(s) or article number", "DOI"};
+
                 Block1.Items.Clear(); Block2.Items.Clear(); Block3.Items.Clear();
                 Block4.Items.Clear(); Block5.Items.Clear(); Block6.Items.Clear();
                 Block7.Items.Clear(); Block8.Items.Clear();
@@ -2315,6 +2312,17 @@ namespace WinFormsApp1
 
                 DOIInputButton.Text = "Ввести";
 
+                AuthorsCheck.Checked = true;
+                TitleCheck.Checked = true;
+                JournalCheck.Checked = true;
+                YearCheck.Checked = true;
+                ThomeCheck.Checked = true;
+                IssueCheck.Checked = true;
+                PageCheck.Checked = true;
+                DOICheck.Checked = true;
+                IssueThomePart.Checked = false;
+
+                blocksRU = blocksRU.Distinct().ToList();
 
                 AuthorsCheck.Text = "Авторы";
                 authorsBox.Text = "Авторы";
@@ -2388,6 +2396,10 @@ namespace WinFormsApp1
                 PagesDivider.Items.Add("Через дефис");
 
                 BlockLabel.Text = "Блоки";
+
+                blocksRU = new List<string>{
+                    "Авторы", "Название статьи",
+                    "Название журнала", "Год", "Том", "Издание", "Страницы или номер", "DOI"};
 
                 Block1.Items.Clear(); Block2.Items.Clear(); Block3.Items.Clear();
                 Block4.Items.Clear(); Block5.Items.Clear(); Block6.Items.Clear();
