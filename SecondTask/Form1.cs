@@ -28,7 +28,7 @@ namespace WinFormsApp1
         Regex regex = new Regex(@"[A-Z]");
         MatchCollection matches;
         List<string> blocksRU = new List<string> { "Авторы", "Название статьи",
-            "Название журнала", "Год", "Том", "Издание", "Страницы или номер", "DOI"};
+            "Название журнала", "Год", "Том", "Выпуск", "Страницы или номер", "DOI"};
         List<string> blocksEN = new List<string> { "Author(s)", "Article title",
             "Journal title", "Year", "Volume", "Issue", "Page(s) or article number", "DOI"};
         List<string> doiContentList = new List<string>();
@@ -40,14 +40,16 @@ namespace WinFormsApp1
             blocksCount = 8;
             handler = new RequestsHandler();
 
-            Block1.Items.Clear(); Block2.Items.Clear(); Block3.Items.Clear();
-            Block4.Items.Clear(); Block5.Items.Clear(); Block6.Items.Clear();
-            Block7.Items.Clear(); Block8.Items.Clear();
+            if (ButtonChangeLang.Text == "EN")
+            {
+                GetRUTranslation();
+            }
 
-            Block1.Items.AddRange(blocksRU.ToArray()); Block2.Items.AddRange(blocksRU.ToArray());
-            Block3.Items.AddRange(blocksRU.ToArray()); Block4.Items.AddRange(blocksRU.ToArray());
-            Block5.Items.AddRange(blocksRU.ToArray()); Block6.Items.AddRange(blocksRU.ToArray());
-            Block7.Items.AddRange(blocksRU.ToArray()); Block8.Items.AddRange(blocksRU.ToArray());
+            else if (ButtonChangeLang.Text == "RU")
+            {
+                GetENTranslation();
+            }
+
         }
 
         void SaveFile(string obj, string location)
@@ -64,7 +66,7 @@ namespace WinFormsApp1
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string[] savedData = new string[50];
+            string[] savedData = new string[51];
 
             savedData[0] = AuthorsCheck.Checked.ToString();
             savedData[1] = AuthPosDropList.SelectedIndex.ToString();
@@ -173,6 +175,14 @@ namespace WinFormsApp1
                 savedData[49] = "";
             else
                 savedData[49] = DOIinput.Text.ToString();
+            if (ButtonChangeLang.Text.ToString() == "EN")
+            {
+                savedData[50] = "EN";
+            }
+            else
+            {
+                savedData[50] = "RU";
+            }
 
             File.WriteAllLines("savedSettings.txt", savedData);
         }
@@ -212,6 +222,20 @@ namespace WinFormsApp1
 
             for (var i = 0; i < savedObjs.Length; i++)
             {
+                //Translation
+
+
+                if (savedObjs[50] == "EN")
+                {
+                    ButtonChangeLang.Text = "EN";
+                    GetRUTranslation();
+                }
+                else
+                {
+                    ButtonChangeLang.Text = "RU";
+                    GetENTranslation();
+                }
+
                 //1ый столбец
 
 
@@ -485,6 +509,7 @@ namespace WinFormsApp1
                 //DOIIIIII
 
                 DOIinput.Text = savedObjs[49];
+
 
                 return;
             }
@@ -1050,7 +1075,7 @@ namespace WinFormsApp1
                 rtb.SelectionColor = System.Drawing.Color.Red;
                 if (ButtonChangeLang.Text == "EN")
                 {
-                    rtb.AppendText("Произошла ошибка в блоке \"Издание\"");
+                    rtb.AppendText("Произошла ошибка в блоке \"Выпуск\"");
                 }
                 else
                 {
@@ -1384,7 +1409,7 @@ namespace WinFormsApp1
                 CheckBlocksNumber();
                 if (ButtonChangeLang.Text == "EN")
                 {
-                    blocksRU.Add("Издание");
+                    blocksRU.Add("Выпуск");
                 }
                 else
                 {
@@ -1398,8 +1423,8 @@ namespace WinFormsApp1
                 CheckBlocksNumber();
                 if (ButtonChangeLang.Text == "EN")
                 {
-                    blocksRU.Remove("Издание");
-                    ClearBlock("Издание");
+                    blocksRU.Remove("Выпуск");
+                    ClearBlock("Выпуск");
                 }
                 else
                 {
@@ -1545,7 +1570,7 @@ namespace WinFormsApp1
                     FormThome(res, richTextBox1);
                     break;
 
-                case "Издание":
+                case "Выпуск":
                 case "Issue":
                     FormIssue(res, richTextBox1);
                     break;
@@ -2169,280 +2194,291 @@ namespace WinFormsApp1
             }
         }
 
+        private void GetENTranslation()
+        {
+            ButtonChangeLang.Text = "RU";
+
+            DOIInputButton.Text = "Input";
+
+            AuthorsCheck.Checked = true;
+            TitleCheck.Checked = true;
+            JournalCheck.Checked = true;
+            YearCheck.Checked = true;
+            ThomeCheck.Checked = true;
+            IssueCheck.Checked = true;
+            PageCheck.Checked = true;
+            DOICheck.Checked = true;
+            IssueThomePart.Checked = false;
+
+            AuthorsCheck.Text = "Author(s)";
+            authorsBox.Text = "Author(s)";
+
+            AuthorsPosition.Text = "Position";
+            AuthPosDropList.Items.Clear();
+            AuthPosDropList.Items.Add("Initials/Surname");
+            AuthPosDropList.Items.Add("Surname/Initials");
+
+            InitialsDotCheck.Text = "Dot(s) after initials";
+            InitialsSpaceCheck.Text = "Space(s) between initials";
+            AndCheck.Text = "'and' between penultimate \nand last";
+
+            //AuthsLimitCheck.Text = "";
+            //byte AuthsLimitCheckY = 147;
+            //AuthsLimitCheck.Location = new Point(8, 133);
+
+            AuthorsDividingInitialsSurname.Text = "dividing mark \nbetween initials \nand surname";
+            AuthorsDividingAuthors.Text = "dividing mark \nbetween authors";
+            AuthorsNumber.Text = "Authors' number";
+
+            Output.Text = "Output";
+
+            articleBox.Text = "Article title";
+            TitleCheck.Text = "Article title";
+            ArticleNameDropList.Items.Clear();
+            ArticleNameDropList.Items.Add("Lower-case words");
+            ArticleNameDropList.Items.Add("Upper-case words");
+
+            journalBox.Text = "Journal title";
+            JournalCheck.Text = "Journal title";
+            JournalNameDropList.Items.Clear();
+            JournalNameDropList.Items.Add("Full name");
+            JournalNameDropList.Items.Add("Abbr");
+            checkDots.Text = "without dots";
+            JournalTitleItalic.Text = "Italic";
+
+            DOIDropList.Items.Clear();
+            DOIDropList.Items.Add("short");
+            DOIDropList.Items.Add("url-type");
+
+            YearBox.Text = "Year";
+            YearCheck.Text = "Year";
+            YearBold.Text = "Bold";
+            YearItalic.Text = "Italic";
+            YearBrackets.Text = "In parentheses";
+
+            ThomeBox.Text = "Volume";
+            ThomeCheck.Text = "Volume";
+            ThomeBold.Text = "Bold";
+            ThomeItalic.Text = "Italic";
+
+            IssueBox.Text = "Issue";
+            //IssueBox.Size = new Size(170, 91);
+            IssueCheck.Text = "Issue";
+            IssueThomePart.Text = "To link \nwith volume";
+            IssueBold.Text = "Bold";
+            //IssueBold.Location = new Point(5, 43);
+            IssueItalic.Text = "Italic";
+            //IssueItalic.Location = new Point(5, 66);
+
+
+            //PageBox.Location = new Point(476, 227);
+            PageBox.Text = "Page(s) or article number";
+            PageCheck.Text = "Page(s) or article number";
+            PageBold.Text = "Bold";
+            PageItalic.Text = "Italic";
+            PageOnePage.Text = "First page only";
+            PagesDivider.Items.Clear();
+            PagesDivider.Items.Add("With dash");
+            PagesDivider.Items.Add("With hyphen");
+
+            BlockLabel.Text = "Blocks";
+
+            blocksEN = new List<string>{ "Author(s)", "Article title",
+                    "Journal title", "Year", "Volume", "Issue", "Page(s) or article number", "DOI"};
+
+            Block1.Items.Clear(); Block2.Items.Clear(); Block3.Items.Clear();
+            Block4.Items.Clear(); Block5.Items.Clear(); Block6.Items.Clear();
+            Block7.Items.Clear(); Block8.Items.Clear();
+
+            Block1.Items.AddRange(blocksEN.ToArray()); Block2.Items.AddRange(blocksEN.ToArray());
+            Block3.Items.AddRange(blocksEN.ToArray()); Block4.Items.AddRange(blocksEN.ToArray());
+            Block5.Items.AddRange(blocksEN.ToArray()); Block6.Items.AddRange(blocksEN.ToArray());
+            Block7.Items.AddRange(blocksEN.ToArray()); Block8.Items.AddRange(blocksEN.ToArray());
+
+            DividingLabel.Text = "Dividing marks";
+
+            EndingLabel.Text = "Ending character";
+
+            FileSelection.Text = "File selection";
+            SupportedFiles.Text = "Supported files: .txt .docx";
+            panelLabel.Text = "Drag and drop file here";
+            ChooseFileButton.Text = "Choose file";
+            RepeatButton.Text = "Refresh references";
+
+            AuthPosDropList.SelectedItem = AuthPosDropList.Items[0];
+            NameSepDropList.SelectedItem = NameSepDropList.Items[0];
+            AuthSepDropList.SelectedItem = AuthSepDropList.Items[0];
+            ArticleNameDropList.SelectedItem = ArticleNameDropList.Items[0];
+            JournalNameDropList.SelectedItem = JournalNameDropList.Items[0];
+            DOIDropList.SelectedItem = DOIDropList.Items[0];
+            PagesDivider.SelectedItem = PagesDivider.Items[0];
+
+            Divider1.SelectedItem = Divider2.SelectedItem = Divider3.SelectedItem =
+            Divider4.SelectedItem = Divider5.SelectedItem = Divider6.SelectedItem =
+            Divider7.SelectedItem = Divider1.Items[0];
+
+            End.SelectedItem = End.Items[0];
+
+            Block1.SelectedItem = Block1.Items[0];
+            Block2.SelectedItem = Block2.Items[1];
+            Block3.SelectedItem = Block3.Items[2];
+            Block4.SelectedItem = Block4.Items[3];
+            Block5.SelectedItem = Block5.Items[4];
+            Block6.SelectedItem = Block6.Items[5];
+            Block7.SelectedItem = Block7.Items[6];
+            Block8.SelectedItem = Block8.Items[7];
+        }
+
+        private void GetRUTranslation()
+        {
+            ButtonChangeLang.Text = "EN";
+
+            DOIInputButton.Text = "Ввести";
+
+            AuthorsCheck.Checked = true;
+            TitleCheck.Checked = true;
+            JournalCheck.Checked = true;
+            YearCheck.Checked = true;
+            ThomeCheck.Checked = true;
+            IssueCheck.Checked = true;
+            PageCheck.Checked = true;
+            DOICheck.Checked = true;
+            IssueThomePart.Checked = false;
+
+            blocksRU = blocksRU.Distinct().ToList();
+
+            AuthorsCheck.Text = "Авторы";
+            authorsBox.Text = "Авторы";
+
+            AuthorsPosition.Text = "Положение";
+            AuthPosDropList.Items.Clear();
+            AuthPosDropList.Items.Add("Инициалы/Фамилия");
+            AuthPosDropList.Items.Add("Фамилия/Инициалы");
+
+            InitialsDotCheck.Text = "Точка после инициалов";
+            InitialsSpaceCheck.Text = "Пробел между инициалами";
+            AndCheck.Text = "Союз “and” между последним \r\nи предпоследним";
+
+            //AuthsLimitCheck.Text = "";
+            //byte AuthsLimitCheckY = 147;
+            //AuthsLimitCheck.Location = new Point(8, 133);
+
+            AuthorsDividingInitialsSurname.Text = "Разделитель\r\nмежду инициалами\r\nи фамилией";
+            AuthorsDividingAuthors.Text = "Разделитель\r\nмежду авторами";
+            AuthorsNumber.Text = "Кол-во авторов";
+
+            Output.Text = "Вывод";
+
+            articleBox.Text = "Название статьи";
+            TitleCheck.Text = "Название статьи";
+            ArticleNameDropList.Items.Clear();
+            ArticleNameDropList.Items.Add("Название в нижнем регистре");
+            ArticleNameDropList.Items.Add("Название с заглавными буквами");
+
+            journalBox.Text = "Название журнала";
+            JournalCheck.Text = "Название журнала";
+            JournalNameDropList.Items.Clear();
+            JournalNameDropList.Items.Add("Полное");
+            JournalNameDropList.Items.Add("Аббревиатура");
+            checkDots.Text = "Без точек";
+            JournalTitleItalic.Text = "Курсив";
+
+            DOIDropList.Items.Clear();
+            DOIDropList.Items.Add("Сокращенное");
+            DOIDropList.Items.Add("Как url-ссылка");
+
+            YearBox.Text = "Год";
+            YearCheck.Text = "Год";
+            YearBold.Text = "Полужирный";
+            YearItalic.Text = "Курсив";
+            YearBrackets.Text = "В скобках";
+
+            ThomeBox.Text = "Том";
+            ThomeCheck.Text = "Том";
+            ThomeBold.Text = "Полужирный";
+            ThomeItalic.Text = "Курсив";
+
+            IssueBox.Text = "Выпуск";
+            //IssueBox.Size = new Size(170, 91);
+            IssueCheck.Text = "Выпуск";
+            IssueThomePart.Text = "Сделать частью\r\nблока \"Том\"";
+            IssueBold.Text = "Полужирный";
+            //IssueBold.Location = new Point(5, 43);
+            IssueItalic.Text = "Курсив";
+            //IssueItalic.Location = new Point(5, 66);
+
+
+            //PageBox.Location = new Point(476, 227);
+            PageBox.Text = "Страницы или номер";
+            PageCheck.Text = "Страницы или номер";
+            PageBold.Text = "Полужирный";
+            PageItalic.Text = "Курсив";
+            PageOnePage.Text = "Одна страница";
+            PagesDivider.Items.Clear();
+            PagesDivider.Items.Add("Через тире");
+            PagesDivider.Items.Add("Через дефис");
+
+            BlockLabel.Text = "Блоки";
+
+            blocksRU = new List<string>{
+                "Авторы", "Название статьи",
+                "Название журнала", "Год", "Том", "Выпуск", "Страницы или номер", "DOI"};
+
+            Block1.Items.Clear(); Block2.Items.Clear(); Block3.Items.Clear();
+            Block4.Items.Clear(); Block5.Items.Clear(); Block6.Items.Clear();
+            Block7.Items.Clear(); Block8.Items.Clear();
+
+            Block1.Items.AddRange(blocksRU.ToArray()); Block2.Items.AddRange(blocksRU.ToArray());
+            Block3.Items.AddRange(blocksRU.ToArray()); Block4.Items.AddRange(blocksRU.ToArray());
+            Block5.Items.AddRange(blocksRU.ToArray()); Block6.Items.AddRange(blocksRU.ToArray());
+            Block7.Items.AddRange(blocksRU.ToArray()); Block8.Items.AddRange(blocksRU.ToArray());
+
+            DividingLabel.Text = "Разделители";
+
+            EndingLabel.Text = "Символ окончания";
+
+            FileSelection.Text = "Выбор файла(ов)";
+            SupportedFiles.Text = "Поддерживаемый формат файлов: .txt .docx";
+            panelLabel.Text = "Нажмите, чтобы выбрать файл(ы) \r\nили перетащите в это поле";
+            ChooseFileButton.Text = "Выбрать файл(ы)";
+            RepeatButton.Text = "Обновить ссылки";
+
+            AuthPosDropList.SelectedItem = AuthPosDropList.Items[0];
+            NameSepDropList.SelectedItem = NameSepDropList.Items[0];
+            AuthSepDropList.SelectedItem = AuthSepDropList.Items[0];
+            ArticleNameDropList.SelectedItem = ArticleNameDropList.Items[0];
+            JournalNameDropList.SelectedItem = JournalNameDropList.Items[0];
+            DOIDropList.SelectedItem = DOIDropList.Items[0];
+            PagesDivider.SelectedItem = PagesDivider.Items[0];
+
+            Divider1.SelectedItem = Divider2.SelectedItem = Divider3.SelectedItem =
+            Divider4.SelectedItem = Divider5.SelectedItem = Divider6.SelectedItem =
+            Divider7.SelectedItem = Divider1.Items[0];
+
+            End.SelectedItem = End.Items[0];
+
+            Block1.SelectedItem = Block1.Items[0];
+            Block2.SelectedItem = Block2.Items[1];
+            Block3.SelectedItem = Block3.Items[2];
+            Block4.SelectedItem = Block4.Items[3];
+            Block5.SelectedItem = Block5.Items[4];
+            Block6.SelectedItem = Block6.Items[5];
+            Block7.SelectedItem = Block7.Items[6];
+            Block8.SelectedItem = Block8.Items[7];
+        }
+
         private void ButtonChangeLang_Click(object sender, EventArgs e)
         {
             if (ButtonChangeLang.Text == "EN")
             {
-                ButtonChangeLang.Text = "RU";
-
-                DOIInputButton.Text = "Input";
-
-                AuthorsCheck.Checked = true;
-                TitleCheck.Checked = true;
-                JournalCheck.Checked = true;
-                YearCheck.Checked = true;
-                ThomeCheck.Checked = true;
-                IssueCheck.Checked = true;
-                PageCheck.Checked = true;
-                DOICheck.Checked = true;
-                IssueThomePart.Checked = false;
-
-                AuthorsCheck.Text = "Author(s)";
-                authorsBox.Text = "Author(s)";
-
-                AuthorsPosition.Text = "Position";
-                AuthPosDropList.Items.Clear();
-                AuthPosDropList.Items.Add("Initials/Surname");
-                AuthPosDropList.Items.Add("Surname/Initials");
-
-                InitialsDotCheck.Text = "Dot(s) after initials";
-                InitialsSpaceCheck.Text = "Space(s) between initials";
-                AndCheck.Text = "'and' between penultimate \nand last";
-
-                //AuthsLimitCheck.Text = "";
-                //byte AuthsLimitCheckY = 147;
-                //AuthsLimitCheck.Location = new Point(8, 133);
-
-                AuthorsDividingInitialsSurname.Text = "dividing mark \nbetween initials \nand surname";
-                AuthorsDividingAuthors.Text = "dividing mark \nbetween authors";
-                AuthorsNumber.Text = "Authors' number";
-
-                Output.Text = "Output";
-
-                articleBox.Text = "Article title";
-                TitleCheck.Text = "Article title";
-                ArticleNameDropList.Items.Clear();
-                ArticleNameDropList.Items.Add("Lower-case words");
-                ArticleNameDropList.Items.Add("Upper-case words");
-
-                journalBox.Text = "Journal title";
-                JournalCheck.Text = "Journal title";
-                JournalNameDropList.Items.Clear();
-                JournalNameDropList.Items.Add("Full name");
-                JournalNameDropList.Items.Add("Abbr");
-                checkDots.Text = "without dots";
-                JournalTitleItalic.Text = "Italic";
-
-                DOIDropList.Items.Clear();
-                DOIDropList.Items.Add("short");
-                DOIDropList.Items.Add("url-type");
-
-                YearBox.Text = "Year";
-                YearCheck.Text = "Year";
-                YearBold.Text = "Bold";
-                YearItalic.Text = "Italic";
-                YearBrackets.Text = "In parentheses";
-
-                ThomeBox.Text = "Volume";
-                ThomeCheck.Text = "Volume";
-                ThomeBold.Text = "Bold";
-                ThomeItalic.Text = "Italic";
-
-                IssueBox.Text = "Issue";
-                //IssueBox.Size = new Size(170, 91);
-                IssueCheck.Text = "Issue";
-                IssueThomePart.Text = "To link \nwith volume";
-                IssueBold.Text = "Bold";
-                //IssueBold.Location = new Point(5, 43);
-                IssueItalic.Text = "Italic";
-                //IssueItalic.Location = new Point(5, 66);
-
-
-                //PageBox.Location = new Point(476, 227);
-                PageBox.Text = "Page(s) or article number";
-                PageCheck.Text = "Page(s) or article number";
-                PageBold.Text = "Bold";
-                PageItalic.Text = "Italic";
-                PageOnePage.Text = "First page only";
-                PagesDivider.Items.Clear();
-                PagesDivider.Items.Add("With dash");
-                PagesDivider.Items.Add("With hyphen");
-
-                BlockLabel.Text = "Blocks";
-
-                blocksEN = new List<string>{ "Author(s)", "Article title",
-                    "Journal title", "Year", "Volume", "Issue", "Page(s) or article number", "DOI"};
-
-                Block1.Items.Clear(); Block2.Items.Clear(); Block3.Items.Clear();
-                Block4.Items.Clear(); Block5.Items.Clear(); Block6.Items.Clear();
-                Block7.Items.Clear(); Block8.Items.Clear();
-
-                Block1.Items.AddRange(blocksEN.ToArray()); Block2.Items.AddRange(blocksEN.ToArray());
-                Block3.Items.AddRange(blocksEN.ToArray()); Block4.Items.AddRange(blocksEN.ToArray());
-                Block5.Items.AddRange(blocksEN.ToArray()); Block6.Items.AddRange(blocksEN.ToArray());
-                Block7.Items.AddRange(blocksEN.ToArray()); Block8.Items.AddRange(blocksEN.ToArray());
-
-                DividingLabel.Text = "Dividing marks";
-
-                EndingLabel.Text = "Ending character";
-
-                FileSelection.Text = "File selection";
-                SupportedFiles.Text = "Supported files: .txt .docx";
-                panelLabel.Text = "Drag and drop file here";
-                ChooseFileButton.Text = "Choose file";
-                RepeatButton.Text = "Refresh references";
-
-                AuthPosDropList.SelectedItem = AuthPosDropList.Items[0];
-                NameSepDropList.SelectedItem = NameSepDropList.Items[0];
-                AuthSepDropList.SelectedItem = AuthSepDropList.Items[0];
-                ArticleNameDropList.SelectedItem = ArticleNameDropList.Items[0];
-                JournalNameDropList.SelectedItem = JournalNameDropList.Items[0];
-                DOIDropList.SelectedItem = DOIDropList.Items[0];
-                PagesDivider.SelectedItem = PagesDivider.Items[0];
-
-                Divider1.SelectedItem = Divider2.SelectedItem = Divider3.SelectedItem =
-                Divider4.SelectedItem = Divider5.SelectedItem = Divider6.SelectedItem =
-                Divider7.SelectedItem = Divider1.Items[0];
-
-                End.SelectedItem = End.Items[0];
-
-                Block1.SelectedItem = Block1.Items[0];
-                Block2.SelectedItem = Block2.Items[1];
-                Block3.SelectedItem = Block3.Items[2];
-                Block4.SelectedItem = Block4.Items[3];
-                Block5.SelectedItem = Block5.Items[4];
-                Block6.SelectedItem = Block6.Items[5];
-                Block7.SelectedItem = Block7.Items[6];
-                Block8.SelectedItem = Block8.Items[7];
+                GetRUTranslation();
             }
 
             else if (ButtonChangeLang.Text == "RU")
             {
-                ButtonChangeLang.Text = "EN";
-
-                DOIInputButton.Text = "Ввести";
-
-                AuthorsCheck.Checked = true;
-                TitleCheck.Checked = true;
-                JournalCheck.Checked = true;
-                YearCheck.Checked = true;
-                ThomeCheck.Checked = true;
-                IssueCheck.Checked = true;
-                PageCheck.Checked = true;
-                DOICheck.Checked = true;
-                IssueThomePart.Checked = false;
-
-                blocksRU = blocksRU.Distinct().ToList();
-
-                AuthorsCheck.Text = "Авторы";
-                authorsBox.Text = "Авторы";
-
-                AuthorsPosition.Text = "Положение";
-                AuthPosDropList.Items.Clear();
-                AuthPosDropList.Items.Add("Инициалы/Фамилия");
-                AuthPosDropList.Items.Add("Фамилия/Инициалы");
-
-                InitialsDotCheck.Text = "Точка после инициалов";
-                InitialsSpaceCheck.Text = "Пробел между инициалами";
-                AndCheck.Text = "Союз “and” между последним \r\nи предпоследним";
-
-                //AuthsLimitCheck.Text = "";
-                //byte AuthsLimitCheckY = 147;
-                //AuthsLimitCheck.Location = new Point(8, 133);
-
-                AuthorsDividingInitialsSurname.Text = "Разделитель\r\nмежду инициалами\r\nи фамилией";
-                AuthorsDividingAuthors.Text = "Разделитель\r\nмежду авторами";
-                AuthorsNumber.Text = "Кол-во авторов";
-
-                Output.Text = "Вывод";
-
-                articleBox.Text = "Название статьи";
-                TitleCheck.Text = "Название статьи";
-                ArticleNameDropList.Items.Clear();
-                ArticleNameDropList.Items.Add("Название в нижнем регистре");
-                ArticleNameDropList.Items.Add("Название с заглавными буквами");
-
-                journalBox.Text = "Название журнала";
-                JournalCheck.Text = "Название журнала";
-                JournalNameDropList.Items.Clear();
-                JournalNameDropList.Items.Add("Полное");
-                JournalNameDropList.Items.Add("Аббревиатура");
-                checkDots.Text = "Без точек";
-                JournalTitleItalic.Text = "Курсив";
-
-                DOIDropList.Items.Clear();
-                DOIDropList.Items.Add("Сокращенное");
-                DOIDropList.Items.Add("Как url - ссылка");
-
-                YearBox.Text = "Год";
-                YearCheck.Text = "Год";
-                YearBold.Text = "Полужирный";
-                YearItalic.Text = "Курсив";
-                YearBrackets.Text = "В скобках";
-
-                ThomeBox.Text = "Том";
-                ThomeCheck.Text = "Том";
-                ThomeBold.Text = "Полужирный";
-                ThomeItalic.Text = "Курсив";
-
-                IssueBox.Text = "Издание";
-                //IssueBox.Size = new Size(170, 91);
-                IssueCheck.Text = "Издание";
-                IssueThomePart.Text = "Сделать частью\r\nблока \"Том\"";
-                IssueBold.Text = "Полужирный";
-                //IssueBold.Location = new Point(5, 43);
-                IssueItalic.Text = "Курсив";
-                //IssueItalic.Location = new Point(5, 66);
-
-
-                //PageBox.Location = new Point(476, 227);
-                PageBox.Text = "Страницы или номер";
-                PageCheck.Text = "Страницы или номер";
-                PageBold.Text = "Полужирный";
-                PageItalic.Text = "Курсив";
-                PageOnePage.Text = "Одна страница";
-                PagesDivider.Items.Clear();
-                PagesDivider.Items.Add("Через тире");
-                PagesDivider.Items.Add("Через дефис");
-
-                BlockLabel.Text = "Блоки";
-
-                blocksRU = new List<string>{
-                    "Авторы", "Название статьи",
-                    "Название журнала", "Год", "Том", "Издание", "Страницы или номер", "DOI"};
-
-                Block1.Items.Clear(); Block2.Items.Clear(); Block3.Items.Clear();
-                Block4.Items.Clear(); Block5.Items.Clear(); Block6.Items.Clear();
-                Block7.Items.Clear(); Block8.Items.Clear();
-
-                Block1.Items.AddRange(blocksRU.ToArray()); Block2.Items.AddRange(blocksRU.ToArray());
-                Block3.Items.AddRange(blocksRU.ToArray()); Block4.Items.AddRange(blocksRU.ToArray());
-                Block5.Items.AddRange(blocksRU.ToArray()); Block6.Items.AddRange(blocksRU.ToArray());
-                Block7.Items.AddRange(blocksRU.ToArray()); Block8.Items.AddRange(blocksRU.ToArray());
-
-                DividingLabel.Text = "Разделители";
-
-                EndingLabel.Text = "Символ окончания";
-
-                FileSelection.Text = "Выбор файла(ов)";
-                SupportedFiles.Text = "Поддерживаемый формат файлов: .txt .docx";
-                panelLabel.Text = "Нажмите, чтобы выбрать файл(ы) \r\nили перетащите в это поле";
-                ChooseFileButton.Text = "Выбрать файл(ы)";
-                RepeatButton.Text = "Обновить ссылки";
-
-                AuthPosDropList.SelectedItem = AuthPosDropList.Items[0];
-                NameSepDropList.SelectedItem = NameSepDropList.Items[0];
-                AuthSepDropList.SelectedItem = AuthSepDropList.Items[0];
-                ArticleNameDropList.SelectedItem = ArticleNameDropList.Items[0];
-                JournalNameDropList.SelectedItem = JournalNameDropList.Items[0];
-                DOIDropList.SelectedItem = DOIDropList.Items[0];
-                PagesDivider.SelectedItem = PagesDivider.Items[0];
-
-                Divider1.SelectedItem = Divider2.SelectedItem = Divider3.SelectedItem =
-                Divider4.SelectedItem = Divider5.SelectedItem = Divider6.SelectedItem =
-                Divider7.SelectedItem = Divider1.Items[0];
-
-                End.SelectedItem = End.Items[0];
-
-                Block1.SelectedItem = Block1.Items[0];
-                Block2.SelectedItem = Block2.Items[1];
-                Block3.SelectedItem = Block3.Items[2];
-                Block4.SelectedItem = Block4.Items[3];
-                Block5.SelectedItem = Block5.Items[4];
-                Block6.SelectedItem = Block6.Items[5];
-                Block7.SelectedItem = Block7.Items[6];
-                Block8.SelectedItem = Block8.Items[7];
+                GetENTranslation();
             }
+
         }
     }
 }

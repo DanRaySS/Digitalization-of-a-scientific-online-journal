@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RefGenerator")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0f8788d764e16834db1171fbb3e1f064370237e9")]
 [assembly: System.Reflection.AssemblyProductAttribute("RefGenerator")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RefGenerator")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

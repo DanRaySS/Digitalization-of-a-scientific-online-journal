@@ -908,7 +908,7 @@
             IssueBox.Size = new Size(170, 112);
             IssueBox.TabIndex = 40;
             IssueBox.TabStop = false;
-            IssueBox.Text = "Номер";
+            IssueBox.Text = "Выпуск";
             // 
             // IssueCheck
             // 
@@ -919,9 +919,9 @@
             IssueCheck.Location = new Point(5, 0);
             IssueCheck.Margin = new Padding(3, 2, 3, 2);
             IssueCheck.Name = "IssueCheck";
-            IssueCheck.Size = new Size(72, 19);
+            IssueCheck.Size = new Size(67, 19);
             IssueCheck.TabIndex = 3;
-            IssueCheck.Text = "Издание";
+            IssueCheck.Text = "Выпуск";
             IssueCheck.UseVisualStyleBackColor = false;
             IssueCheck.CheckedChanged += IssueCheck_CheckedChanged;
             // 
