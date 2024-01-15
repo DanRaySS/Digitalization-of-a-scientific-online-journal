@@ -277,6 +277,10 @@ namespace WinFormsApp1
                 if (savedObjs[5] == "True")
                 {
                     AuthsLimitCheck.Checked = true;
+                    AndCheck.Enabled = false;
+                    AndCheck.Checked = false;
+                    AuthorsLimiter.Enabled = true;
+                    AuthorsNumber.Enabled = true;
                 }
                 else
                 {
@@ -557,7 +561,7 @@ namespace WinFormsApp1
 
             if (Block2.Text != "" && Block2.Enabled)
             {
-                if (richTextBox1.Text.Last() == '.')
+                if (richTextBox1.Text.Length > 0 && richTextBox1.Text.Last() == '.')
                     richTextBox1.AppendText(Divider1.Text.Trim('"').Replace(".", ""));
                 else
                     richTextBox1.AppendText(Divider1.Text.Trim('"'));
@@ -567,7 +571,7 @@ namespace WinFormsApp1
 
             if (Block3.Text != "" && Block3.Enabled)
             {
-                if (richTextBox1.Text.Last() == '.')
+                if (richTextBox1.Text.Length > 0 && richTextBox1.Text.Last() == '.')
                     richTextBox1.AppendText(Divider2.Text.Trim('"').Replace(".", ""));
                 else
                     richTextBox1.AppendText(Divider2.Text.Trim('"'));
@@ -577,7 +581,7 @@ namespace WinFormsApp1
 
             if (Block4.Text != "" && Block4.Enabled)
             {
-                if (richTextBox1.Text.Last() == '.')
+                if (richTextBox1.Text.Length > 0 && richTextBox1.Text.Last() == '.')
                     richTextBox1.AppendText(Divider3.Text.Trim('"').Replace(".", ""));
                 else
                     richTextBox1.AppendText(Divider3.Text.Trim('"'));
@@ -587,7 +591,7 @@ namespace WinFormsApp1
 
             if (Block5.Text != "" && Block5.Enabled)
             {
-                if (richTextBox1.Text.Last() == '.')
+                if (richTextBox1.Text.Length > 0 && richTextBox1.Text.Last() == '.')
                     richTextBox1.AppendText(Divider4.Text.Trim('"').Replace(".", ""));
                 else
                     richTextBox1.AppendText(Divider4.Text.Trim('"'));
@@ -597,7 +601,7 @@ namespace WinFormsApp1
 
             if (Block6.Text != "" && Block6.Enabled)
             {
-                if (richTextBox1.Text.Last() == '.')
+                if (richTextBox1.Text.Length > 0 && richTextBox1.Text.Last() == '.')
                     richTextBox1.AppendText(Divider5.Text.Trim('"').Replace(".", ""));
                 else
                     richTextBox1.AppendText(Divider5.Text.Trim('"'));
@@ -607,7 +611,7 @@ namespace WinFormsApp1
 
             if (Block7.Text != "" && Block7.Enabled)
             {
-                if (richTextBox1.Text.Last() == '.')
+                if (richTextBox1.Text.Length > 0 && richTextBox1.Text.Last() == '.')
                     richTextBox1.AppendText(Divider6.Text.Trim('"').Replace(".", ""));
                 else
                     richTextBox1.AppendText(Divider6.Text.Trim('"'));
@@ -617,7 +621,7 @@ namespace WinFormsApp1
 
             if (Block8.Text != "" && Block8.Enabled)
             {
-                if (richTextBox1.Text.Last() == '.')
+                if (richTextBox1.Text.Length > 0 && richTextBox1.Text.Last() == '.')
                     richTextBox1.AppendText(Divider7.Text.Trim('"').Replace(".", ""));
                 else
                     richTextBox1.AppendText(Divider7.Text.Trim('"'));
@@ -1680,7 +1684,7 @@ namespace WinFormsApp1
 
                 if (Block2.Text != "" && Block2.Enabled)
                 {
-                    if (richTextBox1.Text.Last() == '.')
+                    if (richTextBox1.Text.Length > 0 && richTextBox1.Text.Last() == '.')
                         richTextBox1.AppendText(Divider1.Text.Trim('"').Replace(".", ""));
                     else
                         richTextBox1.AppendText(Divider1.Text.Trim('"'));
@@ -1690,7 +1694,7 @@ namespace WinFormsApp1
 
                 if (Block3.Text != "" && Block3.Enabled)
                 {
-                    if (richTextBox1.Text.Last() == '.')
+                    if (richTextBox1.Text.Length > 0 && richTextBox1.Text.Last() == '.')
                         richTextBox1.AppendText(Divider2.Text.Trim('"').Replace(".", ""));
                     else
                         richTextBox1.AppendText(Divider2.Text.Trim('"'));
@@ -1700,7 +1704,7 @@ namespace WinFormsApp1
 
                 if (Block4.Text != "" && Block4.Enabled)
                 {
-                    if (richTextBox1.Text.Last() == '.')
+                    if (richTextBox1.Text.Length > 0 && richTextBox1.Text.Last() == '.')
                         richTextBox1.AppendText(Divider3.Text.Trim('"').Replace(".", ""));
                     else
                         richTextBox1.AppendText(Divider3.Text.Trim('"'));
@@ -1710,7 +1714,7 @@ namespace WinFormsApp1
 
                 if (Block5.Text != "" && Block5.Enabled)
                 {
-                    if (richTextBox1.Text.Last() == '.')
+                    if (richTextBox1.Text.Length > 0 && richTextBox1.Text.Last() == '.')
                         richTextBox1.AppendText(Divider4.Text.Trim('"').Replace(".", ""));
                     else
                         richTextBox1.AppendText(Divider4.Text.Trim('"'));
@@ -1720,7 +1724,7 @@ namespace WinFormsApp1
 
                 if (Block6.Text != "" && Block6.Enabled)
                 {
-                    if (richTextBox1.Text.Last() == '.')
+                    if (richTextBox1.Text.Length > 0 && richTextBox1.Text.Last() == '.')
                         richTextBox1.AppendText(Divider5.Text.Trim('"').Replace(".", ""));
                     else
                         richTextBox1.AppendText(Divider5.Text.Trim('"'));
@@ -1730,7 +1734,7 @@ namespace WinFormsApp1
 
                 if (Block7.Text != "" && Block7.Enabled)
                 {
-                    if (richTextBox1.Text.Last() == '.')
+                    if (richTextBox1.Text.Length > 0 && richTextBox1.Text.Last() == '.')
                         richTextBox1.AppendText(Divider6.Text.Trim('"').Replace(".", ""));
                     else
                         richTextBox1.AppendText(Divider6.Text.Trim('"'));
@@ -1740,7 +1744,7 @@ namespace WinFormsApp1
 
                 if (Block8.Text != "" && Block8.Enabled)
                 {
-                    if (richTextBox1.Text.Last() == '.')
+                    if (richTextBox1.Text.Length > 0 && richTextBox1.Text.Last() == '.')
                         richTextBox1.AppendText(Divider7.Text.Trim('"').Replace(".", ""));
                     else
                         richTextBox1.AppendText(Divider7.Text.Trim('"'));
@@ -2471,12 +2475,12 @@ namespace WinFormsApp1
         {
             if (ButtonChangeLang.Text == "EN")
             {
-                GetRUTranslation();
+                GetENTranslation();
             }
 
             else if (ButtonChangeLang.Text == "RU")
             {
-                GetENTranslation();
+                GetRUTranslation();
             }
 
         }
