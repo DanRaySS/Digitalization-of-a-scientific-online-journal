@@ -1,4 +1,5 @@
 C:\Users\alesh\OneDrive\Рабочий стол\Новая папка (2)\RefGenerator.pdb
+C:\Users\alesh\OneDrive\Рабочий стол\Новая папка (2)\RefGenerator.dll.config
 C:\Users\alesh\OneDrive\Рабочий стол\Новая папка (2)\D3DCompiler_47_cor3.dll
 C:\Users\alesh\OneDrive\Рабочий стол\Новая папка (2)\PenImc_cor3.dll
 C:\Users\alesh\OneDrive\Рабочий стол\Новая папка (2)\PresentationNative_cor3.dll

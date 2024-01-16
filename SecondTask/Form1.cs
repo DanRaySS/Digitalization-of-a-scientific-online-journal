@@ -23,6 +23,7 @@ namespace WinFormsApp1
 {
     public partial class Form1 : Form
     {
+        Aspose.Cells.Workbook wb = new Aspose.Cells.Workbook("Journals.xlsx");
         int blocksCount;
         RequestsHandler handler;
         Regex regex = new Regex(@"[A-Z]");
@@ -893,7 +894,6 @@ namespace WinFormsApp1
 
                 case "Аббревиатура":
                 case "Abbr":
-                    Aspose.Cells.Workbook wb = new Aspose.Cells.Workbook("Journals.xlsx");
                     Aspose.Cells.Worksheet worksheet = wb.Worksheets[0];
                     Dictionary<int, string> pairs = new Dictionary<int, string>();
                     journal = Regex.Replace(journal, @"(\b(of|in|by|and|the|an|at|on|under|above|between|to|into|out of|from|through|along|across|before|after|till|until|ago|during|since|for|because of|due to|thanks to|in accordance with|against|behind|below|around|towards|back to|in front of|outside|on account of|upon)\b) | \ba\s",
@@ -1486,6 +1486,7 @@ namespace WinFormsApp1
                 case 7:
                     Block1.Enabled = Block2.Enabled = Block3.Enabled = Block4.Enabled = Block5.Enabled = Block6.Enabled = Block7.Enabled = true;
                     Block8.Enabled = false;
+                    Block8.Text = "";
                     Divider1.Enabled = Divider2.Enabled = Divider3.Enabled = Divider4.Enabled = Divider5.Enabled = Divider6.Enabled = true;
                     Divider7.Enabled = false;
                     break;
@@ -1493,6 +1494,7 @@ namespace WinFormsApp1
                 case 6:
                     Block1.Enabled = Block2.Enabled = Block3.Enabled = Block4.Enabled = Block5.Enabled = Block6.Enabled = true;
                     Block8.Enabled = Block7.Enabled = false;
+                    Block8.Text = Block7.Text = "";
                     Divider1.Enabled = Divider2.Enabled = Divider3.Enabled = Divider4.Enabled = Divider5.Enabled = true;
                     Divider7.Enabled = Divider6.Enabled = false;
                     break;
@@ -1500,6 +1502,7 @@ namespace WinFormsApp1
                 case 5:
                     Block1.Enabled = Block2.Enabled = Block3.Enabled = Block4.Enabled = Block5.Enabled = true;
                     Block8.Enabled = Block7.Enabled = Block6.Enabled = false;
+                    Block8.Text = Block7.Text = Block6.Text = "";
                     Divider1.Enabled = Divider2.Enabled = Divider3.Enabled = Divider4.Enabled = true;
                     Divider7.Enabled = Divider6.Enabled = Divider5.Enabled = false;
                     break;
@@ -1507,6 +1510,7 @@ namespace WinFormsApp1
                 case 4:
                     Block1.Enabled = Block2.Enabled = Block3.Enabled = Block4.Enabled = true;
                     Block8.Enabled = Block7.Enabled = Block6.Enabled = Block5.Enabled = false;
+                    Block8.Text = Block7.Text = Block6.Text = Block5.Text = "";
                     Divider1.Enabled = Divider2.Enabled = Divider3.Enabled = true;
                     Divider7.Enabled = Divider6.Enabled = Divider5.Enabled = Divider4.Enabled = false;
                     break;
@@ -1514,6 +1518,7 @@ namespace WinFormsApp1
                 case 3:
                     Block1.Enabled = Block2.Enabled = Block3.Enabled = true;
                     Block8.Enabled = Block7.Enabled = Block6.Enabled = Block5.Enabled = Block4.Enabled = false;
+                    Block8.Text = Block7.Text = Block6.Text = Block5.Text = Block4.Text = "";
                     Divider1.Enabled = Divider2.Enabled = true;
                     Divider7.Enabled = Divider6.Enabled = Divider5.Enabled = Divider4.Enabled = Divider3.Enabled = false;
                     break;
@@ -1521,6 +1526,7 @@ namespace WinFormsApp1
                 case 2:
                     Block1.Enabled = Block2.Enabled = true;
                     Block8.Enabled = Block7.Enabled = Block6.Enabled = Block5.Enabled = Block4.Enabled = Block3.Enabled = false;
+                    Block8.Text = Block7.Text = Block6.Text = Block5.Text = Block4.Text = Block3.Text = "";
                     Divider1.Enabled = true;
                     Divider7.Enabled = Divider6.Enabled = Divider5.Enabled = Divider4.Enabled = Divider3.Enabled = Divider2.Enabled = false;
                     break;
@@ -1528,11 +1534,13 @@ namespace WinFormsApp1
                 case 1:
                     Block1.Enabled = true;
                     Block8.Enabled = Block7.Enabled = Block6.Enabled = Block5.Enabled = Block4.Enabled = Block3.Enabled = Block2.Enabled = false;
+                    Block8.Text = Block7.Text = Block6.Text = Block5.Text = Block4.Text = Block3.Text = Block2.Text = "";
                     Divider7.Enabled = Divider6.Enabled = Divider5.Enabled = Divider4.Enabled = Divider3.Enabled = Divider2.Enabled = Divider1.Enabled = false;
                     break;
 
                 case 0:
                     Block8.Enabled = Block7.Enabled = Block6.Enabled = Block5.Enabled = Block4.Enabled = Block3.Enabled = Block2.Enabled = Block1.Enabled = false;
+                    Block8.Text = Block7.Text = Block6.Text = Block5.Text = Block4.Text = Block3.Text = Block2.Text = Block1.Text = "";
                     Divider7.Enabled = Divider6.Enabled = Divider5.Enabled = Divider4.Enabled = Divider3.Enabled = Divider2.Enabled = Divider1.Enabled = false;
                     break;
 
@@ -1660,8 +1668,9 @@ namespace WinFormsApp1
 
             for (int i = 0; i < doiContentList.Count; i++)
             {
-                Response1 res = await handler.GetMetadata(doiContentList[i]);
-                res.DOI = doiContentList[i].Replace("https://doi.org/", "").TrimEnd(' ').TrimStart(' ');
+                string doi = Regex.Replace(doiContentList[i], "HYPERLINK \"(.+)\"", "", RegexOptions.IgnoreCase);   
+                Response1 res = await handler.GetMetadata(doi);
+                res.DOI = doi.Replace("https://doi.org/", "").TrimEnd(' ').TrimStart(' ');
 
                 if (res.status == "error")
                 {
